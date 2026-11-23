@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "echo skip-install",
+  "buildCommand": "node scripts/check-demos.mjs",
+  "outputDirectory": "public",
+  "functions": {
+    "api/render.mjs": { "includeFiles": "{site,brands,server}/**" }
+  },
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/render?__path=/$1" }]
+}
