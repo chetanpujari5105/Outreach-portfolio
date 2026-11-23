@@ -110,6 +110,8 @@ const services = [
   },
 ];
 const stylists = ["Any available stylist", "Mira", "Alex"];
+const serviceImg = ["cut", "colour", "blowout"];
+const stylistImg = [null, "mira", "alex"];
 const calendarLabels = ["Service", "Stylist", "Date & time", "Review"];
 function salon(root) {
   let city = "pune",
@@ -186,7 +188,7 @@ function salon(root) {
     return `<dl class="dm-facts"><div><dt>Service</dt><dd>${services[r.service].name}</dd></div><div><dt>Stylist</dt><dd>${stylists[r.assigned]}</dd></div><div><dt>When</dt><dd>${dateText(r.date, place.locale)} · ${displayTime(r.slot, place)}</dd></div><div><dt>Studio</dt><dd>${place.area}, ${place.city}</dd></div></dl>`;
   }
   function serviceRow(s, i) {
-    return `<button type="button" class="dm-choice" data-action="service" data-i="${i}" aria-pressed="${service === i}"><span class="dm-radio" aria-hidden="true"></span><span><strong>${s.name}</strong><small>${s.detail}</small></span><span class="dm-choice-end">${price(i)}<small>${s.duration} min</small></span></button>`;
+    return `<button type="button" class="dm-choice dm-forma-card" data-action="service" data-i="${i}" aria-pressed="${service === i}"><img class="dm-forma-card-img" src="/assets/salon-${serviceImg[i]}.webp" alt="" width="640" height="640" loading="lazy"><span class="dm-forma-card-body"><span class="dm-forma-card-name"><span class="dm-radio" aria-hidden="true"></span><strong>${s.name}</strong></span><small>${s.detail}</small><span class="dm-choice-end">${price(i)}<small>${s.duration} min</small></span></span></button>`;
   }
   function render(focus = true) {
     const place = loc();
@@ -207,14 +209,15 @@ function salon(root) {
       panel = `<p class="dm-kicker">Sample request received</p><h2 tabindex="-1" data-focus>You’re on the list.</h2><p>Your sample appointment request is ready for the studio to review.</p>${summary(receipt)}${button("owner", "See the studio’s request list", "dm-primary")} ${button("new", "Book another service", "dm-link")}`;
     } else {
       let content = "";
-      if (step === 0) content = services.map(serviceRow).join("");
+      if (step === 0)
+        content = `<div class="dm-forma-grid">${services.map(serviceRow).join("")}</div>`;
       if (step === 1)
-        content = stylists
+        content = `<div class="dm-forma-grid dm-forma-people">${stylists
           .map(
             (s, i) =>
-              `<button type="button" class="dm-choice" data-action="stylist" data-i="${i}" aria-pressed="${stylist === i}"><span class="dm-radio"></span><span><strong>${s}</strong><small>${["See every available time", "Cutting and soft colour", "Colour and styling"][i]}</small></span></button>`,
+              `<button type="button" class="dm-choice dm-forma-card" data-action="stylist" data-i="${i}" aria-pressed="${stylist === i}">${stylistImg[i] ? `<img class="dm-forma-card-img" src="/assets/salon-stylist-${stylistImg[i]}.webp" alt="" width="640" height="800" loading="lazy">` : `<span class="dm-forma-card-img dm-forma-any" aria-hidden="true">Any</span>`}<span class="dm-forma-card-body"><span class="dm-forma-card-name"><span class="dm-radio" aria-hidden="true"></span><strong>${s}</strong></span><small>${["See every available time", "Cutting and soft colour", "Colour and styling"][i]}</small></span></button>`,
           )
-          .join("");
+          .join("")}</div>`;
       if (step === 2) {
         const times = available();
         content = `<label class="dm-field">Preferred date<input type="date" data-date min="${firstDay()}" max="${dayOffset(firstDay(), 27)}" value="${date}" required></label><p class="dm-meta">${place.tz} · ${services[service].duration} minutes</p><div class="dm-slots">${times.map((t) => button("slot", displayTime(t.time), "dm-chip", `data-value="${t.time}" aria-pressed="${slot === t.time}"`)).join("") || "<p>Choose another date or stylist to see times.</p>"}</div>`;
@@ -240,7 +243,7 @@ function salon(root) {
     }
     setView(
       root,
-      `<div class="dm dm-salon"><div class="dm-brandbar"><span class="dm-wordmark">studio <i>forma.</i></span><span>Hair atelier · ${place.city}</span></div><div class="dm-layout"><aside class="dm-intro"><div class="dm-intro-type"><p class="dm-kicker">Hair &amp; colour atelier</p><h1>Time for<br><em>your hair.</em></h1><p>${place.area}, ${place.city}<br>${place.hours} · By appointment</p></div><div class="dm-salon-photo" role="img" aria-label="Salon editorial"></div><label class="dm-field">Demo location<select data-city>${Object.entries(
+      `<div class="dm dm-salon"><div class="dm-brandbar"><span class="dm-wordmark">Forma<small>studio</small></span><span>Hair atelier · ${place.area}, ${place.city}</span></div><header class="dm-forma-hero"><img class="dm-forma-hero-img" src="/assets/salon-hero.webp" alt="A Studio Forma client with a sharp black bob and a red silk scarf" width="1536" height="1024" fetchpriority="high"><div class="dm-forma-hero-copy"><p class="dm-kicker">Hair &amp; colour atelier</p><h1>Your hair,<br><em>your hour.</em></h1><p>${place.area}, ${place.city} · ${place.hours} · By appointment</p></div><ul class="dm-forma-index" aria-hidden="true"><li><b>01</b> Cut</li><li><b>02</b> Colour</li><li><b>03</b> Blowout</li></ul></header><div class="dm-layout"><aside class="dm-intro"><p class="dm-kicker">Book in four steps</p><p class="dm-forma-lede">Pick a service, a stylist and a time. The studio confirms every request by ${place.contact === "Email" ? "email" : place.contact}.</p><p class="dm-forma-hours"><span>Open</span>${place.hours}<br><span>Zone</span>${place.tz}</p><label class="dm-field">Demo location<select data-city>${Object.entries(
         locations,
       )
         .map(

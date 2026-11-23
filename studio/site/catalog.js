@@ -24,7 +24,7 @@ const project = (slug, title, type, description, category, image, industry, acti
   ({ slug, title, type, description, category, image: '/assets/' + image + '.webp', industry, action, url, role, steps });
 
 export const projects = [
-  project('salon-booking', 'Salon booking', 'Studio demo', 'A service-to-stylist booking flow with a sample request for the front desk.', 'Booking systems', 'salon', 'salons', 'Try the booking demo', '/demo/salon-booking',
+  project('salon-booking', 'Salon booking', 'Studio demo', 'A service-to-stylist booking flow with a sample request for the front desk.', 'Booking systems', 'salon-hero', 'salons', 'Try the booking demo', '/demo/salon-booking',
     'I designed this salon example to show both sides of a booking request, from the visitor’s first choice to the front desk’s incoming list.',
     ['Pick a service and compare the price and duration.', 'Choose a stylist, a day and a sample slot.', 'Review the details, send the sample and inspect the owner view.']),
   project('daybreak-cafe', 'Daybreak Café', 'Studio demo', 'A mobile café menu with dish details and an enquiry for group tables.', 'Menus & enquiries', 'daybreak-cafe-hero', 'cafes', 'Visit the café demo', '/demo/daybreak-cafe',

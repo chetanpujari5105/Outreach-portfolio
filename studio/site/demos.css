@@ -257,88 +257,257 @@
   margin: 0 0 1.3rem;
 }
 .dm-salon {
-  --dm-paper: #fffaf6;
-  --dm-ink: #35232c;
-  --dm-accent: #713c50;
-  --dm-muted: #6c5661;
-  --dm-line: #d7c3c7;
+  --dm-paper: #f1ece4;
+  --dm-ink: #151313;
+  --dm-accent: #b0182f;
+  --dm-muted: #5e5650;
+  --dm-line: #cbc2b6;
+  --dm-display: Anton, "Arial Narrow", Impact, sans-serif;
+  font-family: Manrope, "DM Sans", -apple-system, sans-serif;
+  border-radius: 0;
+}
+/* Anton is condensed caps: the shared negative tracking would fuse the words */
+.dm-salon h1,
+.dm-salon h2,
+.dm-salon .dm-wordmark {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  word-spacing: 0.06em;
+}
+.dm-salon h1 em,
+.dm-salon h2 em {
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  word-spacing: 0;
+  color: var(--dm-accent);
+}
+.dm-salon .dm-brandbar {
+  background: var(--dm-ink);
+  color: var(--dm-paper);
+  border-bottom: 0;
+}
+.dm-salon .dm-brandbar > :last-child:not(:first-child) {
+  color: #cfc6bb;
+}
+.dm-salon .dm-wordmark {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+}
+.dm-salon .dm-wordmark small {
+  font: 700 0.6rem/1 Manrope, sans-serif;
+  letter-spacing: 0.2em;
+  color: #ff8a98;
+}
+.dm-salon .dm-forma-hero {
+  position: relative;
+  display: grid;
+  min-height: clamp(440px, 50vw, 620px);
+  background: #e7dfd3;
+  overflow: hidden;
+}
+.dm-salon .dm-forma-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% 35%;
+}
+.dm-salon .dm-forma-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f1ece4e6 0%, #f1ece499 34%, transparent 62%);
+}
+.dm-salon .dm-forma-hero-copy {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  max-width: 40rem;
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+  padding-bottom: clamp(4.5rem, 8vw, 6.5rem);
+}
+.dm-salon .dm-forma-hero h1 {
+  font-size: clamp(3.6rem, 9.2vw, 8.6rem);
+  line-height: 0.9;
+  margin: 0 0 1.7rem;
+}
+.dm-salon .dm-forma-hero h1 em {
+  display: inline-block;
+  font-size: 0.82em;
+  line-height: 1;
+}
+.dm-salon .dm-forma-hero-copy > p:last-child {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.dm-salon .dm-forma-index {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--dm-ink);
+  color: var(--dm-paper);
+}
+.dm-salon .dm-forma-index li {
+  padding: 0.85rem clamp(1rem, 3vw, 3.5rem);
+  font: 400 1.15rem/1 var(--dm-display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-left: 1px solid #3a3533;
+}
+.dm-salon .dm-forma-index li:first-child {
+  border-left: 0;
+}
+.dm-salon .dm-forma-index b {
+  font: 600 0.72rem/1 Manrope, sans-serif;
+  color: #ff8a98;
+  margin-right: 0.4rem;
+  vertical-align: 0.25em;
 }
 .dm-salon .dm-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
 }
 .dm-salon .dm-intro {
-  position: relative;
-  padding: clamp(1.25rem, 3.3vw, 3.35rem);
-  background: #eddbd8;
+  padding: clamp(1.25rem, 3vw, 2.8rem);
+  background: #e7dfd3;
   border-right: 1px solid var(--dm-line);
 }
-.dm-salon .dm-intro h1 {
-  margin: 0.5rem 0 1.15rem;
+.dm-salon .dm-forma-lede {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-bottom: 1.4rem;
 }
-.dm-salon .dm-intro-type > p:last-child {
-  font-size: 0.9rem;
+.dm-salon .dm-forma-hours {
+  font-size: 0.86rem;
+  line-height: 1.9;
+  margin-bottom: 1.6rem;
+  padding: 0.7rem 0;
+  border-block: 1px solid var(--dm-line);
+}
+.dm-salon .dm-forma-hours span {
+  display: inline-block;
+  min-width: 3.4rem;
   color: var(--dm-muted);
-}
-.dm-salon .dm-salon-photo {
-  margin: 1.6rem 0 1.05rem;
-  aspect-ratio: 2.25;
-  background: #dfc6c2 url("/assets/salon.webp") center 44% / cover;
-  border-radius: 2px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
 }
 .dm-salon .dm-panel {
-  padding: clamp(1.25rem, 3.5vw, 3.6rem);
+  padding: clamp(1.25rem, 3.5vw, 3.2rem);
+}
+.dm-salon .dm-panel h2 {
+  font-size: clamp(2.1rem, 3.6vw, 3.1rem);
+  line-height: 1;
 }
 .dm-salon .dm-steps {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
   padding: 0;
-  margin: 0 0 2rem;
+  margin: 0 0 1.8rem;
   list-style: none;
-  justify-content: space-between;
 }
 .dm-salon .dm-steps li {
   flex: 1;
   color: var(--dm-muted);
-  font-size: 0.73rem;
-  padding: 0 0 0.5rem;
-  border-bottom: 2px solid var(--dm-line);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-top: 0.55rem;
+  border-top: 3px solid var(--dm-line);
 }
 .dm-salon .dm-steps li[aria-current] {
-  font-weight: 700;
-  color: var(--dm-accent);
+  color: var(--dm-ink);
   border-color: var(--dm-accent);
 }
+.dm-salon .dm-forma-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
 .dm-salon .dm-choice {
-  margin: 0;
   display: flex;
-  gap: 0.8rem;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
-  background: transparent;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: #f8f5f0;
   color: var(--dm-ink);
-  padding: 1rem 0.55rem;
   text-align: left;
-  border: 0;
-  border-bottom: 1px solid var(--dm-line);
+  border: 1px solid var(--dm-line);
   border-radius: 0;
 }
+.dm-salon .dm-choice:hover {
+  border-color: var(--dm-ink);
+}
 .dm-salon .dm-choice[aria-pressed="true"] {
-  background: #f4e8e7;
+  border-color: var(--dm-accent);
+  box-shadow: inset 0 0 0 2px var(--dm-accent);
+  background: #fff;
+}
+.dm-salon .dm-forma-card-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.dm-salon .dm-forma-people .dm-forma-card-img {
+  aspect-ratio: 4 / 5;
+}
+.dm-salon .dm-forma-any {
+  display: grid;
+  place-items: center;
+  background: var(--dm-ink);
+  color: var(--dm-paper);
+  font: 400 clamp(2.2rem, 4vw, 3.4rem)/1 var(--dm-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.dm-salon .dm-forma-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem 0.85rem 0.95rem;
+}
+.dm-salon .dm-forma-card-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 .dm-salon .dm-radio {
-  flex: 0 0 17px;
-  width: 17px;
-  height: 17px;
-  border: 1px solid var(--dm-accent);
-  border-radius: 50%;
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--dm-ink);
+  border-radius: 0;
 }
 .dm-salon .dm-choice[aria-pressed="true"] .dm-radio {
   background: var(--dm-accent);
-  box-shadow: inset 0 0 0 3px #f4e8e7;
+  border-color: var(--dm-accent);
+  box-shadow: inset 0 0 0 3px #fff;
 }
 .dm-salon .dm-choice strong {
-  font-size: 1.05rem;
+  font-size: 1rem;
+  font-weight: 700;
 }
 .dm-salon .dm-choice small,
 .dm-bill .dm-line small,
@@ -350,9 +519,22 @@
   line-height: 1.5;
 }
 .dm-salon .dm-choice-end {
-  text-align: right;
-  white-space: nowrap;
-  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: auto;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--dm-line);
+  font-weight: 700;
+}
+.dm-salon .dm-chip,
+.dm-salon .dm-button.dm-primary {
+  border-radius: 0;
+}
+.dm-salon .dm-button.dm-primary {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
 }
 .dm-salon .dm-slots,
 .dm .dm-filter {
@@ -758,27 +940,26 @@
     grid-template-columns: 1fr;
   }
   .dm-salon .dm-intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    gap: 0.9rem 1rem;
-    align-items: center;
     border-right: 0;
     border-bottom: 1px solid var(--dm-line);
   }
-  .dm-salon .dm-salon-photo {
-    margin: 0;
-    height: 100%;
-    min-height: 140px;
-    aspect-ratio: auto;
+  .dm-salon .dm-forma-hero {
+    display: block;
+    min-height: 0;
   }
-  .dm-salon .dm-intro > .dm-field {
-    grid-column: 1/-1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .dm-salon .dm-forma-hero-img {
+    position: static;
+    height: auto;
+    aspect-ratio: 4 / 3;
   }
-  .dm-salon .dm-intro > .dm-field select {
-    width: auto;
+  .dm-salon .dm-forma-hero::after {
+    display: none;
+  }
+  .dm-salon .dm-forma-hero-copy {
+    padding-bottom: 1.4rem;
+  }
+  .dm-salon .dm-forma-index {
+    position: static;
   }
   .dm-salon .dm-steps {
     margin-bottom: 1.35rem;
@@ -801,19 +982,37 @@
     gap: 0.2rem;
     padding: 0.75rem 1rem;
   }
+  .dm-salon .dm-forma-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
   .dm-salon .dm-choice {
-    padding: 0.85rem 0.35rem;
-    gap: 0.45rem;
+    flex-direction: row;
   }
-  .dm-salon .dm-intro h1 {
-    font-size: clamp(3.1rem, 13.5vw, 4.2rem);
+  .dm-salon .dm-forma-card-img,
+  .dm-salon .dm-forma-people .dm-forma-card-img {
+    flex: 0 0 96px;
+    width: 96px;
+    aspect-ratio: auto;
+    min-height: 100%;
   }
-  .dm-salon .dm-intro .dm-kicker {
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
+  .dm-salon .dm-forma-any {
+    font-size: 1.6rem;
+  }
+  .dm-salon .dm-forma-card-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .dm-salon .dm-forma-hero h1 {
+    font-size: clamp(3rem, 15vw, 4.4rem);
+  }
+  .dm-salon .dm-forma-index li {
+    padding: 0.75rem 0.7rem;
+    font-size: 0.95rem;
   }
   .dm-salon .dm-steps li {
-    font-size: 0.69rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
   }
       .dm-cafe .dm-dishes {
     grid-template-columns: 1fr;
@@ -835,11 +1034,10 @@
   }
 }
 @media (max-width: 350px) {
-  .dm-salon .dm-intro {
-    grid-template-columns: 1fr;
-  }
-  .dm-salon .dm-salon-photo {
-    display: none;
+  .dm-salon .dm-forma-card-img,
+  .dm-salon .dm-forma-people .dm-forma-card-img {
+    flex-basis: 72px;
+    width: 72px;
   }
   .dm-bill .dm-pair,
   .dm-bill .dm-add-line {
