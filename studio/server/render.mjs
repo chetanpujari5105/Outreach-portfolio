@@ -1,3 +1,4 @@
+import { brandPage } from '../brands/pages.mjs';
 import { industries, projects, solutions, detailPage } from '../site/catalog.js';
 import { samplePage } from '../site/intake.js';
 import { ownerPage } from '../site/owner.js';
@@ -64,7 +65,11 @@ function pageFor(url){
     const rec=(kind==='for'?industries:kind==='work'?projects:solutions).find(p=>p.slug===slug);
     if(rec)return {title:rec.title,description:rec.description,body:'<div id="detail-root">'+detailPage(kind,slug)+'</div>',image:rec.image||projects.find(p=>p.slug===rec.project)?.image,category:'catalog'};
   }
-  if(kind==='demo' && demoSlugs.includes(slug)&&!extra){
+  if(kind==='demo' && demoSlugs.includes(slug) && slug!=='daybreak-cafe'){
+    const branded=brandPage(slug,path.split('/').slice(3).join('/'),url.searchParams);
+    if(branded)return branded;
+  }
+  if(kind==='demo' && slug==='daybreak-cafe'&&!extra){
     const name=featured.includes(slug)?featureNames[featured.indexOf(slug)]:projects.find(p=>p.slug===slug).title;
     return {title:name+' · Interactive demo',kit:featured.includes(slug)?'':slug,description:projects.find(p=>p.slug===slug)?.description,category:'demos',image:projects.find(p=>p.slug===slug)?.image,body:`<div class="demo-tools wrap"><a href="/work/${slug}">Project overview</a><a href="/sample?project=${slug}">Request a similar sample</a></div><div class="wrap demo-space"><div id="demo-root" data-slug="${slug}"><p>Loading the interactive demo…</p></div><noscript>Enable JavaScript to try the demo, or open the project overview above.</noscript></div>`};
   }
@@ -81,6 +86,6 @@ export function siteResponse(request){
   const desc=e(p.description||summary);
   const css=(p.category&&['catalog','demos','intake','owner'].includes(p.category)?`<link rel="stylesheet" href="/ui/${p.category}.css">`:'')+(p.kit?`<link rel="stylesheet" href="/ui/kit-${p.kit}.css">`:'');
   const canonical=e(url.origin+url.pathname);
-  const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#faf9f6"><title>${title}</title><meta name="description" content="${desc}">${p.noindex?'<meta name="robots" content="noindex, nofollow">':''}<link rel="canonical" href="${canonical}"><meta property="og:type" content="website"><meta property="og:title" content="${title}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${e(url.origin+(p.image||'/assets/salon.webp'))}"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/ui/style.css">${css}<script type="module" src="/ui/main.js"></script></head><body>${header(url.pathname)}<main id="content">${p.body}</main>${footer()}</body></html>`;
+  const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#faf9f6"><title>${title}</title><meta name="description" content="${desc}">${p.noindex?'<meta name="robots" content="noindex, nofollow">':''}<link rel="canonical" href="${canonical}"><meta property="og:type" content="website"><meta property="og:title" content="${title}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${e(url.origin+(p.image||'/assets/salon.webp'))}"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/ui/style.css">${css}${p.brand?'<link rel="stylesheet" href="/ui/brands.css"><script type="module" src="/ui/business.js"></script>':''}<script type="module" src="/ui/main.js"></script></head><body>${p.brand?'':header(url.pathname)}<main id="content">${p.body}</main>${p.brand?'':footer()}</body></html>`;
   return new Response(html,{status:p.status||200,headers:{'Content-Type':'text/html; charset=utf-8','X-Content-Type-Options':'nosniff','Referrer-Policy':'strict-origin-when-cross-origin'}});
 }

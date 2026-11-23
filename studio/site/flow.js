@@ -94,6 +94,16 @@ export function mountKit(root, slug) {
     view = "flow",
     receipt = null,
     error = null;
+  const incoming = new URLSearchParams(location.search);
+  for (const f of fieldsOf(kit)) {
+    const raw = incoming.get(f.name);
+    if (raw === null) continue;
+    const value = f.type === "count" ? Number(raw) : raw;
+    const candidate = { ...values, [f.name]: value };
+    if (!problem(f, candidate)) values[f.name] = value;
+  }
+  if (slug === "northline" && incoming.has("agenda"))
+    values.question = incoming.getAll("agenda").join("; ").slice(0, 250);
   const filters = {};
 
   function card(f, o) {

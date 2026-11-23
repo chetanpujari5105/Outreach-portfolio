@@ -1,6 +1,8 @@
 # Outreach portfolio — Chetan Studio
 
-Websites, booking pages and business tools by Chetan Pujari: client work plus working demos (salon booking, café menu, billing) and a free-sample request form.
+The [live Chetan Studio portfolio](https://chetan-studio-work.earthykayak64.chatgpt.site) brings together client work and interactive examples of websites, booking systems and billing software. Open the [industry directory](https://chetan-studio-work.earthykayak64.chatgpt.site/industries) to choose an example to share with a prospect.
+
+The [redesign plan](docs/INDUSTRY-REDESIGN-PLAN.md) records the research and customer journey for each industry. The [visual overview](docs/redesigned-demo-overview.jpg) shows the redesigned demos side by side.
 
 - `studio/` — the website (vinext / Next-compatible, Cloudflare Workers + D1). See `studio/README.md`.
 - `PORTFOLIO-PLAN.md` — build and outreach plan.

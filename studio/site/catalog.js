@@ -21,7 +21,7 @@ export const industries = [
 ];
 
 const project = (slug, title, type, description, category, image, industry, action, url, role, steps) =>
-  ({ slug, title, type, description, category, image: '/assets/' + image + '.webp', industry, action, url, role, steps });
+  ({ slug, title, type, description, category, image: '/assets/' + (url.startsWith('/demo/') && slug !== 'daybreak-cafe' ? 'screen-' + slug : image) + '.webp', industry, action, url, role, steps });
 
 export const projects = [
   project('salon-booking', 'Salon booking', 'Studio demo', 'A service-to-stylist booking flow with a sample request for the front desk.', 'Booking systems', 'salon-hero', 'salons', 'Try the booking demo', '/demo/salon-booking',
@@ -172,7 +172,7 @@ const minis = {
   'other-businesses':{
     brand:'Project finder',title:'Find a working example',intro:'Choose the action that would make the biggest difference to your business.',submit:'Find my example',
     fields:[choice('job','What should someone be able to do?',['Request a time','Browse a menu','Compare products','See selected work','Issue an invoice','Estimate a service']),choice('existing','Current setup',['Starting a new site','Adding to an existing site'])],
-    summary:v=>{const target={'Request a time':'salon-booking','Browse a menu':'daybreak-cafe','Compare products':'laptop-buy-guide','See selected work':'pocket-portfolio','Issue an invoice':'studio-billing','Estimate a service':'studio-billing'}[v.job];const p=projects.find(x=>x.slug===target);return result('A starting point for your project',[v.job,p.description,v.existing==='Starting a new site'?'Use this task as the starting point for a new website.':'Give this task its own link alongside your existing pages.'],v.job==='Estimate a service'?['See a service estimate','/for/home-services#example']:['See '+p.title,'/work/'+p.slug])}
+    summary:v=>{const target={'Request a time':'salon-booking','Browse a menu':'daybreak-cafe','Compare products':'laptop-buy-guide','See selected work':'frame-field','Issue an invoice':'studio-billing','Estimate a service':'brightnest'}[v.job];const p=projects.find(x=>x.slug===target);return result('A starting point for your project',[v.job,p.description,v.existing==='Starting a new site'?'Use this task as the starting point for a new website.':'Give this task its own link alongside your existing pages.'],v.job==='Estimate a service'?['See a service estimate','/demo/brightnest/services']:['See '+p.title,p.url.startsWith('/demo/')?p.url:'/work/'+p.slug])}
   }
 };
 

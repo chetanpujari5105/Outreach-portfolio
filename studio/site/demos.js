@@ -132,6 +132,9 @@ function salon(root) {
       /^\d{4}-\d{2}-\d{2}$/.test(r.date) &&
       /^\d{1,2}:\d{2}$/.test(r.slot),
   );
+  const incoming = new URLSearchParams(location.search);
+  if (["0","1","2"].includes(incoming.get("service"))) service = Number(incoming.get("service"));
+  if (["1","2"].includes(incoming.get("stylist"))) stylist = Number(incoming.get("stylist"));
   const loc = () => locations[city];
   const firstDay = () => dayOffset(todayAt(loc().zone), 1);
   date = firstDay();
@@ -474,6 +477,24 @@ const billingCurrencies = {
 const products = ["Studio session", "Styling service", "Care kit", "Gift wrap"];
 const productImg = ["session", "styling", "care-kit", "gift-wrap"];
 const customers = ["Fern House Studio", "Sunday Goods", "Mira & Co."];
+export function billingRecords() {
+  try {
+    if (sessionStorage.getItem("studio-demo-v1-billing") === null) {
+      const day = todayAt("Asia/Kolkata");
+      saveRows("billing", [
+        {id:101,customer:0,currency:"INR",discount:0,date:dayOffset(day,-2),items:[{product:0,qty:2}]},
+        {id:102,customer:1,currency:"INR",discount:10,date:dayOffset(day,-1),items:[{product:2,qty:4}]},
+        {id:103,customer:2,currency:"INR",discount:0,date:day,items:[{product:1,qty:3}]}
+      ]);
+    }
+  } catch { /* The invoice editor can also run without persistent storage. */ }
+  return readRows("billing");
+}
+export function invoiceValue(r) {
+  const prices=billingCurrencies[r.currency].prices;
+  const sub=r.items.reduce((sum,line)=>sum+prices[line.product]*line.qty,0);
+  return (sub-Math.round(sub*r.discount/100))/100;
+}
 function billing(root) {
   let currency = "INR",
     customer = 0,
@@ -481,7 +502,7 @@ function billing(root) {
     items = [],
     screen = "edit",
     active = null;
-  let invoices = readRows("billing").filter(
+  let invoices = billingRecords().filter(
     (r) =>
       r &&
       Object.hasOwn(billingCurrencies, r.currency) &&
@@ -510,6 +531,10 @@ function billing(root) {
     active = null;
   }
   newDraft();
+  const params = new URLSearchParams(location.search);
+  if (["0","1","2"].includes(params.get("customer"))) customer = Number(params.get("customer"));
+  const saved = invoices.find(inv => String(inv.id) === params.get("invoice"));
+  if (saved) { active = saved; screen = "issued"; }
   const format = (minor, code = currency) =>
     money(minor / 100, code, billingCurrencies[code].locale);
   const prices = (code) => billingCurrencies[code].prices;
