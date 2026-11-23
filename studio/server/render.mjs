@@ -3,8 +3,10 @@ import { samplePage } from '../site/intake.js';
 import { ownerPage } from '../site/owner.js';
 
 const siteName = 'Chetan Studio';
-const demoSlugs = ['daybreak-cafe', 'salon-booking', 'studio-billing'];
+// featured: the three homepage posters; every other /demo/ project is a flow-engine kit with its own stylesheet
+const featured = ['daybreak-cafe', 'salon-booking', 'studio-billing'];
 const featureNames = ['Daybreak Café', 'Studio Forma', 'Ledger Desk'];
+const demoSlugs = projects.filter(p => p.url.startsWith('/demo/')).map(p => p.slug);
 const summary = 'Websites, booking pages and business tools by Chetan Pujari. Explore client work and working demos, then request a free sample for your business.';
 const e = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const logo = '<span class="studio-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>';
@@ -27,14 +29,14 @@ function visual(id){
 }
 function posterWall(){
   // An original interactive stack inspired by the tactile card motion in Rare UI's Folder.
-  return `<div class="feature-frame" aria-label="Featured studio demos"><div class="feature-stage" data-feature="0">${demoSlugs.map((id,i)=>`<a class="poster poster-${i}" href="/demo/${id}" aria-label="Try the ${featureNames[i]} demo" ${i?'tabindex="-1" aria-hidden="true"':''}>${visual(id)}</a>`).join('')}</div><div class="feature-caption"><span class="caption-rule"></span><span id="feature-name" aria-live="polite">Daybreak Café</span><small>Studio demo</small><div class="feature-controls" role="group" aria-label="Choose a featured demo">${featureNames.map((name,i)=>`<button type="button" aria-label="Show ${name}" aria-pressed="${!i}" data-feature-select="${i}"><i></i></button>`).join('')}</div></div></div>`;
+  return `<div class="feature-frame" aria-label="Featured studio demos"><div class="feature-stage" data-feature="0">${featured.map((id,i)=>`<a class="poster poster-${i}" href="/demo/${id}" aria-label="Try the ${featureNames[i]} demo" ${i?'tabindex="-1" aria-hidden="true"':''}>${visual(id)}</a>`).join('')}</div><div class="feature-caption"><span class="caption-rule"></span><span id="feature-name" aria-live="polite">Daybreak Café</span><small>Studio demo</small><div class="feature-controls" role="group" aria-label="Choose a featured demo">${featureNames.map((name,i)=>`<button type="button" aria-label="Show ${name}" aria-pressed="${!i}" data-feature-select="${i}"><i></i></button>`).join('')}</div></div></div>`;
 }
 function projectCard(p){
   const ind=industries.find(x=>x.slug===p.industry);
-  const name=featureNames[demoSlugs.indexOf(p.slug)] || p.title;
+  const name=featureNames[featured.indexOf(p.slug)] || p.title;
   return `<article class="work-card" data-type="${e(p.type)}" data-industry="${e(p.industry)}" data-keywords="${e([name,p.title,p.type,p.category,p.description,ind?.title].join(' ').toLowerCase())}"><a href="/work/${p.slug}" class="card-link"><div class="card-media card-${p.slug}"><div class="card-art">${visual(p.slug)}</div><span class="proof-label"><i></i>${e(p.type)}</span></div><div class="card-meta"><h3>${e(name)}</h3><span>${e(p.category)}</span></div><p>${e(p.description)}</p></a></article>`;
 }
-const projectOrder=['daybreak-cafe','salon-booking','manakar','studio-billing','nukkad-naai','laptop-buy-guide','velluto-gt','pocket-portfolio'];
+const projectOrder=['daybreak-cafe','salon-booking','manakar','studio-billing','casa-neem','hall-eleven','brightnest','kinetic-yard','brightpath','wagtail-lodge','stillwater','frame-field','loom-lane','gloss-lab','northline','mill-crate','nukkad-naai','laptop-buy-guide','velluto-gt','pocket-portfolio'];
 function workList(home=false){
   let sorted=[...projects].sort((a,b)=>{const rank=s=>projectOrder.includes(s)?projectOrder.indexOf(s):999;return rank(a.slug)-rank(b.slug)});
   if(home)sorted=sorted.filter(p=>['daybreak-cafe','salon-booking','manakar','studio-billing','nukkad-naai','laptop-buy-guide'].includes(p.slug));
@@ -63,8 +65,8 @@ function pageFor(url){
     if(rec)return {title:rec.title,description:rec.description,body:'<div id="detail-root">'+detailPage(kind,slug)+'</div>',image:rec.image||projects.find(p=>p.slug===rec.project)?.image,category:'catalog'};
   }
   if(kind==='demo' && demoSlugs.includes(slug)&&!extra){
-    const name=featureNames[demoSlugs.indexOf(slug)];
-    return {title:name+' · Interactive demo',description:projects.find(p=>p.slug===slug)?.description,category:'demos',image:projects.find(p=>p.slug===slug)?.image,body:`<div class="demo-tools wrap"><a href="/work/${slug}">Project overview</a><a href="/sample?project=${slug}">Request a similar sample</a></div><div class="wrap demo-space"><div id="demo-root" data-slug="${slug}"><p>Loading the interactive demo…</p></div><noscript>Enable JavaScript to try the demo, or open the project overview above.</noscript></div>`};
+    const name=featured.includes(slug)?featureNames[featured.indexOf(slug)]:projects.find(p=>p.slug===slug).title;
+    return {title:name+' · Interactive demo',kit:featured.includes(slug)?'':slug,description:projects.find(p=>p.slug===slug)?.description,category:'demos',image:projects.find(p=>p.slug===slug)?.image,body:`<div class="demo-tools wrap"><a href="/work/${slug}">Project overview</a><a href="/sample?project=${slug}">Request a similar sample</a></div><div class="wrap demo-space"><div id="demo-root" data-slug="${slug}"><p>Loading the interactive demo…</p></div><noscript>Enable JavaScript to try the demo, or open the project overview above.</noscript></div>`};
   }
   return {status:404,title:'Page not found',body:'<section class="wrap listing"><h1>Page not found.</h1><p class="intro">Explore the project collection to find the example you need.</p><a class="btn-studio primary" href="/work">Browse work</a></section>'};
 }
@@ -77,7 +79,7 @@ export function siteResponse(request){
   const p=pageFor(url);
   const title=e(p.title)+' | '+siteName;
   const desc=e(p.description||summary);
-  const css=p.category&&['catalog','demos','intake','owner'].includes(p.category)?`<link rel="stylesheet" href="/ui/${p.category}.css">`:'';
+  const css=(p.category&&['catalog','demos','intake','owner'].includes(p.category)?`<link rel="stylesheet" href="/ui/${p.category}.css">`:'')+(p.kit?`<link rel="stylesheet" href="/ui/kit-${p.kit}.css">`:'');
   const canonical=e(url.origin+url.pathname);
   const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#faf9f6"><title>${title}</title><meta name="description" content="${desc}">${p.noindex?'<meta name="robots" content="noindex, nofollow">':''}<link rel="canonical" href="${canonical}"><meta property="og:type" content="website"><meta property="og:title" content="${title}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${e(url.origin+(p.image||'/assets/salon.webp'))}"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/ui/style.css">${css}<script type="module" src="/ui/main.js"></script></head><body>${header(url.pathname)}<main id="content">${p.body}</main>${footer()}</body></html>`;
   return new Response(html,{status:p.status||200,headers:{'Content-Type':'text/html; charset=utf-8','X-Content-Type-Options':'nosniff','Referrer-Policy':'strict-origin-when-cross-origin'}});

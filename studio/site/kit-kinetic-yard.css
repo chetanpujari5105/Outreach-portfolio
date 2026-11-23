@@ -1,0 +1,19 @@
+/* kinetic-yard: generated fonts (latin) + palette; layout lives in demos.css (.kt-*) */
+@font-face { font-family: 'Unbounded'; font-style: normal; font-weight: 400 900; font-display: swap; src: url(/assets/kit-unbounded.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/assets/kit-inter.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+.kt-yard{--dm-paper:#0c0c0c;--dm-ink:#f4f1ec;--dm-accent:#ff5a1f;--dm-muted:#a39e97;--dm-line:#2b2926;--dm-display:Unbounded, "Arial Black", sans-serif;--kt-r:0px;--kt-surface:#161514;--kt-on-accent:#0c0c0c;font-family:Inter, system-ui, sans-serif;border-radius:0}
+.kt-yard{color-scheme:dark}
+.kt-yard h1,.kt-yard h2{font-weight:800;text-transform:uppercase;letter-spacing:-.03em;line-height:.95}
+.kt-yard h1{font-size:clamp(2.4rem,5vw,4.8rem)}
+.kt-yard h1 em{font-style:normal;color:var(--dm-accent);-webkit-text-stroke:0}
+.kt-yard .dm-wordmark{font-weight:800;font-size:1.15rem;letter-spacing:.02em}
+.kt-hero-poster{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.kt-hero-poster .kt-hero-img{filter:grayscale(.25) contrast(1.1);clip-path:polygon(12% 0,100% 0,100% 100%,0 100%)}
+.kt-hero-poster .kt-hero-copy{border-left:10px solid var(--dm-accent)}
+.kt-yard .kt-facts b{font-weight:800;color:var(--dm-accent)}
+.kt-yard .kt-field input,.kt-yard .kt-field select,.kt-yard .kt-field textarea,.kt-yard .kt-stepper input,.kt-yard .kt-card,.kt-yard .kt-chip{background:#141312}
+.kt-yard .kt-field input[type=date]{color-scheme:dark}
+.kt-yard .dm-button{color:var(--dm-ink);text-transform:uppercase;letter-spacing:.06em;font-size:.8rem}.kt-yard .dm-button.dm-primary{color:var(--kt-on-accent)}
+.kt-yard .kt-card-plain .kt-card-top strong{font-family:var(--dm-display);font-size:.88rem;font-weight:600}
+.kt-yard :focus-visible{outline-color:var(--dm-accent)}
+@media(max-width:760px){.kt-hero-poster .kt-hero-img{clip-path:none}.kt-hero-poster .kt-hero-copy{border-left:0;border-top:8px solid var(--dm-accent)}}

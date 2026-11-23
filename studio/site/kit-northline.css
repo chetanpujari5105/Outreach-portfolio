@@ -1,0 +1,13 @@
+/* northline: generated fonts (latin) + palette; layout lives in demos.css (.kt-*) */
+@font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 400 600; font-display: swap; src: url(/assets/kit-newsreader-italic.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(/assets/kit-newsreader.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/assets/kit-inter.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+.kt-north{--dm-paper:#f7f4ec;--dm-ink:#172338;--dm-accent:#1f3a63;--dm-muted:#5d6472;--dm-line:#ddd5c3;--dm-display:Newsreader, Georgia, serif;--kt-r:2px;--kt-surface:#efe9da;--kt-on-accent:#fff;font-family:Inter, system-ui, sans-serif;border-radius:0}
+.kt-north h1,.kt-north h2{font-weight:500;letter-spacing:-.02em}
+.kt-north h1 em{color:#9a7a35}
+.kt-north .dm-wordmark{font-size:1.6rem}.kt-north .dm-wordmark i{color:#9a7a35}
+.kt-hero-memo{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
+.kt-hero-memo .kt-hero-copy{border-right:1px solid var(--dm-line)}
+.kt-hero-memo .kt-hero-copy::before{content:"MEMO — FOR FOUNDERS & OPERATORS";display:block;font:600 .66rem/1 Inter,sans-serif;letter-spacing:.2em;color:#9a7a35;border-bottom:1px solid #9a7a35;padding-bottom:.7rem;margin-bottom:1.4rem}
+.kt-hero-memo .kt-hero-img{filter:sepia(.12)}
+.kt-north .kt-steps li span{border-radius:2px}

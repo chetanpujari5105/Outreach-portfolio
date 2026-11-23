@@ -5,18 +5,18 @@ const sector = (slug, title, description, task, project, solution, accent, addon
 export const industries = [
   sector('salons', 'Salons & barbers', 'Let someone choose a service, see how long it takes and request a time with their stylist.', 'Try the salon booking demo', 'salon-booking', 'bookings', '#924858', 'Keep your service pages and add a booking link to each treatment. A sample can include a staff view of incoming requests.'),
   sector('cafes', 'Cafés & restaurants', 'Put the menu in someone’s hand as they walk past, then give a larger party a simple way to ask about a table.', 'Explore the café menu', 'daybreak-cafe', 'menus', '#89552e', 'Give your existing menu a direct mobile link. Add a group dining enquiry alongside your current reservations.'),
-  sector('therapy-practices', 'Clinics & therapists', 'Help visitors understand the services you offer and choose a convenient time to get in touch.', 'Try an appointment enquiry', 'manakar', 'bookings', '#3e6f67', 'Add a focused appointment request to your current service pages. A practice can choose which fields its team needs.'),
-  sector('fitness-studios', 'Gyms & movement studios', 'Show first-time visitors which class fits their level, their schedule and how they like to move.', 'Choose a trial class', 'salon-booking', 'bookings', '#595e31', 'Embed a trial-class chooser next to your existing timetable and manage the capacity for each class.'),
-  sector('education', 'Tutors & learning centres', 'Help a learner choose a subject, a level and a trial lesson that fits their week.', 'Plan a trial lesson', 'salon-booking', 'bookings', '#465e84', 'Add trial-lesson requests to your course pages. Each request can carry the subject and level into your teaching schedule.'),
-  sector('hospitality', 'Hotels & homestays', 'Turn a room description into a stay enquiry with the right room size, dates and number of guests.', 'Build a stay enquiry', 'daybreak-cafe', 'bookings', '#7c6631', 'Keep your room gallery and add a date enquiry for families, retreats or group stays.'),
-  sector('creatives', 'Photographers & creatives', 'Help a visitor connect a portfolio piece with a shoot, a commission or a brief of their own.', 'Build a shoot brief', 'pocket-portfolio', 'portfolios', '#5f5181', 'Add a brief builder beneath your gallery so each enquiry arrives with the format, setting and intended use.'),
-  sector('events', 'Venues & event teams', 'Let a planner compare setups and see which package suits their guest list before they enquire.', 'Estimate an event setup', 'studio-billing', 'quotes', '#844d52', 'Add a package estimator to your venue pages. Send the guest count and preferred setup to your team.'),
-  sector('home-services', 'Home services & trades', 'Give a customer a simple way to describe the property and get a first estimate for the job.', 'Estimate a cleaning visit', 'studio-billing', 'quotes', '#456856', 'Link a quote form to each service page, then carry accepted work into job tracking and invoices.'),
-  sector('retail', 'Shops & boutiques', 'Help customers find the right product and ask about an exact item, finish or quantity.', 'Pick a product to enquire about', 'laptop-buy-guide', 'catalogs', '#8b583f', 'Add filters and product enquiries to your existing catalog. Use the same item references in stock and billing tools.'),
-  sector('automotive', 'Automotive businesses', 'Let a driver choose a vehicle size and build a detailing estimate before contacting the workshop.', 'Price a detailing package', 'velluto-gt', 'quotes', '#375c70', 'Add an estimate builder or test-drive enquiry alongside your current service and model pages.'),
-  sector('pet-care', 'Pet care & boarding', 'Collect the stay dates, room preference and pet details that a boarding team needs to check availability.', 'Plan a boarding stay', 'salon-booking', 'bookings', '#885041', 'Attach a boarding enquiry to the accommodation page and let returning owners request their usual stay.'),
-  sector('professionals', 'Consultants & advisers', 'Help a visitor describe the business question they want to discuss and choose a suitable consultation.', 'Prepare a consultation brief', 'pocket-portfolio', 'portfolios', '#505f80', 'Add consultation briefs or a document checklist to the contact flow on your current site.'),
-  sector('wholesale', 'Manufacturers & wholesalers', 'Collect the exact material, pack size and quantity so a trade enquiry can go straight to estimating.', 'Build a trade quotation request', 'laptop-buy-guide', 'catalogs', '#566954', 'Connect a request-for-quotation form to each product specification and keep the chosen SKU with the enquiry.'),
+  sector('therapy-practices', 'Clinics & therapists', 'Help visitors understand the services you offer and choose a convenient time to get in touch.', 'Try an appointment enquiry', 'stillwater', 'bookings', '#3e6f67', 'Add a focused appointment request to your current service pages. A practice can choose which fields its team needs.'),
+  sector('fitness-studios', 'Gyms & movement studios', 'Show first-time visitors which class fits their level, their schedule and how they like to move.', 'Choose a trial class', 'kinetic-yard', 'bookings', '#595e31', 'Embed a trial-class chooser next to your existing timetable and manage the capacity for each class.'),
+  sector('education', 'Tutors & learning centres', 'Help a learner choose a subject, a level and a trial lesson that fits their week.', 'Plan a trial lesson', 'brightpath', 'bookings', '#465e84', 'Add trial-lesson requests to your course pages. Each request can carry the subject and level into your teaching schedule.'),
+  sector('hospitality', 'Hotels & homestays', 'Turn a room description into a stay enquiry with the right room size, dates and number of guests.', 'Build a stay enquiry', 'casa-neem', 'bookings', '#7c6631', 'Keep your room gallery and add a date enquiry for families, retreats or group stays.'),
+  sector('creatives', 'Photographers & creatives', 'Help a visitor connect a portfolio piece with a shoot, a commission or a brief of their own.', 'Build a shoot brief', 'frame-field', 'portfolios', '#5f5181', 'Add a brief builder beneath your gallery so each enquiry arrives with the format, setting and intended use.'),
+  sector('events', 'Venues & event teams', 'Let a planner compare setups and see which package suits their guest list before they enquire.', 'Estimate an event setup', 'hall-eleven', 'quotes', '#844d52', 'Add a package estimator to your venue pages. Send the guest count and preferred setup to your team.'),
+  sector('home-services', 'Home services & trades', 'Give a customer a simple way to describe the property and get a first estimate for the job.', 'Estimate a cleaning visit', 'brightnest', 'quotes', '#456856', 'Link a quote form to each service page, then carry accepted work into job tracking and invoices.'),
+  sector('retail', 'Shops & boutiques', 'Help customers find the right product and ask about an exact item, finish or quantity.', 'Pick a product to enquire about', 'loom-lane', 'catalogs', '#8b583f', 'Add filters and product enquiries to your existing catalog. Use the same item references in stock and billing tools.'),
+  sector('automotive', 'Automotive businesses', 'Let a driver choose a vehicle size and build a detailing estimate before contacting the workshop.', 'Price a detailing package', 'gloss-lab', 'quotes', '#375c70', 'Add an estimate builder or test-drive enquiry alongside your current service and model pages.'),
+  sector('pet-care', 'Pet care & boarding', 'Collect the stay dates, room preference and pet details that a boarding team needs to check availability.', 'Plan a boarding stay', 'wagtail-lodge', 'bookings', '#885041', 'Attach a boarding enquiry to the accommodation page and let returning owners request their usual stay.'),
+  sector('professionals', 'Consultants & advisers', 'Help a visitor describe the business question they want to discuss and choose a suitable consultation.', 'Prepare a consultation brief', 'northline', 'portfolios', '#505f80', 'Add consultation briefs or a document checklist to the contact flow on your current site.'),
+  sector('wholesale', 'Manufacturers & wholesalers', 'Collect the exact material, pack size and quantity so a trade enquiry can go straight to estimating.', 'Build a trade quotation request', 'mill-crate', 'catalogs', '#566954', 'Connect a request-for-quotation form to each product specification and keep the chosen SKU with the enquiry.'),
   sector('other-businesses', 'Other businesses', 'Choose what you want a customer or team member to do. Find a working example you can use as the starting point.', 'Find an example for my business', 'studio-billing', 'billing', '#715b83', 'Start with one task your current site leaves to phone calls or spreadsheets. A sample can show how that single step could work.')
 ];
 
@@ -33,6 +33,42 @@ export const projects = [
   project('studio-billing', 'Studio billing', 'Studio demo', 'An editable invoice that carries a sample customer, items and totals into an owner’s invoice list.', 'Billing tools', 'ledger-hero', 'home-services', 'Try the invoice demo', '/demo/studio-billing',
     'I built this example for owners who prepare an estimate or invoice across multiple line items and need a printable record.',
     ['Choose a sample customer and add line items.', 'Adjust quantities and review the calculated invoice.', 'Issue the sample invoice, open it in the list and print it.']),
+  project('casa-neem', 'Casa Neem', 'Studio demo', 'A homestay booking enquiry that checks room size against guests and prices the stay night by night.', 'Booking systems', 'neem-hero', 'hospitality', 'Plan a stay', '/demo/casa-neem',
+    'I built this homestay example so a guest can choose a room, see whether it fits everyone and know the nightly total before they write to the host.',
+    ['Choose a room and compare sleeping capacity and price.', 'Pick dates and guests, then add breakfast or an airport pickup.', 'Send the sample enquiry and open the host’s list.']),
+  project('hall-eleven', 'Hall Eleven', 'Studio demo', 'An event venue estimator that sizes the guest list to each setup and shows a per-guest cost.', 'Quotes & estimates', 'hall-hero', 'events', 'Estimate an event', '/demo/hall-eleven',
+    'I built this venue example for planners who want a realistic number before they book a walkthrough.',
+    ['Choose the occasion and a date at least two weeks out.', 'Pick a banquet, theatre or cocktail setup within its capacity.', 'Add a menu and extras, then send the estimate to the events team.']),
+  project('brightnest', 'Brightnest', 'Studio demo', 'A cleaning quote that prices the home, the type of clean and a regular-visit discount, then books a slot.', 'Quotes & estimates', 'nest-hero', 'home-services', 'Price a cleaning visit', '/demo/brightnest',
+    'I built this home-services example so a customer sees the price before anyone visits, and the team receives every detail that changes it.',
+    ['Describe the property with bedroom and bathroom counts.', 'Choose a standard, deep or move-out clean and any extras.', 'Pick a regular plan and an open arrival window, then request the visit.']),
+  project('kinetic-yard', 'Kinetic Yard', 'Studio demo', 'A trial-class finder that matches goal and experience to a timetable with live spots left.', 'Booking systems', 'yard-hero', 'fitness-studios', 'Find a trial class', '/demo/kinetic-yard',
+    'I built this studio example so a newcomer can find a class at the right level on a day with space, without messaging the front desk.',
+    ['Choose a training goal and an experience level.', 'Pick a day and see which classes still have spots.', 'Claim the free trial and see it on the coach’s list.']),
+  project('brightpath', 'Brightpath Tutors', 'Studio demo', 'A tutoring enquiry that turns subject, grade and format into a trial lesson and a monthly plan.', 'Booking systems', 'path-hero', 'education', 'Plan a trial lesson', '/demo/brightpath',
+    'I built this learning-centre example for parents who want to know the time, the format and the monthly fee before the first lesson.',
+    ['Choose a subject and grade.', 'Pick centre or online and lessons per week.', 'Book a trial slot and see the monthly plan.']),
+  project('wagtail-lodge', 'Wagtail Lodge', 'Studio demo', 'A pet boarding request that matches pet size and count to a suite and checks vaccinations.', 'Booking systems', 'wag-hero', 'pet-care', 'Plan a boarding stay', '/demo/wagtail-lodge',
+    'I built this boarding example to collect the details a lodge needs before it can say yes: the pet, the suite, the dates and the vaccination card.',
+    ['Tell the lodge about your pet and how many are coming.', 'Choose a suite that fits their size.', 'Pick dates and extras, confirm vaccinations and send the request.']),
+  project('stillwater', 'Stillwater Practice', 'Studio demo', 'A calm first-session request for a counselling practice that asks only for what is needed.', 'Booking systems', 'still-hero', 'therapy-practices', 'Request a first session', '/demo/stillwater',
+    'I built this practice example to make the first step feel quiet and safe: a few choices, a first name and a clear note about what happens next.',
+    ['Choose individual, couples or teen support.', 'Pick in-person or video and a preferred time.', 'Share a first name and send the request.']),
+  project('frame-field', 'Frame & Field', 'Studio demo', 'A photography brief builder that filters the portfolio, sizes the shoot and prices usage rights.', 'Portfolio websites', 'frame-hero', 'creatives', 'Build a shoot brief', '/demo/frame-field',
+    'I built this studio example so a client can move from a picture they like to a brief the photographer can quote on.',
+    ['Filter the work and choose the closest kind of shoot.', 'Set hours, deliverables and where the photos will be used.', 'Describe the idea and send the brief.']),
+  project('loom-lane', 'Loom & Lane', 'Studio demo', 'A boutique catalogue with filters, size and stock checks and a hold-in-store request.', 'Catalogs', 'loom-hero', 'retail', 'Pick a product', '/demo/loom-lane',
+    'I built this boutique example for shops that sell in person: a customer finds the piece online and asks the shop to set it aside.',
+    ['Filter the rail and choose a piece.', 'Pick a size and colour with live stock.', 'Ask the shop to hold it or ship it.']),
+  project('gloss-lab', 'Gloss Lab', 'Studio demo', 'A detailing configurator that prices package, vehicle size and paint condition with time in the bay.', 'Quotes & estimates', 'gloss-hero', 'automotive', 'Price a detailing package', '/demo/gloss-lab',
+    'I built this workshop example so a driver can build a detail to the rupee and the workshop knows the car before it arrives.',
+    ['Choose a vehicle size and describe the paint.', 'Pick a package and add-ons.', 'Choose a drop-off slot and book the bay.']),
+  project('northline', 'Northline Advisory', 'Studio demo', 'A consultation brief for an advisory firm that matches the question to the right meeting length.', 'Professional portfolios', 'north-hero', 'professionals', 'Prepare a consultation brief', '/demo/northline',
+    'I built this advisory example so the first meeting starts with the question already written down and the right amount of time booked.',
+    ['Choose a topic and business stage.', 'Write the question, set urgency and list documents.', 'Pick a consultation length and send the brief.']),
+  project('mill-crate', 'Mill & Crate', 'Studio demo', 'A trade quotation builder with material, size and print options and tiered unit pricing.', 'Catalogs', 'mill-hero', 'wholesale', 'Build a trade quotation', '/demo/mill-crate',
+    'I built this packaging example so a buyer can spec a box, see volume breaks and send estimating a request they can quote straight away.',
+    ['Choose a box style.', 'Set board, size and print.', 'Enter a quantity and see unit price, plates and lead time.']),
   project('manakar', 'Manakar', 'Client work', 'A Hadapsar psychology practice website with service information and appointment requests.', 'Practice websites', 'therapy', 'therapy-practices', 'Visit Manakar', 'https://www.manakar.in/',
     'I built the practice website for a clinical psychologist in Hadapsar, Pune. The live site credits me in its footer.',
     ['Read the practitioner introduction and explore the services.', 'Open the appointment section to see how the practice takes enquiries.', 'The request form includes service, preferred date and preferred time.']),
@@ -51,11 +87,11 @@ export const projects = [
 ];
 
 export const solutions = [
-  {slug:'bookings', title:'Appointments & bookings', description:'Guide a visitor from a service or class to a specific request your team can act on.', industries:['salons','therapy-practices','fitness-studios','education','hospitality','pet-care'], projects:['salon-booking','manakar']},
+  {slug:'bookings', title:'Appointments & bookings', description:'Guide a visitor from a service or class to a specific request your team can act on.', industries:['salons','therapy-practices','fitness-studios','education','hospitality','pet-care'], projects:['stillwater','wagtail-lodge','brightpath','kinetic-yard','casa-neem','salon-booking','manakar']},
   {slug:'menus', title:'Menus & dining enquiries', description:'Make the menu easy to browse on a phone, with a short route from a dish to a group enquiry.', industries:['cafes','hospitality','events'], projects:['daybreak-cafe']},
-  {slug:'portfolios', title:'Portfolio websites', description:'Present selected work and give interested visitors a way to start a relevant brief.', industries:['creatives','professionals','automotive'], projects:['pocket-portfolio','velluto-gt','nukkad-naai']},
-  {slug:'catalogs', title:'Catalogs & product discovery', description:'Help buyers narrow a range, compare specifications and ask about a particular item.', industries:['retail','wholesale','automotive'], projects:['laptop-buy-guide']},
-  {slug:'quotes', title:'Quotes & estimates', description:'Collect the details that change the price, then turn those choices into a clear estimate or brief.', industries:['events','home-services','automotive','wholesale'], projects:['studio-billing']},
+  {slug:'portfolios', title:'Portfolio websites', description:'Present selected work and give interested visitors a way to start a relevant brief.', industries:['creatives','professionals','automotive'], projects:['northline','frame-field','pocket-portfolio','velluto-gt','nukkad-naai']},
+  {slug:'catalogs', title:'Catalogs & product discovery', description:'Help buyers narrow a range, compare specifications and ask about a particular item.', industries:['retail','wholesale','automotive'], projects:['mill-crate','loom-lane','laptop-buy-guide']},
+  {slug:'quotes', title:'Quotes & estimates', description:'Collect the details that change the price, then turn those choices into a clear estimate or brief.', industries:['events','home-services','automotive','wholesale'], projects:['gloss-lab','brightnest','hall-eleven','studio-billing']},
   {slug:'billing', title:'Invoicing & billing', description:'Give an owner one place to choose items, check totals and issue a printable invoice.', industries:['home-services','retail','professionals','other-businesses'], projects:['studio-billing']}
 ];
 
@@ -180,10 +216,12 @@ function caseVisual(p) {
 function industryPage(i) {
   const p=bySlug(projects,i.project);
   const sol=bySlug(solutions,i.solution);
-  const mini=Boolean(minis[i.slug]);
+  const mini=Boolean(minis[i.slug]) && !p.url.startsWith('/demo/');
   const target=mini?'#example':p.url;
   const related=[p];
   if(i.slug==='salons')related.push(bySlug(projects,'nukkad-naai'));
+  const realWork={'therapy-practices':'manakar',creatives:'pocket-portfolio',professionals:'pocket-portfolio',retail:'laptop-buy-guide',wholesale:'laptop-buy-guide',automotive:'velluto-gt'};
+  if(realWork[i.slug])related.push(bySlug(projects,realWork[i.slug]));
   return `<article class="ct" style="--ct-accent:${i.accent}">
     <div class="ct-crumb"><a href="/for">Business types</a><span>/</span>${html(i.title)}</div>
     <div class="ct-top"><div class="ct-heading"><p class="ct-eyebrow">Websites & business tools</p><h1>${html(i.title)}</h1><p class="ct-lead">${html(i.description)}</p><div class="ct-actions">${link(target,i.task,'primary')}${link(sampleLink(i.slug,mini?null:p.slug,i.solution),'Request a free sample')}</div></div>

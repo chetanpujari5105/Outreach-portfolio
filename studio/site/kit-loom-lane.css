@@ -1,0 +1,13 @@
+/* loom-lane: generated fonts (latin) + palette; layout lives in demos.css (.kt-*) */
+@font-face { font-family: 'DM Serif Display'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/kit-dm-serif-display-400-italic.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'DM Serif Display'; font-style: normal; font-weight: 400; font-display: swap; src: url(/assets/kit-dm-serif-display-400.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Jost'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(/assets/kit-jost.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+.kt-loom{--dm-paper:#f3efe6;--dm-ink:#1d2440;--dm-accent:#2b3a7a;--dm-muted:#5f6378;--dm-line:#d9d2c2;--dm-display:"DM Serif Display", Georgia, serif;--kt-r:3px;--kt-surface:#ebe5d7;--kt-on-accent:#fff;font-family:Jost, system-ui, sans-serif;border-radius:0}
+.kt-loom h1,.kt-loom h2{font-weight:400;letter-spacing:-.015em}
+.kt-loom h1 em{color:#a8743a}
+.kt-loom .dm-wordmark{font-size:1.8rem}.kt-loom .dm-wordmark i{color:#a8743a}
+.kt-hero-shop{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.kt-hero-shop .kt-hero-img{border-left:1px solid var(--dm-line)}
+.kt-hero-shop .kt-hero-copy{border-top:6px double var(--dm-accent);margin-top:clamp(1rem,3vw,2rem)}
+.kt-loom .dm-button,.kt-loom .kt-chip,.kt-loom .kt-filter{letter-spacing:.06em;text-transform:uppercase;font-size:.76rem}
+.kt-loom .kt-card img{aspect-ratio:4/5}

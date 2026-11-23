@@ -1,15 +1,15 @@
 // Each demo keeps its fictional records in the current tab.
-const money = (value, currency, locale = undefined) =>
+export const money = (value, currency, locale = undefined) =>
   new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
     maximumFractionDigits: value % 1 === 0 ? 0 : 2,
   }).format(value);
-const button = (action, label, style = "", attrs = "") =>
+export const button = (action, label, style = "", attrs = "") =>
   `<button type="button" data-action="${action}" class="dm-button ${style}" ${attrs}>${label}</button>`;
-const notice = (message) => `<p class="dm-note">${message}</p>`;
-const next = '<span aria-hidden="true">↗</span>';
-function todayAt(zone) {
+export const notice = (message) => `<p class="dm-note">${message}</p>`;
+export const next = '<span aria-hidden="true">↗</span>';
+export function todayAt(zone) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: zone,
     year: "numeric",
@@ -19,12 +19,12 @@ function todayAt(zone) {
   const part = (key) => parts.find((p) => p.type === key).value;
   return `${part("year")}-${part("month")}-${part("day")}`;
 }
-function dayOffset(iso, days) {
+export function dayOffset(iso, days) {
   const date = new Date(iso + "T12:00:00Z");
   date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString().slice(0, 10);
 }
-function dateText(
+export function dateText(
   iso,
   locale,
   opts = { weekday: "short", month: "short", day: "numeric" },
@@ -33,7 +33,7 @@ function dateText(
     new Date(iso + "T12:00:00Z"),
   );
 }
-function readRows(key) {
+export function readRows(key) {
   try {
     const parsed = JSON.parse(
       sessionStorage.getItem("studio-demo-v1-" + key) || "[]",
@@ -43,18 +43,18 @@ function readRows(key) {
     return [];
   }
 }
-function saveRows(key, rows) {
+export function saveRows(key, rows) {
   try {
     sessionStorage.setItem("studio-demo-v1-" + key, JSON.stringify(rows));
   } catch {
     /* Memory remains available in restricted browsers. */
   }
 }
-function setView(root, html, focus = true) {
+export function setView(root, html, focus = true) {
   root.innerHTML = html;
   if (focus) root.querySelector("[data-focus]")?.focus({ preventScroll: true });
 }
-function wire(root, handler) {
+export function wire(root, handler) {
   root.onclick = (event) => {
     const control = event.target.closest("button[data-action]");
     if (control && root.contains(control) && !control.disabled)
@@ -673,4 +673,5 @@ export function mountDemo(root, slug) {
     "studio-billing": billing,
   };
   if (Object.hasOwn(demos, slug)) demos[slug](root);
+  else import("./flow.js").then(({ mountKit }) => mountKit(root, slug));
 }

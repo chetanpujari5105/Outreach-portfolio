@@ -1,0 +1,20 @@
+/* hall-eleven: generated fonts (latin) + palette; layout lives in demos.css (.kt-*) */
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 400 700; font-display: swap; src: url(/assets/kit-cormorant-garamond-italic.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/assets/kit-cormorant-garamond.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter Tight'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/assets/kit-inter-tight.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+.kt-hall{--dm-paper:#10142a;--dm-ink:#f3ead8;--dm-accent:#d8b46a;--dm-muted:#a9a6b8;--dm-line:#2c3352;--dm-display:"Cormorant Garamond", Georgia, serif;--kt-r:2px;--kt-surface:#171c38;--kt-on-accent:#16130b;font-family:"Inter Tight", system-ui, sans-serif;border-radius:0}
+.kt-hall{color-scheme:dark}
+.kt-hall h1,.kt-hall h2{font-weight:500;letter-spacing:-.01em}
+.kt-hall h1 em{font-style:italic;color:var(--dm-accent)}
+.kt-hall .dm-wordmark{font-family:"Inter Tight",sans-serif;font-size:1rem;letter-spacing:.42em;font-weight:600}.kt-hall .dm-wordmark b{color:var(--dm-accent)}
+.kt-hero-full{grid-template-columns:minmax(0,1fr);min-height:min(78vh,620px)}
+.kt-hero-full .kt-hero-img{grid-column:1;grid-row:1/span 2;max-height:none;min-height:100%;position:absolute;inset:0;filter:brightness(.62)}
+.kt-hero-full::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#10142a00 30%,#10142aee 92%)}
+.kt-hero-full .kt-hero-copy,.kt-hero-full .kt-facts{position:relative;z-index:1;grid-column:1;text-align:center;justify-self:center}
+.kt-hero-full .kt-hero-copy{align-self:end;padding-bottom:1rem}.kt-hero-full .kt-hero-copy>p:last-child{margin-inline:auto;color:#d9d3e3}
+.kt-hero-full .kt-facts{justify-content:center;color:#c8c3d6}
+.kt-hall .kt-field input,.kt-hall .kt-field select,.kt-hall .kt-field textarea,.kt-hall .kt-stepper input,.kt-hall .kt-card,.kt-hall .kt-chip{background:#141936}
+.kt-hall .kt-field input[type=date]{color-scheme:dark}
+.kt-hall :focus-visible{outline-color:var(--dm-accent)}
+.kt-hall .dm-button{color:var(--dm-ink)}.kt-hall .dm-button.dm-primary{color:var(--kt-on-accent)}
+@media(max-width:760px){.kt-hero-full{min-height:540px}.kt-hero-full .kt-hero-img{aspect-ratio:auto}}
