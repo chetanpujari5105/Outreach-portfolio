@@ -472,6 +472,7 @@ const billingCurrencies = {
   USD: { locale: "en-US", prices: [7900, 4500, 2200, 1000] },
 };
 const products = ["Studio session", "Styling service", "Care kit", "Gift wrap"];
+const productImg = ["session", "styling", "care-kit", "gift-wrap"];
 const customers = ["Fern House Studio", "Sunday Goods", "Mira & Co."];
 function billing(root) {
   let currency = "INR",
@@ -532,7 +533,7 @@ function billing(root) {
     return items
       .map(
         (item, i) =>
-          `<div class="dm-line"><div><strong>${products[item.product]}</strong><small>${format(prices(currency)[item.product])} / unit</small></div><label class="dm-field"><span>Qty</span><input type="number" min="1" max="99" step="1" required value="${item.qty}" data-qty="${i}" aria-label="Quantity for ${products[item.product]}, line ${i + 1}"></label><strong data-line-total="${i}">${format(prices(currency)[item.product] * item.qty)}</strong>${button("remove", "×", "dm-remove", `data-i="${i}" aria-label="Remove ${products[item.product]}, line ${i + 1}"`)}</div>`,
+          `<div class="dm-line"><div class="dm-ledger-item"><img src="/assets/ledger-${productImg[item.product]}.webp" alt="" width="96" height="96" loading="lazy"><span><strong>${products[item.product]}</strong><small>${format(prices(currency)[item.product])} / unit</small></span></div><label class="dm-field"><span>Qty</span><input type="number" min="1" max="99" step="1" required value="${item.qty}" data-qty="${i}" aria-label="Quantity for ${products[item.product]}, line ${i + 1}"></label><strong data-line-total="${i}">${format(prices(currency)[item.product] * item.qty)}</strong>${button("remove", "×", "dm-remove", `data-i="${i}" aria-label="Remove ${products[item.product]}, line ${i + 1}"`)}</div>`,
       )
       .join("");
   }
@@ -545,7 +546,7 @@ function billing(root) {
         .map((c) => `<option ${currency === c ? "selected" : ""}>${c}</option>`)
         .join(
           "",
-        )}</select></label></div><h3>Line items</h3>${editLines() || "<p>Choose an item to start this invoice.</p>"}<div class="dm-add-line"><label class="dm-field">Catalog item<select data-product>${products.map((p, i) => `<option value="${i}">${p}</option>`).join("")}</select></label>${button("add", "+ Add item", "dm-secondary")}</div></div><aside class="dm-sheet-summary"><p class="dm-kicker">Summary</p><label class="dm-field">Discount (%)<input type="number" min="0" max="100" step="1" value="${discount}" data-discount required></label><div data-amounts>${amounts(items, discount, currency)}</div>${button("review", "Review invoice " + next, "dm-primary", !items.length ? "disabled" : "")}<p class="dm-note">Sample prices in ${currency}. No payment is collected.</p></aside>`;
+        )}</select></label></div><h3>Line items</h3>${editLines() || "<p>Choose an item to start this invoice.</p>"}<h3>Add from the catalog</h3><div class="dm-ledger-catalog">${products.map((p, i) => `<button type="button" class="dm-ledger-tile" data-action="add" data-p="${i}" aria-label="Add ${p}, ${format(prices(currency)[i])}"><img src="/assets/ledger-${productImg[i]}.webp" alt="" width="320" height="320" loading="lazy"><span><strong>${p}</strong><small>${format(prices(currency)[i])}</small></span><b aria-hidden="true">+</b></button>`).join("")}</div></div><aside class="dm-sheet-summary"><p class="dm-kicker">Summary</p><label class="dm-field">Discount (%)<input type="number" min="0" max="100" step="1" value="${discount}" data-discount required></label><div data-amounts>${amounts(items, discount, currency)}</div>${button("review", "Review invoice " + next, "dm-primary", !items.length ? "disabled" : "")}<p class="dm-note">Sample prices in ${currency}. No payment is collected.</p></aside>`;
     } else if (screen === "list") {
       content = `<div class="dm-record-view"><p class="dm-kicker">Owner view</p><h2 data-focus tabindex="-1">Issued invoices</h2>${
         invoices.length
@@ -565,7 +566,7 @@ function billing(root) {
     }
     setView(
       root,
-      `<div class="dm dm-bill"><div class="dm-brandbar"><span class="dm-wordmark"><span class="dm-ledger-icon" aria-hidden="true">▤</span> Ledger Desk</span><span>Studio accounts</span></div><header class="dm-bill-header"><div><p class="dm-kicker">Studio workspace</p><h1>Billing desk<span>.</span></h1></div>${button("list", "Issued invoices (" + invoices.length + ")", "dm-secondary")}</header><div class="dm-bill-layout">${content}</div><footer class="dm-foot"><span>Studio demo · Fictional customers and invoices</span>${button("reset", "Reset demo", "dm-link")}</footer></div>`,
+      `<div class="dm dm-bill"><div class="dm-brandbar"><span class="dm-wordmark"><span class="dm-ledger-icon" aria-hidden="true">LD</span>Ledger Desk</span><span>Studio accounts</span></div><header class="dm-bill-header"><div class="dm-ledger-title"><p class="dm-kicker">Studio workspace</p><h1>Billing desk<span>.</span></h1><p class="dm-ledger-sub">Pick items from the catalog, check the totals and issue a sample invoice to the owner’s list.</p>${button("list", "Issued invoices (" + invoices.length + ")", "dm-secondary")}</div><img class="dm-ledger-photo" src="/assets/ledger-hero.webp" alt="" width="1536" height="1024" fetchpriority="high"><div class="dm-ledger-stat"><small>Issued</small><strong>${String(invoices.length).padStart(2, "0")}</strong></div><div class="dm-ledger-stat dm-ledger-stat-lime"><small>Currency</small><strong>${currency}</strong></div></header><div class="dm-bill-layout">${content}</div><footer class="dm-foot"><span>Studio demo · Fictional customers and invoices</span>${button("reset", "Reset demo", "dm-link")}</footer></div>`,
       focus,
     );
   }
@@ -605,7 +606,7 @@ function billing(root) {
   };
   wire(root, (action, el) => {
     if (action === "add") {
-      const id = Number(root.querySelector("[data-product]").value);
+      const id = Number(el.dataset.p);
       items.push({ product: id, qty: 1 });
       render(false);
       root

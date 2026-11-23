@@ -30,7 +30,7 @@ export const projects = [
   project('daybreak-cafe', 'Daybreak Café', 'Studio demo', 'A mobile café menu with dish details and an enquiry for group tables.', 'Menus & enquiries', 'daybreak-cafe-hero', 'cafes', 'Visit the café demo', '/demo/daybreak-cafe',
     'I built a fictional café experience around two everyday questions: what is on the menu today, and how to ask about a group table.',
     ['Open the menu and explore the food and drinks.', 'Choose an item to see its description and price.', 'Send a sample group dining enquiry and see its acknowledgement.']),
-  project('studio-billing', 'Studio billing', 'Studio demo', 'An editable invoice that carries a sample customer, items and totals into an owner’s invoice list.', 'Billing tools', 'billing', 'home-services', 'Try the invoice demo', '/demo/studio-billing',
+  project('studio-billing', 'Studio billing', 'Studio demo', 'An editable invoice that carries a sample customer, items and totals into an owner’s invoice list.', 'Billing tools', 'ledger-hero', 'home-services', 'Try the invoice demo', '/demo/studio-billing',
     'I built this example for owners who prepare an estimate or invoice across multiple line items and need a printable record.',
     ['Choose a sample customer and add line items.', 'Adjust quantities and review the calculated invoice.', 'Issue the sample invoice, open it in the list and print it.']),
   project('manakar', 'Manakar', 'Client work', 'A Hadapsar psychology practice website with service information and appointment requests.', 'Practice websites', 'therapy', 'therapy-practices', 'Visit Manakar', 'https://www.manakar.in/',
