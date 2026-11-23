@@ -15,3 +15,15 @@ node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1
 npm start -- --port 8788
 ```
 Owner inbox: `/owner` (needs `INTAKE_ADMIN_TOKEN`, 32+ chars, set as a secret).
+
+## Deploy (Cloudflare Workers + D1, free tier)
+```sh
+cd studio
+npx wrangler login                                   # once, in your browser
+npx wrangler d1 create chetan-studio-db              # copy the database_id it prints
+export D1_DATABASE_NAME=chetan-studio-db D1_DATABASE_ID=<id>
+npm run build
+npx wrangler d1 execute SITE_DB --remote --config dist/server/wrangler.json --file drizzle/0000_messy_brother_voodoo.sql
+npx wrangler deploy --config dist/server/wrangler.json
+npx wrangler secret put INTAKE_ADMIN_TOKEN --config dist/server/wrangler.json   # 32+ chars, unlocks /owner
+```
