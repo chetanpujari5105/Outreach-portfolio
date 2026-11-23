@@ -10,5 +10,5 @@
 .kt-hero-calm .kt-hero-img{border-radius:999px 999px var(--kt-r) var(--kt-r);margin:clamp(1.2rem,3vw,2.6rem) clamp(1.2rem,4vw,3.4rem) 0;width:calc(100% - clamp(2.4rem,8vw,6.8rem));height:auto;aspect-ratio:.95;align-self:end}
 .kt-still .dm-button.dm-primary{border-radius:99px;padding-inline:1.6rem}
 .kt-still .kt-side .kt-note{border-left:3px solid #8a7aa8;padding-left:.8rem}
-.kt-still .kt-steps [aria-current] span{background:#8a7aa8;border-color:#8a7aa8}
+.kt-still .kt-steps [aria-current] span{background:#6c5c8c;border-color:#6c5c8c}
 @media(max-width:760px){.kt-hero-calm .kt-hero-img{aspect-ratio:1.2;margin:1rem 1rem 0;width:calc(100% - 2rem)}}

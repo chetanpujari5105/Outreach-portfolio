@@ -3,7 +3,7 @@
 @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 400 800; font-stretch: 100%; font-display: swap; src: url(/assets/kit-nunito-sans.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 .kt-wag{--dm-paper:#fff8ec;--dm-ink:#3a1b3f;--dm-accent:#7b2d83;--dm-muted:#73596f;--dm-line:#ecd9c4;--dm-display:Fredoka, "Arial Rounded MT Bold", sans-serif;--kt-r:22px;--kt-surface:#fbeccd;--kt-on-accent:#fff;font-family:"Nunito Sans", system-ui, sans-serif;border-radius:0}
 .kt-wag h1,.kt-wag h2{font-weight:600;letter-spacing:-.015em}
-.kt-wag h1 em{font-style:normal;color:#e0a10b}
+.kt-wag h1 em{font-style:normal;color:#a87000}
 .kt-wag .dm-wordmark{font-weight:600;font-size:1.7rem;color:var(--dm-accent)}
 .kt-hero-blob .kt-hero-img{border-radius:62% 38% 46% 54% / 48% 58% 42% 52%;margin:clamp(1rem,3vw,2.2rem);width:calc(100% - clamp(2rem,6vw,4.4rem));height:auto;aspect-ratio:1.1;border:8px solid #f4c84a}
 .kt-hero-blob{background:radial-gradient(circle at 92% 12%,#f4c84a55 0 12%,transparent 12.2%),var(--dm-paper)}
