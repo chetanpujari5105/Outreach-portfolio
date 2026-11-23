@@ -1,0 +1,53 @@
+.sample-intake {
+  --sample-ink: #242724;
+  --sample-muted: #555b52;
+  --sample-line: #cbcfc4;
+  box-sizing: border-box;
+  color: var(--sample-ink);
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  margin: 0 auto;
+  max-width: 78rem;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 6vw, 5rem);
+}
+.sample-intake *, .sample-intake *::after, .sample-intake *::before { box-sizing: border-box; }
+.sample-intake [hidden] { display: none !important; }
+.sample-intake .sample-eyebrow { margin: 0 0 1rem; font-size: .76rem; text-transform: uppercase; font-weight: 650; letter-spacing: .09em; }
+.sample-intake h1 { color: inherit; margin: 0; font-weight: 550; line-height: .99; letter-spacing: -.062em; font-size: clamp(3rem, 6vw, 6rem); }
+.sample-intake h1 em { font-family: "Georgia", serif; font-weight: 400; }
+.sample-intake .sample-lead { margin: 1.5rem 0 0; color: var(--sample-muted); font-size: 1.08rem; max-width: 34ch; line-height: 1.6; }
+.sample-intake h2 { margin: 0; color: inherit; font-weight: 550; letter-spacing: -.045em; line-height: 1.12; }
+.sample-intake .sample-contact { margin: clamp(2rem, 6vw, 4.5rem) 0 0; border-top: 1px solid var(--sample-line); padding: 1.3rem 0 0; max-width: 29rem; }
+.sample-intake .sample-contact h2 { font-size: 1.18rem; }
+.sample-intake .sample-contact p, .sample-intake .sample-receipt p { line-height: 1.55; color: var(--sample-muted); }
+.sample-intake a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
+.sample-intake .sample-contact a { display: block; padding: .55rem 0; width: fit-content; }
+.sample-intake .sample-address { display: block; font-size: .85rem; color: var(--sample-muted); overflow-wrap: anywhere; }
+.sample-intake .sample-panel { align-self: start; padding: clamp(1.25rem, 3.5vw, 3rem); background: #f8f8f2; border: 1px solid var(--sample-line); border-radius: 1rem; }
+.sample-intake .sample-form { display: grid; gap: 1.25rem; }
+.sample-intake .sample-form h2, .sample-intake .sample-receipt h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.sample-intake .sample-field { display: grid; align-content: start; gap: .45rem; min-width: 0; color: var(--sample-ink); font-size: .92rem; font-weight: 600; line-height: 1.35; }
+.sample-intake .sample-field small { font-size: inherit; font-weight: 400; color: var(--sample-muted); }
+.sample-intake :is(input:not([type=hidden]), select, textarea) { display: block; width: 100%; border: 1px solid #a7ac9f; border-radius: .45rem; background: #fff; color: var(--sample-ink); min-height: 2.95rem; padding: .7rem .8rem; box-shadow: none; font-family: inherit; font-size: 1rem; font-weight: 400; line-height: 1.45; }
+.sample-intake textarea { resize: vertical; }
+.sample-intake :is(input, textarea)::placeholder { color: #687063; opacity: 1; }
+.sample-intake .sample-contact-row { display: grid; grid-template-columns: minmax(6.85rem, .65fr) minmax(0, 1.6fr); gap: .75rem; }
+.sample-intake .sample-note, .sample-intake .sample-reference { margin: 0; font-size: .86rem; color: var(--sample-muted); line-height: 1.5; }
+.sample-intake .sample-submit { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; color: #fff; background: #262e23; border: 1px solid #262e23; border-radius: .5rem; padding: .95rem 1.15rem; min-height: 3rem; font: inherit; font-weight: 600; cursor: pointer; }
+.sample-intake .sample-submit:hover { background: #414b3b; }
+.sample-intake .sample-submit:disabled { cursor: progress; }
+.sample-intake :is(a, button, input, select, textarea):focus-visible { outline: 3px solid #386f9e; outline-offset: 3px; }
+.sample-intake .sample-feedback { font-size: .92rem; line-height: 1.45; margin: 0; color: #823714; }
+.sample-intake .sample-feedback:empty { display: none; }
+.sample-intake .sample-check { display: grid; place-items: center; width: 2.7rem; height: 2.7rem; border-radius: 50%; background: #dce8c8; margin-bottom: 1.4rem; }
+.sample-intake .sample-receipt a { display: inline-block; margin-top: 1.4rem; }
+.sample-intake .sample-honey { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (max-width: 730px) {
+  .sample-intake { grid-template-columns: 1fr; gap: 1.75rem; }
+  .sample-intake .sample-intro { display: contents; }
+  .sample-intake .sample-intro > .sample-eyebrow { margin: 0 0 -.85rem; }
+  .sample-intake .sample-lead { margin: -.4rem 0 0; max-width: 42ch; }
+  .sample-intake .sample-contact { order: 1; margin: .5rem 0 0; }
+}
+@media (max-width: 440px) { .sample-intake .sample-contact-row { grid-template-columns: 1fr; } }

@@ -1,0 +1,26 @@
+.owner-inbox { box-sizing: border-box; margin: 0 auto; width: min(53rem, 100%); padding: clamp(2rem, 7vw, 5rem) clamp(1rem, 4vw, 2rem); color: #252b23; }
+.owner-inbox *, .owner-inbox *::before { box-sizing: border-box; }
+.owner-inbox [hidden] { display: none !important; }
+.owner-inbox header { border-bottom: 1px solid #bfc6b9; padding-bottom: 1.4rem; margin-bottom: 1.5rem; }
+.owner-inbox .owner-label { margin: 0 0 .65rem; font-size: .79rem; letter-spacing: .075em; text-transform: uppercase; }
+.owner-inbox h1 { margin: 0; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.04; letter-spacing: -.055em; font-weight: 550; }
+.owner-inbox h2 { margin: 0; font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 600; line-height: 1.2; letter-spacing: -.035em; }
+.owner-inbox form, .owner-inbox .owner-record { padding: clamp(1.15rem, 4vw, 2rem); background: #f8f8f2; border: 1px solid #c4cbbd; border-radius: .7rem; }
+.owner-inbox form { display: grid; gap: 1.25rem; max-width: 31rem; }
+.owner-inbox label { display: grid; gap: .5rem; font-weight: 600; }
+.owner-inbox input { min-width: 0; width: 100%; border-radius: .35rem; border: 1px solid #929c89; padding: .8rem; font: inherit; background: white; color: #20261e; }
+.owner-inbox button { cursor: pointer; border: 1px solid #9ca790; background: #fff; color: #252b23; padding: .65rem .95rem; border-radius: .4rem; min-height: 2.75rem; font: inherit; }
+.owner-inbox .owner-primary { background: #273123; color: white; border-color: #273123; }
+.owner-inbox button:disabled { opacity: .56; cursor: default; }
+.owner-inbox :is(a,button,input):focus-visible { outline: 3px solid #2b72a9; outline-offset: 3px; }
+.owner-inbox .owner-toolbar, .owner-inbox nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .65rem; }
+.owner-inbox .owner-status { line-height: 1.5; color: #495340; }
+.owner-inbox .owner-records { display: grid; gap: 1.1rem; margin: 1rem 0; }
+.owner-inbox .owner-record { overflow-wrap: anywhere; }
+.owner-inbox .owner-record time { display: block; margin-bottom: .55rem; font-size: .86rem; color: #4c5744; }
+.owner-inbox .owner-brief { white-space: pre-wrap; line-height: 1.55; }
+.owner-inbox dl { display: grid; grid-template-columns: minmax(5rem, max-content) 1fr; gap: .45rem 1rem; border-top: 1px solid #d4d9ce; padding-top: .9rem; }
+.owner-inbox dt { font-weight: 600; }
+.owner-inbox dd { margin: 0; min-width: 0; }
+.owner-inbox a { color: #28512c; text-decoration: underline; text-underline-offset: .18em; }
+.owner-inbox .owner-record > a { display: inline-flex; align-items: center; min-height: 2.75rem; }
