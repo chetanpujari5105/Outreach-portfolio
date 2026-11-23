@@ -9,6 +9,8 @@ const queue = [...demos, ...demos.map(u => u.replace('/demo/', '/site/'))];
 // Hand-typed query strings never appear as links, so seed the malformed ones that once threw.
 for (const q of ['checkin=2026-13-01', 'checkin=2026-12-00&checkout=2026-02-31', 'adults=abc'])
   queue.push('/site/casa-neem/rooms?' + q, '/site/casa-neem/rooms/loft?' + q);
+for (const q of ['length=9', 'length=-1', 'stylist=__proto__', 'stylist=toString'])
+  queue.push('/site/salon-booking/services?' + q, '/site/salon-booking/looks?' + q);
 const seen = new Set();
 while (queue.length) {
   const url = new URL(queue.shift(), 'https://studio.example');

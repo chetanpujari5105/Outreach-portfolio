@@ -383,3 +383,24 @@ if (head) {
     timer = setTimeout(() => note.classList.remove("show"), 3200);
   });
 }
+// Live "open now" line from the studio's hours (data-open="10,19", India time).
+brand.querySelectorAll("[data-open]").forEach((el) => {
+  const [from, to] = el.dataset.open.split(",").map(Number);
+  const [h, m] = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date()).split(":").map(Number);
+  const now = h + m / 60, on = now >= from && now < to;
+  const t = (x) => (x % 12 || 12) + (x < 12 ? " am" : " pm");
+  el.classList.toggle("is-open", on);
+  el.querySelector("b").textContent = on ? "Open now" : "Closed now";
+  el.lastChild.textContent = on ? ` · until ${t(to)}` : ` · opens ${t(from)}${now >= to ? " tomorrow" : ""}`;
+});
+// Price-by-length menus: prices switch in CSS; keep the Book links carrying the chosen length.
+brand.querySelectorAll("[data-menu-len]").forEach((menu) =>
+  menu.addEventListener("change", (e) => {
+    if (e.target.name !== "length") return;
+    menu.querySelectorAll("a.item-book").forEach((a) => {
+      const u = new URL(a.href);
+      u.searchParams.set("length", e.target.value);
+      a.href = u.pathname + u.search;
+    });
+  }),
+);

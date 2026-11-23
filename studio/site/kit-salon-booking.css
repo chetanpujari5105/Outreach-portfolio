@@ -1,0 +1,221 @@
+/* Forma: hair & colour studio site. Anton for display, Bodoni Moda italic for the voice, Manrope for reading. */
+.brand.b-salon-booking {
+  --bg: #eee8df;
+  --fg: #211919;
+  --accent: #a52f2d;
+  --on-accent: #fff7f0;
+  --soft: #e4dacc;
+  --muted: #6e605a;
+  --line: rgb(33 25 25 / 0.14);
+  --hf: Anton, Impact, sans-serif;
+  --sf: "Bodoni Moda", Georgia, serif;
+  --bf: Manrope, system-ui, sans-serif;
+  --head-h: 72px;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  line-height: 1.55;
+}
+.b-salon-booking :is(h1, h2, h3) { margin: 0; font-family: var(--hf); font-weight: 400; text-transform: uppercase; letter-spacing: 0.005em; line-height: 0.92; text-wrap: balance; }
+.b-salon-booking :is(h1, h2, h3) em { font-family: var(--sf); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.02em; color: var(--accent); }
+.b-salon-booking p { margin: 0; }
+.b-salon-booking .site-name { text-transform: uppercase; letter-spacing: 0.06em; }
+.b-salon-booking .kicker { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; font: 600 12px/1.2 var(--bf); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.b-salon-booking .lede { font-size: clamp(17px, 1.35vw, 19px); max-width: 42ch; color: color-mix(in srgb, var(--fg) 82%, var(--bg)); }
+.b-salon-booking .small { font-size: 13px; color: var(--muted); }
+.b-salon-booking .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(28px, 4vw, 48px); }
+.b-salon-booking .sec-head h2 { font-size: clamp(44px, 6vw, 92px); }
+.b-salon-booking a.action { display: inline-flex; align-items: center; gap: 10px; padding: 16px 26px; border: 0; border-radius: 999px; background: var(--accent); color: var(--on-accent); font: 600 15px/1 var(--bf); text-decoration: none; transition: background 0.3s; }
+.b-salon-booking a.action:hover { background: color-mix(in srgb, var(--accent) 84%, #000); }
+
+/* Cover: an editorial split, copy on bone beside a full-height portrait. */
+.f-cover { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(880px, calc(100svh - var(--head-h))); }
+.f-cover-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(40px, 6vw, 96px) clamp(24px, 4vw, 64px) clamp(32px, 4vw, 56px) var(--pad); }
+.f-cover h1 { font-size: clamp(64px, 9.2vw, 152px); margin-bottom: 28px; }
+.f-cover h1 em { display: inline-block; font-size: 1.04em; line-height: 1; }
+.f-cover-act { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.f-cover-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 36px; margin-top: auto; padding-top: 40px; }
+.f-cover-pic { position: relative; margin: 0; overflow: hidden; background: var(--soft); }
+.f-cover-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* The bob portrait is landscape with her face right of centre; keep it in frame wherever it is cropped tall. */
+.b-salon-booking img[src$="/salon-hero.webp"] { object-position: 78% 30%; }
+.f-cover-pic figcaption { position: absolute; left: 20px; bottom: 20px; padding: 9px 14px; border-radius: 999px; background: color-mix(in srgb, var(--bg) 90%, transparent); font-size: 13px; font-weight: 600; }
+.motion .f-cover-pic img { animation: f-unveil 1.4s var(--ease) both; }
+.motion .f-cover-copy > * { animation: f-rise 1s var(--ease) both; }
+.motion .f-cover-copy > :nth-child(2) { animation-delay: 0.08s; }
+.motion .f-cover-copy > :nth-child(3) { animation-delay: 0.16s; }
+.motion .f-cover-copy > :nth-child(n + 4) { animation-delay: 0.24s; }
+@keyframes f-unveil { from { clip-path: inset(100% 0 0 0); transform: scale(1.08); } to { clip-path: inset(0); transform: none; } }
+@keyframes f-rise { from { opacity: 0; transform: translateY(24px); } }
+
+.open-now { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; }
+.open-now span { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+.open-now.is-open span { background: #2f8a4c; box-shadow: 0 0 0 0 rgb(47 138 76 / 0.5); animation: f-pulse 2.4s infinite; }
+@keyframes f-pulse { 70% { box-shadow: 0 0 0 9px rgb(47 138 76 / 0); } 100% { box-shadow: 0 0 0 0 rgb(47 138 76 / 0); } }
+.score { display: flex; align-items: center; gap: 14px; }
+.score > b { font: 400 44px/1 var(--hf); }
+.score > div { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+
+.ticker { overflow: hidden; background: var(--accent); color: var(--on-accent); padding: 16px 0; }
+.ticker > div { display: flex; width: max-content; }
+.ticker span { font: 400 clamp(20px, 2vw, 26px)/1 var(--hf); text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; }
+.ticker span::after { content: "✦"; margin: 0 30px; font-size: 0.6em; vertical-align: 0.25em; opacity: 0.7; }
+.motion .ticker > div { animation: f-tick 48s linear infinite; }
+@keyframes f-tick { to { transform: translateX(-50%); } }
+
+/* Lookbook rail and grid share one card. */
+.lookbook, .stylists, .visit-steps, .questions, .look-grid { padding: clamp(72px, 9vw, 128px) var(--pad); }
+.lookbook.more { padding-top: 0; }
+.lookbook > .text-link { margin-top: 28px; }
+.looks-rail { grid-auto-columns: clamp(240px, 27vw, 380px); gap: 24px; }
+.brand .look { position: relative; display: grid; gap: 14px; color: inherit; text-decoration: none; }
+.look img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: var(--soft); clip-path: inset(0 round 4px); transition: clip-path 0.7s var(--ease); }
+.look:hover img { clip-path: inset(12px round 4px); }
+.lk-n { position: absolute; top: 14px; left: 14px; padding: 7px 10px; border-radius: 999px; background: rgb(33 25 25 / 0.6); color: #fff; font: 600 12px/1 var(--bf); letter-spacing: 0.08em; }
+.lk-t { display: grid; gap: 4px; }
+.lk-t b { font: 400 clamp(22px, 2vw, 28px)/1 var(--hf); text-transform: uppercase; }
+.lk-t small { font-size: 14px; color: var(--muted); }
+.look-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 28px; }
+.lookbook .look-grid { padding: 0; }
+
+/* The menu: priced by hair length. Radios switch the visible price with :has, so it works without JS. */
+.f-menu { padding: clamp(72px, 9vw, 128px) var(--pad); background: var(--fg); color: var(--bg); }
+.f-menu-head { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 64px; align-items: end; margin-bottom: 48px; }
+.f-menu-head h2 { font-size: clamp(64px, 10vw, 160px); }
+.f-menu-head p { max-width: 44ch; opacity: 0.78; }
+.f-menu .len { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 56px; padding: 0; border: 0; }
+.f-menu .len legend { float: left; width: 100%; margin-bottom: 14px; font: 600 12px/1 var(--bf); letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+.f-menu .len label { position: relative; cursor: pointer; }
+.f-menu .len input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.f-menu .len label span { display: block; padding: 14px 26px; border: 1px solid color-mix(in srgb, var(--bg) 28%, transparent); border-radius: 999px; font-weight: 600; transition: background 0.3s, color 0.3s, border-color 0.3s; }
+.f-menu .len input:checked + span { background: var(--bg); color: var(--fg); border-color: var(--bg); }
+.f-menu .len input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+.f-menu .len p { flex-basis: 100%; margin-top: 12px; font-size: 14px; opacity: 0.6; }
+.menu-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px clamp(32px, 4vw, 64px); }
+.menu-cols h3 { padding-bottom: 16px; border-bottom: 1px solid color-mix(in srgb, var(--bg) 25%, transparent); font-size: 34px; color: color-mix(in srgb, var(--accent) 55%, var(--bg)); }
+.item { display: grid; grid-template-columns: 1fr auto; gap: 20px; padding: 22px 0; border-bottom: 1px solid color-mix(in srgb, var(--bg) 12%, transparent); }
+.item h4 { margin: 0 0 6px; font: 600 17px/1.3 var(--bf); }
+.item p { font-size: 14px; opacity: 0.68; }
+.item-end { display: grid; justify-items: end; align-content: start; gap: 4px; text-align: right; }
+.cost b { font: 600 18px/1.2 var(--bf); font-variant-numeric: tabular-nums; animation: f-price 0.45s var(--ease); }
+.item-end small { font-size: 13px; opacity: 0.6; }
+.brand .item-book { margin-top: 8px; padding: 7px 14px; border: 1px solid color-mix(in srgb, var(--bg) 35%, transparent); border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.3s, color 0.3s; }
+.brand .item-book:hover { background: var(--bg); color: var(--fg); }
+.menu .cost .p1, .menu .cost .p2,
+.menu:has([value="1"]:checked) .cost .p0, .menu:has([value="2"]:checked) .cost .p0 { display: none; }
+.menu:has([value="1"]:checked) .cost .p1, .menu:has([value="2"]:checked) .cost .p2 { display: inline; }
+@keyframes f-price { from { opacity: 0; transform: translateY(6px); } }
+
+/* Stylists */
+.st-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 4vw, 64px); }
+.stylist { display: grid; gap: 24px; align-content: start; }
+.brand .st-pic { display: block; overflow: hidden; border-radius: 4px; }
+.st-pic img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 1.2s var(--ease); }
+.st-pic:hover img { transform: scale(1.04); }
+.st-role { font: 600 12px/1.2 var(--bf); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.stylist h3 { margin: 10px 0 14px; font-size: clamp(56px, 7vw, 110px); }
+.stylist h3 a { text-decoration: none; }
+.stylist blockquote { margin: 0 0 18px; font: italic 400 clamp(21px, 2vw, 27px)/1.3 var(--sf); }
+.stylist .st-copy > p:not(.st-role) { max-width: 52ch; margin-bottom: 22px; color: color-mix(in srgb, var(--fg) 80%, var(--bg)); }
+.st-act { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
+.stylists.solo { padding-top: 0; }
+.solo .st-grid { grid-template-columns: 1fr; gap: 88px; }
+.solo .stylist { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+
+/* The visit, step by step */
+.visit-steps { background: var(--soft); }
+.visit-steps ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.visit-steps img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; margin-bottom: 18px; }
+.vs-n { display: block; margin-bottom: 10px; font: 600 12px/1 var(--bf); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.visit-steps h3 { margin-bottom: 10px; font-size: 28px; }
+.visit-steps p { font-size: 15px; color: color-mix(in srgb, var(--fg) 78%, var(--bg)); }
+.motion .visit-steps [data-reveal] { transition-delay: calc(var(--i) * 90ms); }
+
+/* Reviews */
+.f-reviews { padding: clamp(72px, 9vw, 128px) var(--pad); }
+.f-reviews .score > b { font-size: clamp(72px, 9vw, 128px); }
+.f-reviews .score > div { font-size: 15px; }
+.f-reviews .rail { grid-auto-columns: min(460px, 86%); }
+.f-reviews blockquote { display: grid; align-content: space-between; gap: 32px; min-height: 280px; margin: 0; padding: 34px; border: 1px solid var(--line); border-radius: 6px; }
+.f-reviews blockquote p { font: italic 400 clamp(22px, 2vw, 28px)/1.3 var(--sf); }
+.f-reviews footer { font-size: 14px; color: var(--muted); }
+.f-reviews footer b { display: block; color: var(--fg); }
+
+/* Find the studio */
+.find { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); background: var(--fg); color: var(--bg); }
+.find figure { margin: 0; min-height: 560px; }
+.find figure img { width: 100%; height: 100%; object-fit: cover; }
+.find-copy { padding: clamp(48px, 6vw, 96px) var(--pad) clamp(48px, 6vw, 96px) clamp(32px, 5vw, 80px); }
+.find h2 { font-size: clamp(48px, 6vw, 88px); margin-bottom: 22px; }
+.find .open-now span { background: color-mix(in srgb, var(--bg) 50%, transparent); }
+.find .open-now.is-open span { background: #4fbf72; }
+.find dl { margin: 32px 0; }
+.find dl div { padding: 16px 0; border-top: 1px solid color-mix(in srgb, var(--bg) 18%, transparent); }
+.find dt { font: 600 12px/1 var(--bf); letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; margin-bottom: 8px; }
+.find dd { margin: 0; }
+.find-act { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.questions { max-width: 980px; margin: 0 auto; }
+.questions h2 { margin-bottom: 36px; font-size: clamp(44px, 5.5vw, 80px); }
+.b-salon-booking .faq summary { font: 600 clamp(17px, 1.4vw, 20px)/1.35 var(--bf); text-transform: none; }
+
+.f-cta { display: grid; justify-items: center; gap: 22px; padding: clamp(80px, 11vw, 160px) var(--pad); background: var(--accent); color: var(--on-accent); text-align: center; }
+.f-cta h2 { font-size: clamp(60px, 11vw, 176px); }
+.f-cta h2 em { color: var(--bg); }
+.f-cta-act { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 10px; }
+.brand .f-cta .pill.solid { background: var(--bg); border-color: var(--bg); color: var(--fg); }
+
+/* Inner pages */
+.f-top { padding: clamp(56px, 8vw, 112px) var(--pad) clamp(32px, 4vw, 56px); }
+.f-top h1 { font-size: clamp(56px, 8.4vw, 136px); margin-bottom: 24px; }
+.f-top > p:not(.kicker) { max-width: 54ch; color: color-mix(in srgb, var(--fg) 80%, var(--bg)); }
+.f-top.slim h1 { font-size: clamp(44px, 6vw, 92px); }
+.f-top + .look-grid { padding-top: 24px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+.brand .chips a { padding: 11px 20px; border: 1px solid var(--line); border-radius: 999px; font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.3s; }
+.brand .chips a:hover { background: var(--soft); }
+.brand .chips a.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.look-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); padding: clamp(24px, 3vw, 40px) var(--pad) clamp(72px, 9vw, 120px); align-items: start; }
+.look-hero figure { position: sticky; top: calc(var(--head-h) + 16px); margin: 0; }
+.look-hero figure img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; }
+.look-hero article { padding-top: clamp(8px, 4vw, 64px); }
+.crumbs { margin-bottom: 26px; font-size: 14px; color: var(--muted); }
+.brand .crumbs a { color: inherit; }
+.look-hero h1 { font-size: clamp(56px, 7vw, 112px); margin-bottom: 24px; }
+.look-facts { margin: 36px 0 32px; }
+.look-facts div { display: flex; justify-content: space-between; gap: 16px; padding: 15px 0; border-top: 1px solid var(--line); }
+.look-facts dt { color: var(--muted); }
+.look-facts dd { margin: 0; font-weight: 600; text-align: right; }
+.look-facts .tot { border-top-color: var(--fg); }
+.look-facts .tot dd { font: 400 34px/1 var(--hf); }
+.look-hero .small { margin-top: 16px; }
+
+/* Booking flow inside the site: the page header already introduces it, so drop the flow's own side panel. */
+.b-salon-booking .workflow { padding: 0 var(--pad) clamp(72px, 9vw, 120px); }
+.b-salon-booking .dm-salon .dm-intro { display: none; }
+.b-salon-booking .dm-salon .dm-layout { grid-template-columns: 1fr; }
+
+@media (max-width: 1080px) {
+  .menu-cols { grid-template-columns: 1fr 1fr; }
+  .visit-steps ol { grid-template-columns: 1fr 1fr; row-gap: 48px; }
+}
+@media (max-width: 900px) {
+  .f-cover { grid-template-columns: 1fr; min-height: 0; }
+  .f-cover-pic { order: -1; aspect-ratio: 4 / 5; max-height: 64svh; }
+  .f-cover-copy { padding: 36px var(--pad) 48px; }
+  .f-cover-meta { margin-top: 0; }
+  .f-menu-head, .find, .look-hero, .solo .stylist { grid-template-columns: 1fr; }
+  .find figure { min-height: 0; aspect-ratio: 3 / 2; }
+  .find-copy { padding: 48px var(--pad); }
+  .look-hero figure { position: static; }
+  .look-grid { grid-template-columns: 1fr 1fr; gap: 36px 16px; }
+}
+@media (max-width: 600px) {
+  .menu-cols, .st-grid { grid-template-columns: 1fr; }
+  .visit-steps ol { grid-template-columns: 1fr; }
+  .b-salon-booking .sec-head { flex-wrap: wrap; align-items: start; }
+  .f-cover-act .pill { flex: 1 1 auto; }
+  .lk-t b { font-size: 19px; }
+}
+.brand.b-salon-booking .workflow .dm h2 { font-family: var(--hf); font-weight: 400; letter-spacing: 0.005em; }
+.brand.b-salon-booking .workflow .dm-link { background: none; }

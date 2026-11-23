@@ -382,6 +382,20 @@
   display: grid;
   grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
 }
+.dm-salon .dm-len {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+.dm-salon .dm-len > span {
+  flex-basis: 100%;
+  font: 600 0.72rem/1 Manrope, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 6px;
+}
 .dm-salon .dm-intro {
   padding: clamp(1.25rem, 3vw, 2.8rem);
   background: #e7dfd3;

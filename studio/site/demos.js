@@ -89,34 +89,32 @@ const locations = {
     end: 18,
   },
 };
-const services = [
-  {
-    name: "Cut & finish",
-    detail: "A tailored cut with a wash and blow-dry.",
-    duration: 60,
-    prices: [1600, 65],
-  },
-  {
-    name: "Lived-in colour",
-    detail: "Soft, dimensional colour and a gloss finish.",
-    duration: 120,
-    prices: [4200, 150],
-  },
-  {
-    name: "Signature blowout",
-    detail: "A smoothing wash, dry and brush finish.",
-    duration: 45,
-    prices: [950, 42],
-  },
+// Indexes 0–2 predate the full Forma site and appear in old links, so new services are appended.
+// len: priced by hair length (short, shoulder, long); +20% per step.
+export const salonServices = [
+  { name: "Cut & finish", detail: "Consultation, wash, a precision cut and a blow-dry.", duration: 60, prices: [1600, 65], len: true, img: "salon-cut" },
+  { name: "Lived-in colour", detail: "Hand-painted balayage or ribbons, toned with a gloss. Blow-dry included.", duration: 120, prices: [4200, 150], len: true, img: "salon-colour" },
+  { name: "Signature blowout", detail: "Wash, scalp massage and a round-brush finish that lasts three days.", duration: 45, prices: [950, 42], len: true, img: "salon-blowout" },
+  { name: "Men's cut", detail: "Scissor or clipper cut, wash and a style you can repeat at home.", duration: 45, prices: [900, 38], img: "forma-crop" },
+  { name: "Root touch-up", detail: "Single-process colour on up to 3 cm of regrowth.", duration: 75, prices: [2200, 85], img: "forma-basin" },
+  { name: "Tonal gloss", detail: "A demi-permanent gloss for shine and tone that fades softly over six weeks.", duration: 45, prices: [1800, 70], len: true, img: "forma-gloss" },
 ];
+export const hairLengths = ["Short", "Shoulder", "Long"];
+export const salonPrice = (s, length = 0, place = 0) => {
+  const base = salonServices[s].prices[place];
+  if (!salonServices[s].len) return base;
+  const p = base * (1 + 0.2 * length);
+  return place ? Math.round(p) : Math.round(p / 50) * 50;
+};
+const services = salonServices;
 const stylists = ["Any available stylist", "Mira", "Alex"];
-const serviceImg = ["cut", "colour", "blowout"];
 const stylistImg = [null, "mira", "alex"];
 const calendarLabels = ["Service", "Stylist", "Date & time", "Review"];
 function salon(root) {
   let city = "pune",
     service = 0,
     stylist = 0,
+    length = 0,
     step = 0,
     date,
     slot = "",
@@ -133,14 +131,15 @@ function salon(root) {
       /^\d{1,2}:\d{2}$/.test(r.slot),
   );
   const incoming = new URLSearchParams(location.search);
-  if (["0","1","2"].includes(incoming.get("service"))) service = Number(incoming.get("service"));
+  if (/^[0-5]$/.test(incoming.get("service") || "")) service = Number(incoming.get("service"));
+  if (/^[0-2]$/.test(incoming.get("length") || "")) length = Number(incoming.get("length"));
   if (["1","2"].includes(incoming.get("stylist"))) stylist = Number(incoming.get("stylist"));
   const loc = () => locations[city];
   const firstDay = () => dayOffset(todayAt(loc().zone), 1);
   date = firstDay();
-  const price = (i) =>
+  const price = (i, len = length) =>
     money(
-      services[i].prices[city === "pune" ? 0 : 1],
+      salonPrice(i, len, city === "pune" ? 0 : 1),
       loc().currency,
       loc().locale,
     );
@@ -188,10 +187,10 @@ function salon(root) {
   }
   function summary(r) {
     const place = locations[r.city];
-    return `<dl class="dm-facts"><div><dt>Service</dt><dd>${services[r.service].name}</dd></div><div><dt>Stylist</dt><dd>${stylists[r.assigned]}</dd></div><div><dt>When</dt><dd>${dateText(r.date, place.locale)} · ${displayTime(r.slot, place)}</dd></div><div><dt>Studio</dt><dd>${place.area}, ${place.city}</dd></div></dl>`;
+    return `<dl class="dm-facts"><div><dt>Service</dt><dd>${services[r.service].name}${services[r.service].len && r.length != null ? " · " + hairLengths[r.length].toLowerCase() + " hair" : ""}</dd></div><div><dt>Stylist</dt><dd>${stylists[r.assigned]}</dd></div><div><dt>When</dt><dd>${dateText(r.date, place.locale)} · ${displayTime(r.slot, place)}</dd></div><div><dt>Studio</dt><dd>${place.area}, ${place.city}</dd></div></dl>`;
   }
   function serviceRow(s, i) {
-    return `<button type="button" class="dm-choice dm-forma-card" data-action="service" data-i="${i}" aria-pressed="${service === i}"><img class="dm-forma-card-img" src="/assets/salon-${serviceImg[i]}.webp" alt="" width="640" height="640" loading="lazy"><span class="dm-forma-card-body"><span class="dm-forma-card-name"><span class="dm-radio" aria-hidden="true"></span><strong>${s.name}</strong></span><small>${s.detail}</small><span class="dm-choice-end">${price(i)}<small>${s.duration} min</small></span></span></button>`;
+    return `<button type="button" class="dm-choice dm-forma-card" data-action="service" data-i="${i}" aria-pressed="${service === i}"><img class="dm-forma-card-img" src="/assets/${s.img}.webp" alt="" width="640" height="640" loading="lazy"><span class="dm-forma-card-body"><span class="dm-forma-card-name"><span class="dm-radio" aria-hidden="true"></span><strong>${s.name}</strong></span><small>${s.detail}</small><span class="dm-choice-end">${price(i)}<small>${s.duration} min</small></span></span></button>`;
   }
   function render(focus = true) {
     const place = loc();
@@ -209,11 +208,11 @@ function salon(root) {
           : "<p>Requests made in this demo appear here.</p>"
       }${button("customer", "Back to booking", "dm-primary")}`;
     } else if (receipt) {
-      panel = `<p class="dm-kicker">Sample request received</p><h2 tabindex="-1" data-focus>You’re on the list.</h2><p>Your sample appointment request is ready for the studio to review.</p>${summary(receipt)}${button("owner", "See the studio’s request list", "dm-primary")} ${button("new", "Book another service", "dm-link")}`;
+      panel = `<p class="dm-kicker">Request received</p><h2 tabindex="-1" data-focus>You’re on the list.</h2><p>The studio confirms your time by ${place.contact === "Email" ? "email" : place.contact}, usually within the hour. Nothing is charged until your visit.</p>${summary(receipt)}${button("owner", "See the studio’s request list", "dm-primary")} ${button("new", "Book another service", "dm-link")}`;
     } else {
       let content = "";
       if (step === 0)
-        content = `<div class="dm-forma-grid">${services.map(serviceRow).join("")}</div>`;
+        content = `<div class="dm-len" role="group" aria-label="Hair length"><span>Hair length</span>${hairLengths.map((l, i) => button("length", l, "dm-chip", `data-i="${i}" aria-pressed="${length === i}"`)).join("")}</div><div class="dm-forma-grid">${services.map(serviceRow).join("")}</div>`;
       if (step === 1)
         content = `<div class="dm-forma-grid dm-forma-people">${stylists
           .map(
@@ -233,7 +232,7 @@ function salon(root) {
           return render(focus);
         }
         content =
-          summary({ city, service, date, slot, assigned: selected.person }) +
+          summary({ city, service, length, date, slot, assigned: selected.person }) +
           `<div class="dm-total"><span>Service total</span><strong>${price(service)}</strong></div>`;
       }
       const headings = [
@@ -242,7 +241,7 @@ function salon(root) {
         "Find a time",
         "Review your request",
       ];
-      panel = `<ol class="dm-steps" aria-label="Booking progress">${calendarLabels.map((s, i) => `<li ${i === step ? 'aria-current="step"' : ""}>${i + 1}. ${s}</li>`).join("")}</ol><h2 data-focus tabindex="-1">${headings[step]}</h2>${content}<div class="dm-controls">${step ? button("back", "← Back", "dm-link") : ""}${button("continue", step === 3 ? "Send sample request " + next : "Continue " + next, "dm-primary", step === 2 && !slot ? "disabled" : "")}</div>`;
+      panel = `<ol class="dm-steps" aria-label="Booking progress">${calendarLabels.map((s, i) => `<li ${i === step ? 'aria-current="step"' : ""}>${i + 1}. ${s}</li>`).join("")}</ol><h2 data-focus tabindex="-1">${headings[step]}</h2>${content}<div class="dm-controls">${step ? button("back", "← Back", "dm-link") : ""}${button("continue", step === 3 ? "Send request " + next : "Continue " + next, "dm-primary", step === 2 && !slot ? "disabled" : "")}</div>`;
     }
     setView(
       root,
@@ -278,6 +277,10 @@ function salon(root) {
         .forEach((btn) => btn.setAttribute("aria-pressed", String(btn === el)));
       return;
     }
+    if (action === "length") {
+      length = Number(el.dataset.i);
+      return render(false);
+    }
     if (action === "slot") {
       slot = el.dataset.value;
       root
@@ -300,7 +303,7 @@ function salon(root) {
           step = 2;
           slot = "";
         } else {
-          receipt = { city, service, date, slot, assigned: selected.person };
+          receipt = { city, service, length, date, slot, assigned: selected.person };
           rows.push(receipt);
           saveRows("salon", rows);
         }

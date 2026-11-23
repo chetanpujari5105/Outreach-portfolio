@@ -14,6 +14,12 @@
         "value": "instrument serif",
         "createdAt": "2026-11-23T20:46:40.762Z",
         "reason": "Claude: existing per-brand kit font in brands.css, not part of this change"
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "createdAt": "2026-11-23T20:59:49.431Z",
+        "reason": "Claude: existing font of another industry demo in demos.css, untouched by the Forma change"
       }
     ]
   }
