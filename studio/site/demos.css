@@ -380,31 +380,6 @@
 .dm-cafe .dm-wordmark {
   font-size: 1.9rem;
 }
-.dm-cafe .dm-cafe-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: #e9e8cc;
-}
-.dm-cafe .dm-cafe-hero > div {
-  padding: clamp(1.3rem, 4.5vw, 4.5rem);
-}
-.dm-cafe .dm-cafe-hero h1 {
-  margin: 0.65rem 0 1.1rem;
-}
-.dm-cafe .dm-cafe-hero p:not(.dm-kicker) {
-  color: var(--dm-muted);
-  font-size: 0.92rem;
-}
-.dm-cafe .dm-cafe-hero .dm-primary {
-  margin-top: 1.2rem;
-}
-.dm-cafe .dm-cafe-hero img {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  max-height: 520px;
-  object-fit: cover;
-}
 .dm-cafe .dm-menu {
   padding: clamp(1.25rem, 3.7vw, 3.5rem);
 }
@@ -480,6 +455,151 @@
 .dm-cafe .dm-dialog p:not(.dm-kicker),
 .dm-cafe .dm-dialog .dm-field {
   margin: 0.9rem 0;
+}
+.dm-cafe .dm-cafe-cover {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: clamp(460px, 62vw, 660px);
+  color: #fffbef;
+  isolation: isolate;
+}
+.dm-cafe .dm-cafe-cover > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+.dm-cafe .dm-cafe-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #10271e00 25%, #10271ecc 72%, #10271ef2);
+}
+.dm-cafe .dm-cover-copy {
+  padding: clamp(1.3rem, 4.5vw, 4rem);
+  max-width: 38rem;
+}
+.dm-cafe .dm-cafe-cover .dm-kicker {
+  color: #f2d68a;
+}
+.dm-cafe .dm-cafe-cover h1 {
+  color: #fffbef;
+  margin: 0.4rem 0 1rem;
+}
+.dm-cafe .dm-cafe-cover h1 em {
+  color: #f2d68a;
+}
+.dm-cafe .dm-cafe-cover p:not(.dm-kicker) {
+  color: #e8ead9;
+  font-size: 0.95rem;
+}
+.dm-cafe .dm-cafe-cover .dm-primary {
+  margin-top: 1.3rem;
+  background: #f2d68a;
+  color: #10271e;
+}
+.dm-cafe .dm-stamp {
+  position: absolute;
+  top: clamp(1rem, 3vw, 2.2rem);
+  right: clamp(1rem, 3vw, 2.2rem);
+  width: clamp(92px, 12vw, 132px);
+  fill: #fffbef;
+  animation: dm-spin 24s linear infinite;
+}
+.dm-cafe .dm-stamp text {
+  font: 700 9.5px "DM Sans", sans-serif;
+  letter-spacing: 0.18em;
+}
+.dm-cafe .dm-stamp circle {
+  fill: #f2d68a;
+}
+.dm-cafe .dm-stamp .dm-stamp-sun {
+  font-size: 20px;
+  letter-spacing: 0;
+  fill: #10271e;
+}
+.dm-cafe .dm-ticker {
+  overflow: hidden;
+  background: #f2d68a;
+  color: #10271e;
+  border-block: 1px solid #10271e;
+  white-space: nowrap;
+}
+.dm-cafe .dm-ticker span {
+  display: inline-block;
+  padding: 0.7rem 0;
+  font: 400 1.35rem/1 var(--dm-display);
+  letter-spacing: -0.02em;
+  animation: dm-marquee 38s linear infinite;
+}
+@keyframes dm-marquee {
+  to { transform: translateX(-50%); }
+}
+@keyframes dm-spin {
+  to { transform: rotate(1turn); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dm-cafe .dm-ticker span,
+  .dm-cafe .dm-stamp {
+    animation: none;
+  }
+}
+.dm-cafe .dm-dish-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 999px 999px 6px 6px;
+  margin-bottom: 0.3rem;
+  transition: transform 0.35s ease;
+}
+.dm-cafe .dm-dish:hover .dm-dish-img {
+  transform: scale(1.02);
+}
+.dm-cafe .dm-space {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 4vw, 4rem);
+  align-items: center;
+  padding: clamp(1.25rem, 3.7vw, 3.5rem);
+  background: #203f2f;
+  color: #e8ead9;
+}
+.dm-cafe .dm-space img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 999px 999px 8px 8px;
+}
+.dm-cafe .dm-space h2 {
+  color: #fffbef;
+}
+.dm-cafe .dm-space h2 em {
+  color: #f2d68a;
+}
+.dm-cafe .dm-space .dm-kicker {
+  color: #f2d68a;
+}
+.dm-cafe .dm-space p:not(.dm-kicker) {
+  max-width: 30rem;
+  margin-bottom: 1.4rem;
+}
+.dm-cafe .dm-space .dm-primary {
+  background: #f2d68a;
+  color: #10271e;
+}
+.dm-cafe .dm-dialog-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 6px;
+  margin: 0.8rem 0 1rem;
 }
 .dm-bill {
   --dm-paper: #fffdf8;
@@ -686,14 +806,17 @@
   .dm-salon .dm-steps li {
     font-size: 0.69rem;
   }
-  .dm-cafe .dm-cafe-hero {
+      .dm-cafe .dm-dishes {
     grid-template-columns: 1fr;
   }
-  .dm-cafe .dm-cafe-hero img {
-    height: clamp(140px, 38vw, 200px);
-  }
-  .dm-cafe .dm-dishes {
+  .dm-cafe .dm-space {
     grid-template-columns: 1fr;
+  }
+  .dm-cafe .dm-space img {
+    max-height: 420px;
+  }
+  .dm-cafe .dm-dish-img {
+    aspect-ratio: 4 / 3;
   }
   .dm-cafe .dm-dish {
     padding: 0.83rem 0.12rem 0.5rem;

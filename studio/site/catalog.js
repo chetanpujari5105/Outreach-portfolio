@@ -27,7 +27,7 @@ export const projects = [
   project('salon-booking', 'Salon booking', 'Studio demo', 'A service-to-stylist booking flow with a sample request for the front desk.', 'Booking systems', 'salon', 'salons', 'Try the booking demo', '/demo/salon-booking',
     'I designed this salon example to show both sides of a booking request, from the visitor’s first choice to the front desk’s incoming list.',
     ['Pick a service and compare the price and duration.', 'Choose a stylist, a day and a sample slot.', 'Review the details, send the sample and inspect the owner view.']),
-  project('daybreak-cafe', 'Daybreak Café', 'Studio demo', 'A mobile café menu with dish details and an enquiry for group tables.', 'Menus & enquiries', 'cafe', 'cafes', 'Visit the café demo', '/demo/daybreak-cafe',
+  project('daybreak-cafe', 'Daybreak Café', 'Studio demo', 'A mobile café menu with dish details and an enquiry for group tables.', 'Menus & enquiries', 'daybreak-cafe-hero', 'cafes', 'Visit the café demo', '/demo/daybreak-cafe',
     'I built a fictional café experience around two everyday questions: what is on the menu today, and how to ask about a group table.',
     ['Open the menu and explore the food and drinks.', 'Choose an item to see its description and price.', 'Send a sample group dining enquiry and see its acknowledgement.']),
   project('studio-billing', 'Studio billing', 'Studio demo', 'An editable invoice that carries a sample customer, items and totals into an owner’s invoice list.', 'Billing tools', 'billing', 'home-services', 'Try the invoice demo', '/demo/studio-billing',

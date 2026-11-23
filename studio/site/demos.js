@@ -336,6 +336,7 @@ function salon(root) {
 const dishes = [
   {
     name: "Flat white",
+    img: "/assets/daybreak-dish-flat-white.webp",
     category: "Coffee",
     price: 210,
     description: "A double shot of house espresso with silky steamed milk.",
@@ -344,6 +345,7 @@ const dishes = [
   },
   {
     name: "Citrus cold brew",
+    img: "/assets/daybreak-dish-cold-brew.webp",
     category: "Coffee",
     price: 240,
     description: "Slow-steeped coffee, orange peel and plenty of ice.",
@@ -352,6 +354,7 @@ const dishes = [
   },
   {
     name: "Mushroom toast",
+    img: "/assets/daybreak-dish-mushroom-toast.webp",
     category: "Kitchen",
     price: 360,
     description: "Garlic mushrooms, whipped feta and toasted sourdough.",
@@ -360,6 +363,7 @@ const dishes = [
   },
   {
     name: "Soft scramble",
+    img: "/assets/daybreak-dish-soft-scramble.webp",
     category: "Kitchen",
     price: 340,
     description: "Soft-folded eggs, chive butter and a slice of country loaf.",
@@ -368,6 +372,7 @@ const dishes = [
   },
   {
     name: "Almond croissant",
+    img: "/assets/daybreak-dish-almond-croissant.webp",
     category: "Bakery",
     price: 230,
     description: "Twice-baked butter pastry with almond frangipane.",
@@ -376,6 +381,7 @@ const dishes = [
   },
   {
     name: "Orange olive oil cake",
+    img: "/assets/daybreak-dish-orange-cake.webp",
     category: "Bakery",
     price: 220,
     description: "A thick slice with orange zest and a light citrus glaze.",
@@ -393,13 +399,13 @@ function cafe(root) {
     const menu = dishes
       .map((dish, i) =>
         filter === "All" || dish.category === filter
-          ? `<button class="dm-dish" type="button" data-action="dish" data-i="${i}"><span class="dm-dish-top"><small>${dish.category}</small><span>${money(dish.price, "INR", locale)}</span></span><strong>${dish.name}</strong><span class="dm-dish-description">${dish.description}</span><small class="dm-dish-foot">${dish.tag}<b aria-hidden="true">↗</b></small></button>`
+          ? `<button class="dm-dish" type="button" data-action="dish" data-i="${i}"><img class="dm-dish-img" src="${dish.img}" alt="" width="640" height="640" loading="lazy" decoding="async"><span class="dm-dish-top"><small>${dish.category}</small><span>${money(dish.price, "INR", locale)}</span></span><strong>${dish.name}</strong><span class="dm-dish-description">${dish.description}</span><small class="dm-dish-foot">${dish.tag}<b aria-hidden="true">↗</b></small></button>`
           : "",
       )
       .join("");
     setView(
       root,
-      `<div class="dm dm-cafe"><div class="dm-brandbar"><span class="dm-wordmark">Daybreak <i>Café</i></span><span>Deccan · Pune</span></div><div class="dm-cafe-hero"><div><p class="dm-kicker">Coffee, kitchen &amp; bakery</p><h1>A table at<br><em>Daybreak.</em></h1><p>Garden Lane, Deccan · Pune<br>Daily, 8 am – 6 pm · India Standard Time</p>${button("group", "Enquire about a group table " + next, "dm-primary")}</div><img src="/assets/cafe.webp" alt="Daybreak Café food and coffee inspiration"></div><section class="dm-menu"><div class="dm-menu-top"><h2 data-focus tabindex="-1">The menu</h2><div class="dm-filter" aria-label="Menu categories">${["All", "Coffee", "Kitchen", "Bakery"].map((s) => button("filter", s, "dm-chip", `data-category="${s}" aria-pressed="${s === filter}"`)).join("")}</div></div><div class="dm-dishes">${menu}</div></section><footer class="dm-foot"><span>Studio demo · Fictional café, menu and location</span>${button("reset", "Reset demo", "dm-link")}</footer><dialog class="dm-dialog" aria-labelledby="dm-dialog-title"></dialog></div>`,
+      `<div class="dm dm-cafe"><div class="dm-brandbar"><span class="dm-wordmark">Daybreak <i>Café</i></span><span>Deccan · Pune</span></div><div class="dm-cafe-cover"><img src="/assets/daybreak-cafe-hero.webp" alt="Morning light through the arched window at Daybreak Café, with a flat white and an almond croissant on a marble table" width="1600" height="1067" fetchpriority="high"><div class="dm-cover-copy"><p class="dm-kicker">Coffee, kitchen &amp; bakery</p><h1>A table at<br><em>Daybreak.</em></h1><p>Garden Lane, Deccan · Pune<br>Daily, 8 am – 6 pm · India Standard Time</p>${button("group", "Enquire about a group table " + next, "dm-primary")}</div><svg class="dm-stamp" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="dm-stamp-ring" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><text><textPath href="#dm-stamp-ring">DAYBREAK · COFFEE · KITCHEN · BAKERY · </textPath></text><circle cx="60" cy="60" r="20"/><text x="60" y="66" text-anchor="middle" class="dm-stamp-sun">☼</text></svg></div><div class="dm-ticker" aria-hidden="true"><span>${dishes.map((d) => d.name).join(" ✦ ")} ✦ ${dishes.map((d) => d.name).join(" ✦ ")} ✦ </span></div><section class="dm-menu"><div class="dm-menu-top"><h2 data-focus tabindex="-1">The menu</h2><div class="dm-filter" aria-label="Menu categories">${["All", "Coffee", "Kitchen", "Bakery"].map((s) => button("filter", s, "dm-chip", `data-category="${s}" aria-pressed="${s === filter}"`)).join("")}</div></div><div class="dm-dishes">${menu}</div></section><section class="dm-space"><img src="/assets/daybreak-cafe-space.webp" alt="A long communal table set for eight under brass pendant lamps" width="900" height="1125" loading="lazy" decoding="async"><div><p class="dm-kicker">Our space</p><h2>Room for the<br><em>whole table.</em></h2><p>The long table seats up to twelve for birthdays, team breakfasts and slow Sunday catch-ups. Tell us the date and party size and the café team will get back to you.</p>${button("group", "Ask about a group table " + next, "dm-primary")}</div></section><footer class="dm-foot"><span>Studio demo · Fictional café, menu and location</span>${button("reset", "Reset demo", "dm-link")}</footer><dialog class="dm-dialog" aria-labelledby="dm-dialog-title"></dialog></div>`,
       focus,
     );
     dialog = root.querySelector("dialog");
@@ -429,7 +435,7 @@ function cafe(root) {
     if (action === "dish") {
       const d = dishes[Number(el.dataset.i)];
       openDialog(
-        `<div class="dm-dialog-top"><span class="dm-kicker">${d.category}</span>${close}</div><h2 id="dm-dialog-title" tabindex="-1">${d.name}</h2><strong>${money(d.price, "INR", locale)}</strong><p>${d.description}</p>${notice(d.detail)}`,
+        `<div class="dm-dialog-top"><span class="dm-kicker">${d.category}</span>${close}</div><img class="dm-dialog-img" src="${d.img}" alt="${d.name} at Daybreak Café" width="640" height="640"><h2 id="dm-dialog-title" tabindex="-1">${d.name}</h2><strong>${money(d.price, "INR", locale)}</strong><p>${d.description}</p>${notice(d.detail)}`,
       );
     }
     if (action === "group") {
