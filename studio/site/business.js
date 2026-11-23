@@ -3,7 +3,7 @@ import { billingRecords, invoiceValue } from "./demos.js";
 
 const brand = document.querySelector(".brand");
 const slug = location.pathname.split("/")[2];
-const base = "/demo/" + slug;
+const base = location.pathname.split("/").slice(0, 3).join("/"); // /demo/<slug> or the clean /site/<slug>
 const esc = (s) =>
   String(s).replace(
     /[&<>"']/g,
@@ -250,4 +250,136 @@ if (register) {
         )
         .join("")
     : "<p>No invoices issued yet. Create an invoice to begin your register.</p>";
+}
+
+// ── Full brand sites: header, menu, reveals, day scroller, review rail, photo viewer, phone dock.
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.documentElement.classList.add("js");
+if (!calm && "IntersectionObserver" in window) document.documentElement.classList.add("motion");
+const svg = (d) => `<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+const head = brand.querySelector("[data-site-head]");
+if (head) {
+  const dockBar = brand.querySelector(".dock");
+  const onScroll = () => {
+    head.classList.toggle("scrolled", scrollY > 40);
+    dockBar?.classList.toggle("show", scrollY > innerHeight * 0.5 || !head.classList.contains("over"));
+  };
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  const btn = head.querySelector("[data-menu]");
+  const setOpen = (open) => {
+    head.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+  };
+  btn.addEventListener("click", () => setOpen(!head.classList.contains("open")));
+  head.querySelectorAll(".site-nav a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+  addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && head.classList.contains("open")) {
+      setOpen(false);
+      btn.focus();
+    }
+  });
+  matchMedia("(min-width: 821px)").addEventListener("change", (m) => m.matches && setOpen(false));
+}
+if (document.documentElement.classList.contains("motion")) {
+  const io = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }),
+    { rootMargin: "0px 0px -6% 0px" },
+  );
+  brand.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+}
+const dayBlock = brand.querySelector("[data-day]");
+if (dayBlock && "IntersectionObserver" in window) {
+  const figs = [...dayBlock.querySelectorAll("[data-day-img]")];
+  const steps = [...dayBlock.querySelectorAll("[data-day-step]")];
+  // Earlier photos stay "on" underneath, so the next one wipes up over them and scrolling back wipes it away.
+  const show = (n) => {
+    figs.forEach((f, i) => f.classList.toggle("on", i <= n));
+    steps.forEach((s, i) => s.classList.toggle("on", i === n));
+  };
+  show(0);
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => e.isIntersecting && show(steps.indexOf(e.target))), {
+    // On phones the photo sticks over the top half, so the active line sits in the visible lower part.
+    rootMargin: matchMedia("(max-width: 900px)").matches ? "-66% 0px -24% 0px" : "-45% 0px -45% 0px",
+  });
+  steps.forEach((s) => io.observe(s));
+}
+brand.querySelectorAll("[data-rail]").forEach((rail) => {
+  const box = rail.parentElement;
+  const prev = box.querySelector("[data-rail-prev]"),
+    next = box.querySelector("[data-rail-next]");
+  const by = (dir) => rail.scrollBy({ left: dir * (rail.firstElementChild.getBoundingClientRect().width + 18), behavior: calm ? "auto" : "smooth" });
+  prev?.addEventListener("click", () => by(-1));
+  next?.addEventListener("click", () => by(1));
+  const sync = () => {
+    if (prev) prev.disabled = rail.scrollLeft < 8;
+    if (next) next.disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 8;
+  };
+  rail.addEventListener("scroll", sync, { passive: true });
+  addEventListener("resize", sync);
+  sync();
+});
+const galleries = brand.querySelectorAll("[data-gallery]");
+if (galleries.length && window.HTMLDialogElement) {
+  const lb = document.createElement("dialog");
+  lb.className = "lightbox";
+  lb.setAttribute("aria-label", "Photo viewer");
+  lb.innerHTML = `<img alt=""><p aria-live="polite"></p><button type="button" data-lb-close aria-label="Close">${svg("M6 6l12 12M18 6 6 18")}</button><button type="button" data-lb-prev aria-label="Previous photo">${svg("m15 6-6 6 6 6")}</button><button type="button" data-lb-next aria-label="Next photo">${svg("m9 6 6 6-6 6")}</button>`;
+  brand.append(lb);
+  const big = lb.querySelector("img"),
+    cap = lb.querySelector("p");
+  let items = [],
+    at = 0;
+  const go = (n) => {
+    at = (n + items.length) % items.length;
+    const a = items[at];
+    big.src = a.href;
+    big.alt = a.querySelector("img")?.alt || "";
+    cap.textContent = `${at + 1} / ${items.length}`;
+  };
+  galleries.forEach((g) =>
+    g.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (!a) return;
+      e.preventDefault();
+      items = [...g.querySelectorAll("a")];
+      go(items.indexOf(a));
+      lb.showModal();
+    }),
+  );
+  lb.addEventListener("click", (e) => {
+    if (e.target === lb) lb.close();
+    if (e.target.closest("[data-lb-close]")) lb.close();
+    if (e.target.closest("[data-lb-prev]")) go(at - 1);
+    if (e.target.closest("[data-lb-next]")) go(at + 1);
+  });
+  lb.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") go(at + 1);
+    if (e.key === "ArrowLeft") go(at - 1);
+  });
+}
+// shortcut: brand sites use made-up contact details, which may belong to real people. Until a business supplies
+// its own number, taps on WhatsApp, phone and email links show a note instead of reaching a stranger.
+if (head) {
+  const note = document.createElement("p");
+  note.className = "toast";
+  note.setAttribute("role", "status");
+  brand.append(note);
+  let timer;
+  brand.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="https://wa.me/"], a[href^="tel:"], a[href^="mailto:"]');
+    if (!a) return;
+    e.preventDefault();
+    const kind = a.href.startsWith("tel:") ? "Calling" : a.href.startsWith("mailto:") ? "Email" : "WhatsApp";
+    note.textContent = `${kind} connects to the business's own number on the live site.`;
+    note.classList.add("show");
+    clearTimeout(timer);
+    timer = setTimeout(() => note.classList.remove("show"), 3200);
+  });
 }

@@ -1,7 +1,8 @@
 import { context, mast } from "./common.mjs";
 import { archive } from "./archive.mjs";
 import { forma, mill } from "./collections.mjs";
-import { kinetic, casa, hall, nest, wagtail } from "./visits.mjs";
+import { kinetic, hall, nest, wagtail } from "./visits.mjs";
+import { casa } from "./casa.mjs";
 import { brightpath, stillwater, loom, gloss, north } from "./practices.mjs";
 const entries = {
   "salon-booking": [forma, "Studio Forma", "Book an appointment"],
@@ -48,31 +49,44 @@ function ledger(c) {
         "</section>",
     );
 }
-export function brandPage(slug, path, query) {
+// clean: the white-label /site/<slug> copy a prospect sees, with no studio bar and no "studio demo" wording.
+export function brandPage(slug, path, query, clean = false) {
   if (!Object.hasOwn(entries, slug)) return;
   const [render, name, cta] = entries[slug],
-    c = context(slug, path, query);
+    c = context(slug, path, query, (clean ? "/site/" : "/demo/") + slug);
+  c.clean = clean;
+  // A full-site renderer may draw its own request page; otherwise wrap the booking flow in the plain mast.
   let p =
-    path === "request"
+    render(c) ||
+    (path === "request"
       ? c.result(
           cta,
           mast(c, name, [["", "Back to " + name]]) +
             `<div class="workflow"><h1>${cta}</h1><div id="demo-root" data-slug="${slug}"></div></div>`,
         )
-      : render(c);
+      : undefined);
   if (!p) return;
+  const bar = clean
+    ? ""
+    : `<div class="studio-return"><a href="/work/${slug}">Chetan Studio</a><span>Studio demo</span><a href="/site/${slug}${path ? "/" + path : ""}">Clean share link</a><a href="/sample?project=${slug}">Request a similar site</a></div>`;
+  const ink = { "casa-neem": ["#a64c26", "#f6efe1"] }[slug] || ["#232421", "#f8f7f2"];
+  const favicon = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${ink[0]}"/><text x="32" y="45" text-anchor="middle" font-family="Georgia,serif" font-size="40" fill="${ink[1]}">${name[0]}</text></svg>`);
   return {
     brand: true,
+    favicon,
+    theme: ink[1],
+    clean,
+    noindex: clean,
     category: "demos",
     kit: c.kit ? slug : "",
-    title: p.title,
-    description: p.title + " · " + name + " studio demo",
+    title: clean ? p.title + " · " + name : p.title,
+    description: p.description || p.title + " · " + name + (clean ? "" : " studio demo"),
     image:
       "/assets/" +
       (p.image ||
         c.kit?.hero.img ||
         (slug === "studio-billing" ? "ledger-hero" : "salon-hero")) +
       ".webp",
-    body: `<div class="studio-return"><a href="/work/${slug}">Chetan Studio</a><span>Studio demo</span><a href="/sample?project=${slug}">Request a similar site</a></div><section class="brand b-${slug}">${p.html}</section>`,
+    body: `${bar}<section class="brand b-${slug}${clean ? " is-clean" : ""}">${p.html}</section>`,
   };
 }

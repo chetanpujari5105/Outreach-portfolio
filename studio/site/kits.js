@@ -67,7 +67,7 @@ export const kits = {
     },
     summary: (v, h) => [["Room", h.opt("room", v).label], ["Dates", `${h.date(v.checkin)} → ${h.date(v.checkout)}`], ["Guests", `${v.adults} adult${v.adults > 1 ? "s" : ""}${v.children ? `, ${v.children} child${v.children > 1 ? "ren" : ""}` : ""}`], ...(v.name ? [["Name", h.esc(v.name)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.name)} · ${h.opt("room", v).label}`,
-    receipt: { kicker: "Enquiry received", title: "We’ll hold the dates.", text: "Your sample stay enquiry is with the host. Nothing has been booked or charged." },
+    receipt: { kicker: "Enquiry received", title: "We’ll hold the dates.", text: "Your stay enquiry is with Anita and Rui. Nothing has been booked or charged." },
     owner: "Stay enquiries",
     sendLabel: "Send stay enquiry",
   },

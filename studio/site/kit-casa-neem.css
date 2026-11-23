@@ -10,3 +10,177 @@
 .kt-hero-postcard .kt-hero-img{padding:clamp(.8rem,2vw,1.6rem);border-radius:calc(var(--kt-r) + 1.4rem);background:#fff;box-shadow:0 18px 40px -22px #5a2d1880;transform:rotate(1.2deg);margin:clamp(1rem,3vw,2.4rem) clamp(1rem,3vw,2.4rem) clamp(1rem,3vw,2.4rem) 0;height:auto;max-height:520px;width:calc(100% - clamp(1rem,3vw,2.4rem))}
 .kt-neem .kt-steps [aria-current] span{background:#2f3f7a;border-color:#2f3f7a}
 @media(max-width:760px){.kt-hero-postcard .kt-hero-img{margin:1rem;width:calc(100% - 2rem);transform:rotate(.6deg)}}
+
+/* ── Casa Neem full site (/demo/casa-neem, /site/casa-neem). Goan postcard: lime-wash cream, neem green, terracotta, indigo. */
+.brand.b-casa-neem{--bg:#f6efe1;--fg:#22302a;--muted:#55605a;--accent:#a64c26;--on-accent:#fff8ee;--indigo:#2c3c74;--line:#22302a22;--soft:#ece2ca;--hf:Fraunces,Georgia,serif;--bf:"Work Sans",system-ui,sans-serif;--head-h:76px;font-size:17px}
+.b-casa-neem h1,.b-casa-neem h2,.b-casa-neem h3{font-weight:400;font-variation-settings:"opsz" 144}
+.b-casa-neem h2{font-size:clamp(34px,4.2vw,60px);line-height:1.02}
+.b-casa-neem section{padding-inline:var(--pad)}
+.b-casa-neem em{font-style:italic}
+.b-casa-neem img{display:block;width:100%;height:100%;object-fit:cover}
+.b-casa-neem .sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,56px)}
+
+/* Cover: the one authored entrance. Photo settles from soft focus, words rise behind a mask. */
+.b-casa-neem .cover{position:relative;isolation:isolate;overflow:hidden;min-height:max(640px,100svh);margin-top:calc(-1 * var(--head-h));display:grid;align-content:end;padding-bottom:clamp(20px,4vw,44px);color:#fffaf0}
+.cover-img{position:absolute;inset:0;z-index:-2}
+.cover-img img{animation:neem-settle 2.6s var(--ease) both}
+.b-casa-neem .cover::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,#141a14d9 0%,#141a1466 38%,#141a1400 60%),linear-gradient(to bottom,#141a1480,#141a1400 22%)}
+.cover-copy h1{font-size:clamp(54px,8.4vw,96px);line-height:.94;font-weight:350}
+.cover-copy h1 em{color:#f4cfa6}
+.cover-copy p{max-width:34ch;margin-top:20px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:#fffaf0e6}
+.cover-copy>*{animation:neem-rise 1.4s var(--ease) both}
+.cover-copy p{animation-delay:.18s}
+.cover .stay-bar{animation:neem-rise 1.4s .32s var(--ease) both}
+@keyframes neem-settle{from{transform:scale(1.09);filter:blur(8px) saturate(.7)}}
+@keyframes neem-rise{from{opacity:0;transform:translateY(32px);clip-path:inset(0 0 100% 0)}to{clip-path:inset(-20% 0 -20% 0)}}
+
+.b-casa-neem .stay-bar{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:4px;max-width:960px;margin-top:clamp(28px,4vw,48px);padding:8px;border-radius:20px;background:var(--bg);color:var(--fg);box-shadow:0 30px 70px -28px #0009}
+.page-top .stay-bar{box-shadow:0 18px 40px -26px #22302a80;margin-top:0}
+.b-casa-neem .stay-bar label{gap:3px;padding:10px 18px;border-radius:14px;cursor:pointer;transition:background .3s}
+.b-casa-neem .stay-bar label:hover,.b-casa-neem .stay-bar label:focus-within{background:var(--soft)}
+.stay-bar label span{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.b-casa-neem .stay-bar input,.b-casa-neem .stay-bar select{padding:0;border:0;background:transparent;color:var(--fg);font:500 17px/1.4 var(--bf);outline:none;width:100%}
+.b-casa-neem .stay-bar button{align-self:stretch;min-height:56px;gap:10px;padding:0 28px;border:0;border-radius:14px;background:var(--accent);color:var(--on-accent);cursor:pointer;transition:background .3s}
+.b-casa-neem .stay-bar button:hover{background:#8d3d1c}
+
+.b-casa-neem .welcome{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(36px,7vw,110px);align-items:center;padding-block:clamp(80px,11vw,160px)}
+.b-casa-neem .lede{font-family:var(--hf);font-size:clamp(24px,2.5vw,36px);line-height:1.3;letter-spacing:-.012em;max-width:30ch}
+.b-casa-neem .host{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.host p:first-child b{display:block;font-size:18px;font-weight:600}
+.b-casa-neem .rating span{color:var(--muted)}
+.rating b{color:var(--fg);font-weight:600}
+.host p{color:var(--muted);font-size:15px}
+.b-casa-neem .rating{display:flex;gap:10px;align-items:center;margin-top:10px;color:var(--fg)}
+.welcome-pic img{aspect-ratio:4/5;border-radius:4px;object-position:38% 50%}
+.welcome-pic figcaption{margin-top:12px;font:italic 15px var(--hf);color:var(--muted)}
+
+.b-casa-neem .rooms{padding-block:clamp(24px,4vw,56px) clamp(64px,9vw,120px)}
+.b-casa-neem .room-row{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,5vw,88px);align-items:center;padding-block:clamp(28px,4vw,52px);border-top:1px solid var(--line)}
+.b-casa-neem .room-row.flip{grid-template-columns:1fr 1.25fr}
+.b-casa-neem .room-row.flip .room-pic{order:2}
+.b-casa-neem .room-pic{display:block;overflow:hidden;border-radius:6px;aspect-ratio:4/3}
+.room-pic img{transition:transform 1.4s var(--ease)}
+.room-pic:hover img{transform:scale(1.045)}
+.room-copy h3{font-size:clamp(32px,3.2vw,48px)}
+.b-casa-neem .room-copy h3 a{text-decoration:none}
+.room-copy>p{margin:14px 0 22px;color:var(--muted)}
+.b-casa-neem .room-facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 26px;padding:0;list-style:none;font-size:15px}
+.room-facts li{display:flex;gap:8px;align-items:center}
+.room-facts .ic{color:var(--accent)}
+.b-casa-neem .room-price{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:22px;border-top:1px dashed var(--line)}
+.room-price b{font:400 30px/1 var(--hf);font-variant-numeric:tabular-nums}
+.b-casa-neem .too-small{color:var(--accent);font-size:15px}
+
+/* A day at the house: the sticky photo wipes to the next moment as the times scroll past. */
+.b-casa-neem .day{display:grid;grid-template-columns:1fr 1fr;padding:0;background:var(--fg);color:var(--bg)}
+.day-pics{position:sticky;top:0;height:100svh;overflow:hidden}
+.day-pics figure{position:absolute;inset:0;clip-path:inset(100% 0 0 0);transition:clip-path 1.2s var(--ease)}
+.day-pics figure img{transform:scale(1.12);transition:transform 1.8s var(--ease)}
+.day-pics figure.on{clip-path:inset(0)}
+.day-pics figure.on img{transform:none}
+.day-steps{padding:clamp(72px,10vw,150px) clamp(24px,6vw,96px) 12vh}
+.day-steps ol{margin:0;padding:0;list-style:none}
+.day-steps li{display:flex;flex-direction:column;justify-content:center;min-height:68svh;transition:opacity .7s var(--ease)}
+.js .day-steps li:not(.on){opacity:.32}
+.day-steps time{font:italic 300 clamp(52px,6.4vw,92px)/1 var(--hf);color:#eba877;font-variant-numeric:lining-nums}
+.day-steps h3{margin:14px 0 10px;font-size:clamp(26px,2.4vw,34px)}
+.day-steps p{max-width:36ch;color:#f6efe1cc}
+
+.b-casa-neem .amen{padding-block:clamp(80px,11vw,150px)}
+.amen h2{max-width:16ch;margin-bottom:clamp(32px,4vw,56px)}
+.amen ul{display:grid;grid-template-columns:repeat(3,1fr);margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.amen li{display:flex;gap:18px;padding:30px 28px 30px 0;border-bottom:1px solid var(--line)}
+.amen .ic{width:30px;height:30px;color:var(--accent)}
+.amen b{display:block;font:400 22px/1.2 var(--hf)}
+.amen span{color:var(--muted);font-size:15px}
+
+.b-casa-neem .voices{padding-block:clamp(72px,10vw,140px);background:var(--soft)}
+.voices blockquote{display:flex;flex-direction:column;gap:22px;margin:0;padding:clamp(28px,3vw,44px);border-radius:14px;background:var(--bg)}
+.voices blockquote p{font:400 clamp(21px,1.9vw,27px)/1.38 var(--hf)}
+.voices blockquote footer{margin-top:auto;color:var(--muted);font-size:14px}
+.voices blockquote footer b{display:block;color:var(--fg);font-size:16px}
+.voices .rail-ctl button:hover{background:var(--bg)}
+
+.b-casa-neem .gallery{padding-block:clamp(72px,10vw,140px) 0}
+.mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(150px,19vw,280px);gap:10px}
+.mosaic a{display:block;overflow:hidden;border-radius:6px;cursor:zoom-in}
+.mosaic .m0{grid-column:span 2;grid-row:span 2}
+.mosaic img{transition:transform 1.2s var(--ease),filter .6s}
+.mosaic a:hover img{transform:scale(1.05);filter:saturate(1.15)}
+
+.b-casa-neem .around{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,7vw,110px);align-items:center;padding-block:clamp(80px,11vw,150px)}
+.around figure img{aspect-ratio:4/5;border-radius:6px}
+.around h2+p{margin:18px 0 8px;color:var(--muted)}
+.b-casa-neem .dist{margin:24px 0 28px;padding:0;list-style:none}
+.dist li{display:flex;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--line)}
+.dist b{font-weight:500;font-variant-numeric:tabular-nums}
+
+.b-casa-neem .questions{display:grid;grid-template-columns:.75fr 1.25fr;gap:clamp(32px,6vw,96px);padding-block:clamp(40px,6vw,80px) clamp(80px,11vw,140px)}
+.b-casa-neem .direct{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:32px;padding-block:clamp(64px,8vw,112px);background:var(--indigo);color:#f6efe1}
+.direct h2{max-width:14ch}
+.direct p{max-width:46ch;margin-top:16px;color:#f6efe1cc}
+.direct-act{display:flex;flex-wrap:wrap;gap:12px}
+.b-casa-neem .direct .pill.solid{background:#f6efe1;border-color:#f6efe1;color:var(--indigo)}
+.b-casa-neem .direct .pill.solid:hover{background:#fff}
+
+.b-casa-neem .page-top{padding-block:clamp(48px,7vw,104px) clamp(28px,4vw,56px)}
+.page-top h1{font-size:clamp(50px,7vw,92px);font-weight:350}
+.page-top>p{max-width:54ch;margin:18px 0 36px;color:var(--muted)}
+.page-top.slim{padding-bottom:0}
+.b-casa-neem .stay-note{display:flex;gap:8px;align-items:center;margin-top:18px;font-size:15px;color:var(--muted)}
+.b-casa-neem .workflow{padding:24px var(--pad) 96px}
+
+.b-casa-neem .room-hero{padding-top:12px}
+.room-gal{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:10px;height:min(72svh,660px)}
+.room-gal a{display:block;overflow:hidden;border-radius:6px;cursor:zoom-in}
+.room-gal .g0{grid-row:span 2}
+.room-gal img{transition:transform 1.2s var(--ease)}
+.room-gal a:hover img{transform:scale(1.04)}
+.b-casa-neem .room-body{display:grid;grid-template-columns:1fr minmax(300px,400px);gap:clamp(36px,6vw,96px);align-items:start;padding-block:clamp(40px,6vw,80px)}
+.crumbs{margin-bottom:18px;font-size:14px;color:var(--muted)}
+.room-body h1{font-size:clamp(46px,6vw,84px);font-weight:350}
+.room-body .lede{margin:20px 0 30px}
+.room-body h2{margin:44px 0 18px;font-size:28px}
+.b-casa-neem .ticks{display:grid;gap:13px;margin:0;padding:0;list-style:none}
+.ticks li{display:flex;gap:12px}
+.ticks .ic{color:var(--accent)}
+.b-casa-neem .quote{position:sticky;top:calc(var(--head-h) + 24px);padding:30px;border-radius:16px;background:#fffaf0;box-shadow:0 24px 60px -30px #22302a73}
+.q-rate b{font:400 38px/1 var(--hf)}
+.quote dl{margin:22px 0 0}
+.quote dl div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.quote dd{margin:0;font-variant-numeric:tabular-nums}
+.quote .tot{border:0;font-size:17px;font-weight:600}
+.b-casa-neem .quote .action{width:100%;margin-top:18px;padding:17px;border-radius:999px;border-color:var(--accent);background:var(--accent);color:var(--on-accent);text-decoration:none}
+.b-casa-neem .quote .small{margin:12px 0 18px;text-align:center;font-size:13px;color:var(--muted)}
+.b-casa-neem .others{padding-top:0}
+
+.b-casa-neem .guide{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:start;padding-bottom:clamp(64px,9vw,120px)}
+.guide>img{position:sticky;top:calc(var(--head-h) + 24px);aspect-ratio:4/5;border-radius:6px}
+.guide ol{margin:0;padding:0;list-style:none}
+.guide li{padding:28px 0;border-top:1px solid var(--line)}
+.guide li b{display:block;font:400 30px/1.1 var(--hf)}
+.guide li span{display:block;margin:6px 0 10px;color:var(--accent);font-weight:600;font-size:14px}
+
+@media (max-width:900px){
+  .b-casa-neem .stay-bar{grid-template-columns:1fr 1fr}
+  .b-casa-neem .stay-bar label:nth-child(3){grid-column:1/-1}
+  .b-casa-neem .stay-bar button{grid-column:1/-1;min-height:54px}
+  .b-casa-neem .welcome,.b-casa-neem .around,.b-casa-neem .questions,.b-casa-neem .room-body,.b-casa-neem .guide{grid-template-columns:1fr}
+  .b-casa-neem .room-row,.b-casa-neem .room-row.flip{grid-template-columns:1fr;gap:22px}
+  .b-casa-neem .room-row.flip .room-pic{order:0}
+  .amen ul{grid-template-columns:1fr 1fr}
+  .b-casa-neem .day{grid-template-columns:1fr}
+  .day-pics{top:var(--head-h);height:46svh;z-index:2}
+  .day-steps{padding-top:40px}
+  .day-steps li{min-height:52svh}
+  .b-casa-neem .quote,.guide>img{position:static}
+}
+@media (max-width:600px){
+  .b-casa-neem{font-size:16px}
+  .mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:42vw}
+  .amen ul{grid-template-columns:1fr}
+  .room-gal{grid-template-columns:1fr 1fr;grid-template-rows:56vw 30vw;height:auto}
+  .room-gal .g0{grid-column:1/-1;grid-row:auto}
+  .welcome-pic img,.around figure img{aspect-ratio:4/3}
+}
+.brand.b-casa-neem .workflow :is(h1,h2){font-family:var(--hf);font-weight:400;letter-spacing:-.02em}
