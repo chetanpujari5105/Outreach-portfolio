@@ -1,6 +1,6 @@
 /* brightnest: generated fonts (latin) + palette; layout lives in demos.css (.kt-*) */
 @font-face { font-family: 'Outfit'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(/assets/kit-outfit.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-.kt-nest{--dm-paper:#fbfdfb;--dm-ink:#11302a;--dm-accent:#0f8a67;--dm-muted:#55706a;--dm-line:#d5e8e0;--dm-display:Outfit, system-ui, sans-serif;--kt-r:18px;--kt-surface:#ecf8f2;--kt-on-accent:#fff;font-family:Outfit, system-ui, sans-serif;border-radius:0}
+.kt-nest{--dm-paper:#fbfdfb;--dm-ink:#11302a;--dm-accent:#0b7356;--dm-muted:#55706a;--dm-line:#d5e8e0;--dm-display:Outfit, system-ui, sans-serif;--kt-r:18px;--kt-surface:#ecf8f2;--kt-on-accent:#fff;font-family:Outfit, system-ui, sans-serif;border-radius:0}
 .kt-nest h1,.kt-nest h2{font-weight:700;letter-spacing:-.035em}
 .kt-nest h1 em{font-style:normal;background:linear-gradient(transparent 58%,#ffe066 58% 92%,transparent 92%);color:inherit}
 .kt-nest .dm-wordmark{font-weight:600;font-size:1.7rem}.kt-nest .dm-wordmark b{color:var(--dm-accent);font-weight:800}

@@ -216,7 +216,8 @@ function caseVisual(p) {
 function industryPage(i) {
   const p=bySlug(projects,i.project);
   const sol=bySlug(solutions,i.solution);
-  const mini=Boolean(minis[i.slug]) && !p.url.startsWith('/demo/');
+  // an industry with its own flow-engine demo shows that instead of the inline preview
+  const mini=Boolean(minis[i.slug]) && !(p.url.startsWith('/demo/') && !['salon-booking','daybreak-cafe','studio-billing'].includes(p.slug));
   const target=mini?'#example':p.url;
   const related=[p];
   if(i.slug==='salons')related.push(bySlug(projects,'nukkad-naai'));

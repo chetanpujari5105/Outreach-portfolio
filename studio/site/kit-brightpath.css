@@ -12,3 +12,5 @@
 .kt-hero-note .kt-hero-img{border-radius:var(--kt-r);margin:clamp(1rem,3vw,2rem);width:calc(100% - clamp(2rem,6vw,4rem));height:calc(100% - clamp(2rem,6vw,4rem));box-shadow:6px 6px 0 #2c6fbe}
 .kt-path .kt-facts{padding-left:clamp(4.4rem,6vw,5.4rem)}
 @media(max-width:760px){.kt-hero-note .kt-hero-img{height:auto}.kt-hero-note .kt-hero-copy,.kt-path .kt-facts{padding-left:4.2rem}}
+/* tangerine fills buttons; text in the accent needs a darker shade for AA */
+.kt-path .dm-kicker,.kt-path .kt-card-note,.kt-path .kt-steps .kt-done span,.kt-path .kt-card[aria-pressed=true] .kt-card-top strong::before{color:#a84a00}

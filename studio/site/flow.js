@@ -29,7 +29,12 @@ export function mountKit(root, slug) {
     for (const f of fieldsOf(kit)) {
       if (f.type === "cards" || f.type === "chips") v[f.name] = f.multi ? [] : f.empty ? "" : optionsOf(f, v).find((o) => !o.disabled)?.id ?? "";
       if (f.type === "count") v[f.name] = f.start ?? f.min;
-      if (f.type === "date") v[f.name] = dayOffset(dateMin(f, v), f.offset ?? 0);
+      if (f.type === "date") {
+        let d = dayOffset(dateMin(f, v), f.offset ?? 0);
+        // never default to a closed day (Sundays, weekends)
+        for (let i = 0; f.days && i < 7 && !f.days.includes(new Date(d + "T12:00:00Z").getUTCDay()); i++) d = dayOffset(d, 1);
+        v[f.name] = d;
+      }
       if (f.type === "text" || f.type === "select") v[f.name] = f.type === "select" ? f.options[0].id : "";
       if (f.type === "check") v[f.name] = false;
     }
