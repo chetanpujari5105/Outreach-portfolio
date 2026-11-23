@@ -18,3 +18,5 @@
 .kt-hall :focus-visible{outline-color:var(--dm-accent)}
 .kt-hall .dm-button{color:var(--dm-ink)}.kt-hall .dm-button.dm-primary{color:var(--kt-on-accent)}
 @media(max-width:760px){.kt-hero-full{min-height:540px}.kt-hero-full .kt-hero-img{aspect-ratio:auto}}
+/* absolute + no grid placement = the image fills the whole hero, including the facts row on phones */
+.kt .kt-hero-full .kt-hero-img{grid-row:auto;grid-column:auto}
