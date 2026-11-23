@@ -98,7 +98,8 @@ export function mountKit(root, slug) {
   for (const f of fieldsOf(kit)) {
     const raw = incoming.get(f.name);
     if (raw === null) continue;
-    const value = f.type === "count" ? Number(raw) : raw;
+    // Multi-choice fields arrive as repeated keys (addons=av&addons=decor), the way a GET form sends checkboxes.
+    const value = f.type === "count" ? Number(raw) : f.multi ? incoming.getAll(f.name) : raw;
     const candidate = { ...values, [f.name]: value };
     if (!problem(f, candidate)) values[f.name] = value;
   }

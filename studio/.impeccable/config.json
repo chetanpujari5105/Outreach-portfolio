@@ -20,6 +20,12 @@
         "value": "space grotesk",
         "createdAt": "2026-11-23T20:59:49.431Z",
         "reason": "Claude: existing font of another industry demo in demos.css, untouched by the Forma change"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-23T21:41:31.776Z",
+        "reason": "Claude: Kinetic Yard's existing kit body font (declared in kit-kinetic-yard.css before this session), paired with Unbounded"
       }
     ]
   }

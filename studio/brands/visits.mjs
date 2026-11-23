@@ -1,50 +1,5 @@
 import { mast, details, rupees, esc, printButton } from "./common.mjs";
 import { todayAt, dayOffset, dateText } from "../site/demos.js";
-export function hall(c) {
-  const { path, opts, img, link, result, action } = c;
-  const spaces = opts("setup");
-  const top = mast(c, "HALL XI", [
-    ["", "The floor"],
-    ["menus", "Menus"],
-    ["visit", "Plan a visit"],
-  ]);
-  if (!path)
-    return result(
-      "Explore the event floor",
-      top +
-        `<section class="venue-title">${img("hall-hero", "Hall Eleven dining room at night")}<h1>The evening,<br><i>in plan.</i></h1></section><section class="plan-room"><header><p>Hall Eleven · Baner</p><h2>Walk the floor</h2></header><div class="floorplan">${spaces.map((o, i) => link("spaces/" + o.id, "<span>" + o.label + "</span><small>Up to ${o.cap} guests</small>", "space s" + i)).join("")}</div></section>`,
-      "hall-hero",
-    );
-  if (path === "menus")
-    return result(
-      "Menu packages",
-      top +
-        '<section class="inner"><h1>The table</h1>' +
-        opts("menu")
-          .map(
-            (o) =>
-              `<div class="menu-line"><b>${o.label}</b><p>${o.detail}</p>${action(rupees(o.price) + " / guest", { menu: o.id })}</div>`,
-          )
-          .join("") +
-        "</section>",
-    );
-  if (path === "visit")
-    return result(
-      "Plan a visit",
-      top +
-        '<article class="essay"><h1>Walk through your evening.</h1><p>Bring your guest count, event date and preferred seating arrangement to compare the floor configurations.</p>' +
-        action("Plan an event") +
-        "</article>",
-    );
-  const o = spaces.find((o) => path === "spaces/" + o.id);
-  if (o)
-    return result(
-      o.label + " layout",
-      top +
-        `<section class="product-detail">${img(o.img, o.label + " configuration")}<article><p>Hall Eleven · Floor layouts</p><h1>${o.label}</h1><p>${o.detail || o.label + " configuration for your event."}</p>${action("Estimate this setup", { setup: o.id })}${link("menus", "Explore menus", "text-act")}</article></section>`,
-      o.img,
-    );
-}
 export function nest(c) {
   const { path, opts, img, link, result, action } = c;
   const top = mast(c, "brightnest", [
