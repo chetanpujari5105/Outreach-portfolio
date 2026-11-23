@@ -404,3 +404,22 @@ brand.querySelectorAll("[data-menu-len]").forEach((menu) =>
     });
   }),
 );
+// Timetables: day tabs and class-type filters switch in place (the links still work without JS).
+brand.querySelectorAll("[data-tt]").forEach((tt) =>
+  tt.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-day], a[data-goal]");
+    if (!a) return;
+    e.preventDefault();
+    const url = new URL(a.href);
+    if (a.dataset.day) {
+      tt.querySelectorAll("[data-day-panel]").forEach((p) => (p.hidden = p.dataset.dayPanel !== a.dataset.day));
+      tt.querySelectorAll("a[data-goal]").forEach((g) => {
+        const u = new URL(g.href);
+        u.searchParams.set("date", a.dataset.day);
+        g.href = u.pathname + u.search;
+      });
+    } else tt.dataset.filter = a.dataset.goal;
+    a.parentElement.querySelectorAll("a").forEach((x) => x.classList.toggle("on", x === a));
+    history.replaceState(null, "", url.pathname + url.search + location.hash);
+  }),
+);
