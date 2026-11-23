@@ -380,6 +380,15 @@
 .dm-cafe .dm-wordmark {
   font-size: 1.9rem;
 }
+/* the shared -0.065em tracking makes words run together in the café serif */
+.dm-cafe h1,
+.dm-cafe h2,
+.dm-cafe .dm-wordmark,
+.dm-cafe .dm-dish > strong,
+.dm-cafe .dm-ticker span {
+  letter-spacing: -0.015em;
+  word-spacing: 0.12em;
+}
 .dm-cafe .dm-menu {
   padding: clamp(1.25rem, 3.7vw, 3.5rem);
 }
