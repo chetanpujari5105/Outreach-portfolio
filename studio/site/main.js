@@ -14,10 +14,10 @@ document.addEventListener('keydown', event => {
 });
 const stage = document.querySelector('.feature-stage');
 const controls = [...document.querySelectorAll('[data-feature-select]')];
-const featured = ['Daybreak Café', 'Studio Forma', 'Ledger Desk'];
 function showFeature(index) {
   stage.dataset.feature = String(index);
-  document.querySelector('#feature-name').textContent = featured[index];
+  document.querySelector('#feature-name').textContent = controls[index].dataset.name;
+  document.querySelector('#feature-type').textContent = controls[index].dataset.type;
   controls.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
   stage.querySelectorAll('.poster').forEach((card, i) => {
     card.tabIndex = i === index ? 0 : -1;

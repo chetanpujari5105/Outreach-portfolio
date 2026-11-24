@@ -4,9 +4,10 @@ import { samplePage } from '../site/intake.js';
 import { ownerPage } from '../site/owner.js';
 
 const siteName = 'Chetan Studio';
-// featured: the three homepage posters; every other /demo/ project is a flow-engine kit with its own stylesheet
-const featured = ['daybreak-cafe', 'salon-booking', 'studio-billing'];
-const featureNames = ['Daybreak Café', 'Studio Forma', 'Ledger Desk'];
+// featured: the three homepage posters, flagship first
+const featured = ['sidekick', 'daybreak-cafe', 'salon-booking'];
+const featureNames = ['Sidekick', 'Daybreak Café', 'Studio Forma'];
+const featureProjects = featured.map(slug => projects.find(p => p.slug === slug));
 const demoSlugs = projects.filter(p => p.url.startsWith('/demo/')).map(p => p.slug);
 const summary = 'Websites, booking pages and business tools by Chetan Pujari. Explore client work and working demos, then request a free sample for your business.';
 const e = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -22,6 +23,7 @@ function header(path){
 function footer(){return `<footer class="studio-footer"><div class="wrap foot-inner">${brand()}<div class="foot-contact"><a href="${contact}">Email Chetan</a><a href="https://www.instagram.com/_chetan_pujari/">Instagram</a><a href="https://nfcportfolio-two.vercel.app/">Personal portfolio</a></div><span>© Chetan Pujari</span></div></footer>`}
 function visual(id){
   if(id==='salon-booking')return `<div class="art art-salon"><img src="/assets/salon-hero.webp" alt="" decoding="async"><div class="salon-mast"><small>H A I R &nbsp; S T U D I O</small><strong>Forma<span>.</span></strong></div><div class="poster-bottom"><span>Services & appointments</span></div></div>`;
+  if(id==='sidekick')return `<div class="art art-sidekick"><div class="sidekick-mast"><strong>Sidekick</strong><span>Your Android phone, on your Mac.</span></div><img src="/assets/sidekick.webp" alt="" decoding="async"></div>`;
   if(id==='studio-billing')return `<div class="art art-ledger"><div class="ledger-mast"><span class="ledger-symbol">▥</span> Ledger Desk</div><div class="receipt"><span>Sample invoice</span><b>Invoice #001</b><i></i><p>Creative services <strong>£240</strong></p><p>Print design <strong>£80</strong></p><i></i><p>Total <strong>£320</strong></p><div class="receipt-code"></div></div></div>`;
   const proj=projects.find(p=>p.slug===id);
   const image=id==='nukkad-naai'?'/assets/nukkad.webp':id==='pocket-portfolio'?'/assets/pocket.webp':proj?.image;
@@ -29,17 +31,17 @@ function visual(id){
 }
 function posterWall(){
   // An original interactive stack inspired by the tactile card motion in Rare UI's Folder.
-  return `<div class="feature-frame" aria-label="Featured studio demos"><div class="feature-stage" data-feature="0">${featured.map((id,i)=>`<a class="poster poster-${i}" href="/demo/${id}" aria-label="Try the ${featureNames[i]} demo" ${i?'tabindex="-1" aria-hidden="true"':''}>${visual(id)}</a>`).join('')}</div><div class="feature-caption"><span class="caption-rule"></span><span id="feature-name" aria-live="polite">Daybreak Café</span><small>Studio demo</small><div class="feature-controls" role="group" aria-label="Choose a featured demo">${featureNames.map((name,i)=>`<button type="button" aria-label="Show ${name}" aria-pressed="${!i}" data-feature-select="${i}"><i></i></button>`).join('')}</div></div></div>`;
+  return `<div class="feature-frame" aria-label="Featured projects"><div class="feature-stage" data-feature="0">${featured.map((id,i)=>`<a class="poster poster-${i}" href="${e(featureProjects[i].url)}" aria-label="${featureProjects[i].url.startsWith('/demo/')?`Try the ${featureNames[i]} demo`:`Visit ${featureNames[i]}`}" ${i?'tabindex="-1" aria-hidden="true"':''}>${visual(id)}</a>`).join('')}</div><div class="feature-caption"><span class="caption-rule"></span><span id="feature-name" aria-live="polite">${featureNames[0]}</span><small id="feature-type">${featureProjects[0].type}</small><div class="feature-controls" role="group" aria-label="Choose a featured project">${featureNames.map((name,i)=>`<button type="button" aria-label="Show ${name}" aria-pressed="${!i}" data-feature-select="${i}" data-name="${featureNames[i]}" data-type="${featureProjects[i].type}"><i></i></button>`).join('')}</div></div></div>`;
 }
 function projectCard(p){
   const ind=industries.find(x=>x.slug===p.industry);
   const name=featureNames[featured.indexOf(p.slug)] || p.title;
   return `<article class="work-card" data-type="${e(p.type)}" data-industry="${e(p.industry)}" data-keywords="${e([name,p.title,p.type,p.category,p.description,ind?.title].join(' ').toLowerCase())}"><a href="/work/${p.slug}" class="card-link"><div class="card-media card-${p.slug}"><div class="card-art">${visual(p.slug)}</div><span class="proof-label"><i></i>${e(p.type)}</span></div><div class="card-meta"><h3>${e(name)}</h3><span>${e(p.category)}</span></div><p>${e(p.description)}</p></a></article>`;
 }
-const projectOrder=['daybreak-cafe','salon-booking','manakar','studio-billing','casa-neem','hall-eleven','brightnest','kinetic-yard','brightpath','wagtail-lodge','stillwater','frame-field','loom-lane','gloss-lab','northline','mill-crate','nukkad-naai','laptop-buy-guide','velluto-gt','pocket-portfolio'];
+const projectOrder=['sidekick','daybreak-cafe','salon-booking','manakar','casa-neem','hall-eleven','brightnest','kinetic-yard','brightpath','wagtail-lodge','stillwater','frame-field','loom-lane','gloss-lab','northline','mill-crate','nukkad-naai','laptop-buy-guide','velluto-gt','pocket-portfolio','studio-billing'];
 function workList(home=false){
   let sorted=[...projects].sort((a,b)=>{const rank=s=>projectOrder.includes(s)?projectOrder.indexOf(s):999;return rank(a.slug)-rank(b.slug)});
-  if(home)sorted=sorted.filter(p=>['daybreak-cafe','salon-booking','manakar','studio-billing','nukkad-naai','laptop-buy-guide'].includes(p.slug));
+  if(home)sorted=sorted.filter(p=>['sidekick','daybreak-cafe','salon-booking','manakar','nukkad-naai','laptop-buy-guide'].includes(p.slug));
   return `<section class="work-section wrap" id="work"><div class="section-heading"><div><p class="eyebrow"><span class="eyeline"></span>Project collection</p>${home?'<h2>Selected work<span>.</span></h2>':'<h1>Explore the work<span>.</span></h1>'}</div>${home?'<a class="text-link" href="/work">View all projects</a>':''}</div><div class="work-tools"><div class="filter-row" role="group" aria-label="Filter projects">${[['','All work'],['Client work','Client work'],['Studio demo','Studio demos'],['Independent project','Independent']].map(([type,label],i)=>`<button type="button" class="filter" data-filter="${type}" aria-pressed="${!i}">${label}</button>`).join('')}</div>${home?'':`<label class="work-search"><span class="sr">Search projects</span><input type="search" data-search placeholder="Search projects"></label>`}</div><p class="sr" data-count role="status"></p><div class="project-grid">${sorted.map(projectCard).join('')}</div><p data-empty hidden>No projects match. <button class="inline-action" type="button" data-clear>Clear filters</button></p></section>`;
 }
 function industryList(){

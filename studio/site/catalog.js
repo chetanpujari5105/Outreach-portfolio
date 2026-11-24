@@ -25,13 +25,16 @@ const project = (slug, title, type, description, category, image, industry, acti
   ({ slug, title, type, description, category, image: '/assets/' + (url.startsWith('/demo/') ? 'screen-' + slug : image) + '.webp', industry, action, url, role, steps });
 
 export const projects = [
+  project('sidekick', 'Sidekick', 'Independent project', 'My flagship product: an Android and Mac app pair that mirrors your phone, answers notifications and moves files over your own Wi-Fi.', 'Apps & products', 'sidekick', 'other-businesses', 'Visit Sidekick', 'https://sidekickapp.in/',
+    'I built Sidekick, the Mac and Android apps and the website that presents them. The two devices connect directly over your own network, with no cloud and no account. It is in a small beta for Apple silicon Macs and Android 10 or later.',
+    ['Install both apps and pair once by scanning a QR code.', 'Mirror the phone, reply to notifications, and share files and the clipboard from the Mac.', 'Read the limits, roadmap and setup guide on the live site, then request the beta.']),
   project('salon-booking', 'Salon booking', 'Studio demo', 'A service-to-stylist booking flow with a sample request for the front desk.', 'Booking systems', 'salon-hero', 'salons', 'Try the booking demo', '/demo/salon-booking',
     'I designed this salon example to show both sides of a booking request, from the visitor’s first choice to the front desk’s incoming list.',
     ['Pick a service and compare the price and duration.', 'Choose a stylist, a day and a sample slot.', 'Review the details, send the sample and inspect the owner view.']),
   project('daybreak-cafe', 'Daybreak Café', 'Studio demo', 'A complete café website: a 39-dish picture menu with diet filters, dish pages, table and group requests, and a gallery.', 'Menus & reservations', 'daybreak-cafe-hero', 'cafes', 'Visit the café website', '/demo/daybreak-cafe',
     'I designed and built a full website for a fictional Pune café around three everyday questions: what to order, whether it suits my diet, and how to ask for a table.',
     ['Open the menu, search it or filter it by diet.', 'Choose a dish to see its photo, ingredients, allergens and pairings.', 'Fill in a table or group request and review it before saving it on your device.']),
-  project('studio-billing', 'Studio billing', 'Studio demo', 'An editable invoice that carries a sample customer, items and totals into an owner’s invoice list.', 'Billing tools', 'ledger-hero', 'home-services', 'Try the invoice demo', '/demo/studio-billing',
+  project('studio-billing', 'Ledger Desk', 'Studio demo', 'An editable invoice that carries a sample customer, items and totals into an owner’s invoice list.', 'Billing tools', 'ledger-hero', 'home-services', 'Try the invoice demo', '/demo/studio-billing',
     'I built this example for owners who prepare an estimate or invoice across multiple line items and need a printable record.',
     ['Choose a sample customer and add line items.', 'Adjust quantities and review the calculated invoice.', 'Issue the sample invoice, open it in the list and print it.']),
   project('casa-neem', 'Casa Neem', 'Studio demo', 'A homestay booking enquiry that checks room size against guests and prices the stay night by night.', 'Booking systems', 'neem-hero', 'hospitality', 'Plan a stay', '/demo/casa-neem',
