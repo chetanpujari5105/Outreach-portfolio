@@ -363,6 +363,15 @@ if (galleries.length && window.HTMLDialogElement) {
     if (e.key === "ArrowRight") go(at + 1);
     if (e.key === "ArrowLeft") go(at - 1);
   });
+  // Swipe on phones: a mostly-horizontal drag of 50px or more moves one photo.
+  let x0 = null, y0 = 0;
+  lb.addEventListener("touchstart", (e) => ([x0, y0] = [e.touches[0].clientX, e.touches[0].clientY]), { passive: true });
+  lb.addEventListener("touchend", (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(at + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
 }
 // shortcut: brand sites use made-up contact details, which may belong to real people. Until a business supplies
 // its own number, taps on WhatsApp, phone and email links show a note instead of reaching a stranger.
@@ -376,8 +385,8 @@ if (head) {
     const a = e.target.closest('a[href^="https://wa.me/"], a[href^="tel:"], a[href^="mailto:"]');
     if (!a) return;
     e.preventDefault();
-    const kind = a.href.startsWith("tel:") ? "Calling" : a.href.startsWith("mailto:") ? "Email" : "WhatsApp";
-    note.textContent = `${kind} connects to the business's own number on the live site.`;
+    const [kind, what] = a.href.startsWith("tel:") ? ["Calling", "phone number"] : a.href.startsWith("mailto:") ? ["Email", "email address"] : ["WhatsApp", "WhatsApp number"];
+    note.textContent = `${kind} is switched off on this concept site. The live site would use the business's own ${what}.`;
     note.classList.add("show");
     clearTimeout(timer);
     timer = setTimeout(() => note.classList.remove("show"), 3200);

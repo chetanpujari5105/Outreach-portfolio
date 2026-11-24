@@ -1,4 +1,5 @@
 // Editorial records are shared by the statically generated routes and the browser.
+import { studies } from './studies.js';
 const sector = (slug, title, description, task, project, solution, accent, addon) =>
   ({ slug, title, description, task, project, solution, accent, addon });
 
@@ -21,15 +22,15 @@ export const industries = [
 ];
 
 const project = (slug, title, type, description, category, image, industry, action, url, role, steps) =>
-  ({ slug, title, type, description, category, image: '/assets/' + (url.startsWith('/demo/') && slug !== 'daybreak-cafe' ? 'screen-' + slug : image) + '.webp', industry, action, url, role, steps });
+  ({ slug, title, type, description, category, image: '/assets/' + (url.startsWith('/demo/') ? 'screen-' + slug : image) + '.webp', industry, action, url, role, steps });
 
 export const projects = [
   project('salon-booking', 'Salon booking', 'Studio demo', 'A service-to-stylist booking flow with a sample request for the front desk.', 'Booking systems', 'salon-hero', 'salons', 'Try the booking demo', '/demo/salon-booking',
     'I designed this salon example to show both sides of a booking request, from the visitor’s first choice to the front desk’s incoming list.',
     ['Pick a service and compare the price and duration.', 'Choose a stylist, a day and a sample slot.', 'Review the details, send the sample and inspect the owner view.']),
-  project('daybreak-cafe', 'Daybreak Café', 'Studio demo', 'A mobile café menu with dish details and an enquiry for group tables.', 'Menus & enquiries', 'daybreak-cafe-hero', 'cafes', 'Visit the café demo', '/demo/daybreak-cafe',
-    'I built a fictional café experience around two everyday questions: what is on the menu today, and how to ask about a group table.',
-    ['Open the menu and explore the food and drinks.', 'Choose an item to see its description and price.', 'Send a sample group dining enquiry and see its acknowledgement.']),
+  project('daybreak-cafe', 'Daybreak Café', 'Studio demo', 'A complete café website: a 39-dish picture menu with diet filters, dish pages, table and group requests, and a gallery.', 'Menus & reservations', 'daybreak-cafe-hero', 'cafes', 'Visit the café website', '/demo/daybreak-cafe',
+    'I designed and built a full website for a fictional Pune café around three everyday questions: what to order, whether it suits my diet, and how to ask for a table.',
+    ['Open the menu, search it or filter it by diet.', 'Choose a dish to see its photo, ingredients, allergens and pairings.', 'Fill in a table or group request and review it before saving it on your device.']),
   project('studio-billing', 'Studio billing', 'Studio demo', 'An editable invoice that carries a sample customer, items and totals into an owner’s invoice list.', 'Billing tools', 'ledger-hero', 'home-services', 'Try the invoice demo', '/demo/studio-billing',
     'I built this example for owners who prepare an estimate or invoice across multiple line items and need a printable record.',
     ['Choose a sample customer and add line items.', 'Adjust quantities and review the calculated invoice.', 'Issue the sample invoice, open it in the list and print it.']),
@@ -234,9 +235,9 @@ function industryPage(i) {
 
 function casePage(p) {
   const i=bySlug(industries,p.industry);
-  return `<article class="ct" style="--ct-accent:${i.accent}"><div class="ct-crumb"><a href="/work">Work</a><span>/</span>${html(p.title)}</div>
+  return `<article class="ct${Object.hasOwn(studies,p.slug)?' ct-study':''}" style="--ct-accent:${i.accent}"><div class="ct-crumb"><a href="/work">Work</a><span>/</span>${html(p.title)}</div>
     <div class="ct-top"><div class="ct-heading"><p class="ct-eyebrow">${html(p.type)} · ${html(p.category)}</p><h1>${html(p.title)}</h1><p class="ct-lead">${html(p.description)}</p><div class="ct-actions">${link(p.url,p.action,'primary')}${link(sampleLink(i.slug,p.slug),'Request a similar sample')}</div></div>${caseVisual(p)}</div>
-    <section class="ct-case-body"><div>${caption('By Chetan Pujari','What I built',p.role)}</div><div><p class="ct-eyebrow">Project walkthrough</p><ol>${p.steps.map(t=>`<li>${html(t)}</li>`).join('')}</ol></div></section>
+    ${Object.hasOwn(studies,p.slug)?studies[p.slug]({link,sample:sampleLink(i.slug,p.slug)}):`<section class="ct-case-body"><div>${caption('By Chetan Pujari','What I built',p.role)}</div><div><p class="ct-eyebrow">Project walkthrough</p><ol>${p.steps.map(t=>`<li>${html(t)}</li>`).join('')}</ol></div></section>`}
     <section class="ct-related"><h2>Explore this business type</h2>${subjectLink(i)}</section></article>`;
 }
 

@@ -3,11 +3,13 @@ import { archive } from "./archive.mjs";
 import { mill } from "./collections.mjs";
 import { forma } from "./forma.mjs";
 import { nest, wagtail } from "./visits.mjs";
-import { kinetic } from "./yard.mjs";
 import { hall } from "./hall.mjs";
+import { kinetic } from "./yard.mjs";
 import { casa } from "./casa.mjs";
+import { daybreak } from "./daybreak.mjs";
 import { brightpath, stillwater, loom, gloss, north } from "./practices.mjs";
 const entries = {
+  "daybreak-cafe": [daybreak, "Daybreak Café", "Book a table"],
   "salon-booking": [forma, "Studio Forma", "Book an appointment"],
   "frame-field": [archive, "Frame & Field", "Commission brief"],
   "mill-crate": [mill, "Mill & Crate", "Configure packaging"],
@@ -72,17 +74,19 @@ export function brandPage(slug, path, query, clean = false) {
   const bar = clean
     ? ""
     : `<div class="studio-return"><a href="/work/${slug}">Chetan Studio</a><span>Studio demo</span><a href="/site/${slug}${path ? "/" + path : ""}">Clean share link</a><a href="/sample?project=${slug}">Request a similar site</a></div>`;
-  const ink = { "casa-neem": ["#a64c26", "#f6efe1"], "salon-booking": ["#a52f2d", "#eee8df"], "kinetic-yard": ["#ff5a1f", "#0c0c0c"], "hall-eleven": ["#d8b46a", "#10142a"] }[slug] || ["#232421", "#f8f7f2"];
+  const ink = { "casa-neem": ["#a64c26", "#f6efe1"], "salon-booking": ["#a52f2d", "#eee8df"], "kinetic-yard": ["#ff5a1f", "#0c0c0c"], "hall-eleven": ["#d8b46a", "#10142a"], "daybreak-cafe": ["#15392d", "#f8f3e5"] }[slug] || ["#232421", "#f8f7f2"];
   const favicon = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${ink[0]}"/><text x="32" y="45" text-anchor="middle" font-family="Georgia,serif" font-size="40" fill="${ink[1]}">${name[0]}</text></svg>`);
   return {
     brand: true,
+    status: p.status,
     favicon,
     theme: ink[1],
     clean,
     noindex: clean,
-    category: "demos",
+    // A full brand site can opt out of demos.css (category: "brand"), which only styles the older one-page demos.
+    category: p.category || "demos",
     // Full brand sites without a kits.js flow still get their own kit-<slug>.css.
-    kit: c.kit || slug === "salon-booking" ? slug : "",
+    kit: c.kit || ["salon-booking", "daybreak-cafe"].includes(slug) ? slug : "",
     title: clean ? p.title + " · " + name : p.title,
     description: p.description || p.title + " · " + name + (clean ? "" : " studio demo"),
     image:

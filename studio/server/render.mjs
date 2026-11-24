@@ -21,7 +21,6 @@ function header(path){
 }
 function footer(){return `<footer class="studio-footer"><div class="wrap foot-inner">${brand()}<div class="foot-contact"><a href="${contact}">Email Chetan</a><a href="https://www.instagram.com/_chetan_pujari/">Instagram</a><a href="https://nfcportfolio-two.vercel.app/">Personal portfolio</a></div><span>© Chetan Pujari</span></div></footer>`}
 function visual(id){
-  if(id==='daybreak-cafe')return `<div class="art art-cafe"><img src="/assets/daybreak-cafe-hero.webp" alt="" decoding="async"><div class="cafe-mast"><span class="sun-emblem">☼</span><span>Daybreak</span><small>C O F F E E &nbsp; H O U S E</small></div><div class="poster-bottom"><span>Our menu</span><span>Group tables</span></div></div>`;
   if(id==='salon-booking')return `<div class="art art-salon"><img src="/assets/salon-hero.webp" alt="" decoding="async"><div class="salon-mast"><small>H A I R &nbsp; S T U D I O</small><strong>Forma<span>.</span></strong></div><div class="poster-bottom"><span>Services & appointments</span></div></div>`;
   if(id==='studio-billing')return `<div class="art art-ledger"><div class="ledger-mast"><span class="ledger-symbol">▥</span> Ledger Desk</div><div class="receipt"><span>Sample invoice</span><b>Invoice #001</b><i></i><p>Creative services <strong>£240</strong></p><p>Print design <strong>£80</strong></p><i></i><p>Total <strong>£320</strong></p><div class="receipt-code"></div></div></div>`;
   const proj=projects.find(p=>p.slug===id);
@@ -65,13 +64,9 @@ function pageFor(url){
     const rec=(kind==='for'?industries:kind==='work'?projects:solutions).find(p=>p.slug===slug);
     if(rec)return {title:rec.title,description:rec.description,body:'<div id="detail-root">'+detailPage(kind,slug)+'</div>',image:rec.image||projects.find(p=>p.slug===rec.project)?.image,category:'catalog'};
   }
-  if((kind==='demo'||kind==='site') && demoSlugs.includes(slug) && slug!=='daybreak-cafe'){
+  if((kind==='demo'||kind==='site') && demoSlugs.includes(slug)){
     const branded=brandPage(slug,path.split('/').slice(3).join('/'),url.searchParams,kind==='site');
     if(branded)return branded;
-  }
-  if(kind==='demo' && slug==='daybreak-cafe'&&!extra){
-    const name=featured.includes(slug)?featureNames[featured.indexOf(slug)]:projects.find(p=>p.slug===slug).title;
-    return {title:name+' · Interactive demo',kit:featured.includes(slug)?'':slug,description:projects.find(p=>p.slug===slug)?.description,category:'demos',image:projects.find(p=>p.slug===slug)?.image,body:`<div class="demo-tools wrap"><a href="/work/${slug}">Project overview</a><a href="/sample?project=${slug}">Request a similar sample</a></div><div class="wrap demo-space"><div id="demo-root" data-slug="${slug}"><p>Loading the interactive demo…</p></div><noscript>Enable JavaScript to try the demo, or open the project overview above.</noscript></div>`};
   }
   return {status:404,title:'Page not found',body:'<section class="wrap listing"><h1>Page not found.</h1><p class="intro">Explore the project collection to find the example you need.</p><a class="btn-studio primary" href="/work">Browse work</a></section>'};
 }
