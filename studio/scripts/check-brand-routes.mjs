@@ -3,9 +3,19 @@ import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { brandPage } from '../brands/pages.mjs';
 import { projects } from '../site/catalog.js';
-const demos = projects.filter(p => p.url.startsWith('/demo/') ).map(p => p.url);
-// Walk the studio /demo/ copies and the clean /site/ share links a prospect receives.
-const queue = [...demos, ...demos.map(u => u.replace('/demo/', '/site/'))];
+import { siteResponse } from '../server/render.mjs';
+const hosted = projects.filter(p => p.hosted);
+const queue = hosted.map(p => p.url);
+// Outreach links already sent use /demo/: they must land on the same website page, choices included.
+const location = async path => { const r = await siteResponse(new Request('https://studio.example' + path)); return [r.status, r.headers.get('location')]; };
+for (const p of hosted) {
+  assert.deepEqual(await location(p.previewUrl), [308, p.url]);
+  assert.deepEqual(await location(p.previewUrl + '/request/?service=cut&tag=a%20b&tag=c'), [308, p.url + '/request?service=cut&tag=a%20b&tag=c']);
+  const page = brandPage(p.slug, '', new URLSearchParams());
+  assert.match(page.body, /illustrative|fictional/i, 'Missing disclosure: ' + p.url);
+  assert.equal(page.noindex, true, p.url);
+}
+for (const path of ['/demo/nope', '/demo/manakar', '/demo//evil.example', '/demo/__proto__']) assert.equal((await location(path))[0], 404, path);
 // Hand-typed query strings never appear as links, so seed the malformed ones that once threw.
 for (const q of ['checkin=2026-13-01', 'checkin=2026-12-00&checkout=2026-02-31', 'adults=abc'])
   queue.push('/site/casa-neem/rooms?' + q, '/site/casa-neem/rooms/loft?' + q);
@@ -21,16 +31,17 @@ for (const q of ['type=group&guests=abc&occasion=__proto__', 'guests=-4&date=202
   queue.push('/site/daybreak-cafe/request?' + q);
 // Daybreak answers unknown addresses with its own branded page, but still as a 404.
 for (const bad of ['menu/__proto__', 'menu/toString', 'menu/nope', 'nope', 'menu/espresso/extra'])
-  assert.equal(brandPage('daybreak-cafe', bad, new URLSearchParams(), true)?.status, 404, 'Should 404: ' + bad);
-assert.equal(brandPage('daybreak-cafe', 'menu', new URLSearchParams(), true).status, undefined);
+  assert.equal(brandPage('daybreak-cafe', bad, new URLSearchParams())?.status, 404, 'Should 404: ' + bad);
+assert.equal(brandPage('daybreak-cafe', 'menu', new URLSearchParams()).status, undefined);
 const seen = new Set();
 while (queue.length) {
   const url = new URL(queue.shift(), 'https://studio.example');
   if (seen.has(url.href)) continue;
   seen.add(url.href);
   const [, kind, slug, ...rest] = url.pathname.split('/');
-  const page = brandPage(slug, rest.join('/'), url.searchParams, kind === 'site');
-  if (kind === 'site') assert.doesNotMatch(page?.body || '', /studio-return|Studio demo|studio demo/, 'Studio wording on clean link: ' + url.pathname);
+  const page = brandPage(slug, rest.join('/'), url.searchParams);
+  assert.equal(kind, 'site', 'Website links to its old address: ' + url.pathname);
+  assert.doesNotMatch(page?.body || '', /studio-return|studio (project|demo)|concept (site|website)/i, 'Portfolio wording on a website: ' + url.pathname);
   assert.ok(page, 'Missing route: ' + url.pathname);
   assert.notEqual(page.status, 404, 'Link leads to a 404: ' + url.pathname);
   const primaryContent = rest.includes('image') ? /<figcaption>/ : /<h1[ >]/;

@@ -1,4 +1,4 @@
-import { context, mast } from "./common.mjs";
+import { context, credit, mast } from "./common.mjs";
 import { archive } from "./archive.mjs";
 import { mill } from "./collections.mjs";
 import { forma } from "./forma.mjs";
@@ -54,12 +54,11 @@ function ledger(c) {
         "</section>",
     );
 }
-// clean: the white-label /site/<slug> copy a prospect sees, with no studio bar and no "studio demo" wording.
-export function brandPage(slug, path, query, clean = false) {
+// Each website stands alone at /site/<slug>: its own brand, no portfolio navigation.
+export function brandPage(slug, path, query) {
   if (!Object.hasOwn(entries, slug)) return;
   const [render, name, cta] = entries[slug],
-    c = context(slug, path, query, (clean ? "/site/" : "/demo/") + slug);
-  c.clean = clean;
+    c = context(slug, path, query, "/site/" + slug);
   // A full-site renderer may draw its own request page; otherwise wrap the booking flow in the plain mast.
   let p =
     render(c) ||
@@ -71,9 +70,6 @@ export function brandPage(slug, path, query, clean = false) {
         )
       : undefined);
   if (!p) return;
-  const bar = clean
-    ? ""
-    : `<div class="studio-return"><a href="/work/${slug}">Chetan Studio</a><span>Studio demo</span><a href="/site/${slug}${path ? "/" + path : ""}">Clean share link</a><a href="/sample?project=${slug}">Request a similar site</a></div>`;
   const ink = { "casa-neem": ["#a64c26", "#f6efe1"], "salon-booking": ["#a52f2d", "#eee8df"], "kinetic-yard": ["#ff5a1f", "#0c0c0c"], "hall-eleven": ["#d8b46a", "#10142a"], "daybreak-cafe": ["#15392d", "#f8f3e5"] }[slug] || ["#232421", "#f8f7f2"];
   const favicon = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${ink[0]}"/><text x="32" y="45" text-anchor="middle" font-family="Georgia,serif" font-size="40" fill="${ink[1]}">${name[0]}</text></svg>`);
   return {
@@ -81,20 +77,20 @@ export function brandPage(slug, path, query, clean = false) {
     status: p.status,
     favicon,
     theme: ink[1],
-    clean,
-    noindex: clean,
+    clean: true, // read by render.mjs: the page title belongs to the business
+    noindex: true, // no hosted website represents a business that is ready for public indexing
     // A full brand site can opt out of demos.css (category: "brand"), which only styles the older one-page demos.
     category: p.category || "demos",
     // Full brand sites without a kits.js flow still get their own kit-<slug>.css.
     kit: c.kit || ["salon-booking", "daybreak-cafe"].includes(slug) ? slug : "",
-    title: clean ? p.title + " · " + name : p.title,
-    description: p.description || p.title + " · " + name + (clean ? "" : " studio demo"),
+    title: p.title + " · " + name,
+    description: p.description || p.title + " · " + name,
     image:
       "/assets/" +
       (p.image ||
         c.kit?.hero.img ||
         (slug === "studio-billing" ? "ledger-hero" : "salon-hero")) +
       ".webp",
-    body: `${bar}<section class="brand b-${slug}${clean ? " is-clean" : ""}">${p.html}</section>`,
+    body: `<section class="brand b-${slug}">${p.html}${/class="(site-foot|ff-footer)/.test(p.html) ? "" : `<footer class="brand-credit">${credit}</footer>`}</section>`,
   };
 }

@@ -1,5 +1,5 @@
 // Studio Forma: a full hair-studio website. Every person, review, number and price here is fictional.
-import { rupees, icon, whatsapp, stars, faq, siteHeader, siteFooter, dock } from "./common.mjs";
+import { rupees, icon, whatsapp, stars, reviewNote, faq, siteHeader, siteFooter, dock } from "./common.mjs";
 import { salonServices, salonPrice, hairLengths } from "../site/demos.js";
 
 const WA = whatsapp("+91 99999 04112", "Hi Forma, I'd like to book a chair.");
@@ -81,7 +81,7 @@ export function forma(c) {
     const p = people[id];
     return `<article class="stylist" data-reveal>${link("stylists/" + id, img(p.img, p.name + ", stylist at Forma"), "st-pic")}<div class="st-copy"><p class="st-role">${p.role} · ${p.years} years</p><h3>${link("stylists/" + id, full ? p.name : p.first)}</h3><blockquote>“${p.quote}”</blockquote>${full ? `<p>${p.bio}</p>` : ""}<div class="st-act">${action("Book with " + p.first, { stylist: p.n })}${full ? "" : link("stylists/" + id, "Profile & looks " + icon("arrow"), "text-link")}</div></div></article>`;
   };
-  const rating = `<div class="score"><b>4.8</b><div>${stars(5)}<span>286 Google reviews</span></div></div>`;
+  const rating = `<div class="score"><b>4.8</b><div>${stars(5)}<span>286 client reviews</span></div></div>`;
 
   if (!path)
     return page(
@@ -92,7 +92,7 @@ export function forma(c) {
 <section class="f-menu" id="menu"><div class="f-menu-head"><h2>The menu</h2><p>Pick your hair length and every price updates. What you see is what you pay; we confirm it at the consultation, before we start.</p></div>${menu()}</section>
 <section class="stylists"><div class="sec-head"><h2>Two stylists, <em>no juniors.</em></h2></div><div class="st-grid">${stylistBlock("mira")}${stylistBlock("alex")}</div></section>
 <section class="visit-steps"><div class="sec-head"><h2>What happens in your hour</h2></div><ol>${visit.map(([pic, t, mins, d], i) => `<li data-reveal style="--i:${i}">${img(pic, t)}<span class="vs-n">${String(i + 1).padStart(2, "0")} · ${mins}</span><h3>${t}</h3><p>${d}</p></li>`).join("")}</ol></section>
-<section class="f-reviews" aria-label="Client reviews"><div class="sec-head">${rating}<div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous review">${icon("left")}</button><button type="button" data-rail-next aria-label="Next review">${icon("right")}</button></div></div><div class="rail" data-rail tabindex="0">${reviews.map(([q, n, s]) => `<blockquote><p>“${q}”</p><footer><b>${n}</b>${s}</footer></blockquote>`).join("")}</div></section>
+<section class="f-reviews" aria-label="Client reviews"><div class="sec-head">${rating}<div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous review">${icon("left")}</button><button type="button" data-rail-next aria-label="Next review">${icon("right")}</button></div></div><div class="rail" data-rail tabindex="0">${reviews.map(([q, n, s]) => `<blockquote><p>“${q}”</p><footer><b>${n}</b>${s}</footer></blockquote>`).join("")}</div>${reviewNote}</section>
 <section class="find" id="visit"><figure>${img("forma-studio", "Inside Forma: round mirrors, an oxblood chair and window light")}</figure><div class="find-copy" data-reveal><h2>Find the studio</h2>${open}<dl><div><dt>Address</dt><dd>${foot.address}</dd></div><div><dt>Getting here</dt><dd>Two minutes' walk from the Lane 6 junction, first floor above the bakery. Street parking is easiest after 11 am.</dd></div><div><dt>Call or WhatsApp</dt><dd><a href="tel:+919999904112">${foot.phone}</a></dd></div></dl><div class="find-act"><a class="pill solid" href="https://www.google.com/maps/search/?api=1&amp;query=Lane+6+Koregaon+Park+Pune" rel="noopener" target="_blank">${icon("pin")} Get directions</a><a class="pill" href="${WA}">${icon("chat")} WhatsApp us</a></div></div></section>
 <section class="questions" data-reveal><h2>Before your appointment</h2>${faq(questions)}</section>
 <section class="f-cta" data-reveal><h2>Your chair is <em>waiting.</em></h2><p>Most weeks we have same-day chairs after 3 pm.</p><div class="f-cta-act">${link("request", "Book a chair " + icon("arrow"), "pill solid")}<a class="pill" href="${WA}">${icon("chat")} WhatsApp</a></div></section>`,
@@ -142,7 +142,7 @@ export function forma(c) {
   if (path === "request")
     return page(
       "Book a chair",
-      `<section class="f-top slim"><p class="kicker">Book a chair</p><h1>Pick a service, a stylist <em>and a time.</em></h1><p>We confirm on WhatsApp, usually within the hour. Nothing is charged until your visit.</p></section><div class="workflow"><div id="demo-root" data-slug="${c.slug}"></div></div>`,
+      `<section class="f-top slim"><p class="kicker">Book a chair</p><h1>Pick a service, a stylist <em>and a time.</em></h1><p>Choose what you’d like and save your request. Times are subject to confirmation and nothing is charged.</p></section><div class="workflow"><div id="demo-root" data-slug="${c.slug}"></div></div>`,
       "salon-hero",
     );
 }

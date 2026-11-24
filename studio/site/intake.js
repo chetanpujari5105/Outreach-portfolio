@@ -23,10 +23,10 @@ export function samplePage(params = new URLSearchParams()) {
     <div class="sample-intro">
       <p class="sample-eyebrow">Free sample</p>
       <h1 id="sample-title">A sample for<br><em>your business.</em></h1>
-      <p class="sample-lead">Tell me one thing you’d like customers or staff to do more easily. I’ll use that as the starting point for your sample.</p>
+      <p class="sample-lead">Tell us what your website should help customers or staff do. We’ll use that as the starting point for your sample.</p>
       <div class="sample-contact">
         <h2>Already in touch?</h2>
-        <p>Reply in our original Instagram conversation, or send me your brief by email.</p>
+        <p>Reply in our original Instagram conversation, or send your brief by email.</p>
         <a href="${instagram}" target="_blank" rel="noopener noreferrer">Instagram @_chetan_pujari <span aria-hidden="true">↗</span></a>
         <a href="${initialMail}" data-mail>Email Chetan <span aria-hidden="true">↗</span></a>
         <span class="sample-address">${email}</span>
@@ -44,12 +44,12 @@ export function samplePage(params = new URLSearchParams()) {
           <label class="sample-field">Reply by<select name="replyMethod"><option value="email">Email</option><option value="instagram">Instagram</option><option value="phone">Phone</option></select></label>
           <label class="sample-field"><span data-contact-label>Your email address</span><input required name="contact" maxlength="254" type="email" autocomplete="email" placeholder="you@business.com"></label>
         </div>
-        <p class="sample-note">I’ll use these details to discuss your sample. You can decide on the full build after you see it.</p>
+        <p class="sample-note">We’ll use these details to discuss your sample. You can decide on the full build after you see it.</p>
         <button class="sample-submit" type="submit">Request my free sample <span aria-hidden="true">↗</span></button>
         <p class="sample-feedback" role="status" aria-live="polite" data-intake-status></p>
         <div hidden data-intake-fallback><a href="${initialMail}" data-mail>Open an email draft with this brief ↗</a></div>
       </form>
-      <section class="sample-receipt" data-intake-success hidden aria-labelledby="sample-success"><span class="sample-check" aria-hidden="true">✓</span><h2 id="sample-success" tabindex="-1">Your request is in.</h2><p>Your brief is saved. I’ll review it and follow up using the reply method you chose.</p><p class="sample-reference"></p><a href="/work">Explore more work <span aria-hidden="true">→</span></a></section>
+      <section class="sample-receipt" data-intake-success hidden aria-labelledby="sample-success"><span class="sample-check" aria-hidden="true">✓</span><h2 id="sample-success" tabindex="-1">Your request is in.</h2><p>Your brief is saved. We’ll review it and follow up using the reply method you chose.</p><p class="sample-reference"></p><a href="/work">Explore more work <span aria-hidden="true">→</span></a></section>
     </div>
   </section>`
 }
@@ -60,9 +60,9 @@ function updateMail(root, values) {
     values.brief && 'What I’d like to see: ' + values.brief,
     values.website && 'Current website: ' + values.website,
     values.contact && 'Reply by ' + values.replyMethod + ': ' + values.contact,
-    values.project && 'Example I viewed: ' + values.project,
+    values.project && 'Project I viewed: ' + values.project,
     values.industry && 'Business type: ' + values.industry,
-    values.solution && 'Workflow: ' + values.solution
+    values.solution && 'Solution: ' + values.solution
   ].filter(Boolean).join('\n\n')
   const uri = initialMail + '&body=' + encodeURIComponent(body)
   for (const link of root.querySelectorAll('[data-mail]')) link.href = uri

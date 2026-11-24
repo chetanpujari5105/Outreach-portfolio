@@ -1,5 +1,5 @@
 // Casa Neem: a full homestay website. Every person, review, number and price here is fictional.
-import { rupees, icon, whatsapp, stars, faq, siteHeader, siteFooter, dock } from "./common.mjs";
+import { rupees, icon, whatsapp, stars, reviewNote, faq, siteHeader, siteFooter, dock } from "./common.mjs";
 import { todayAt, dayOffset, dateText } from "../site/demos.js";
 
 const WA = whatsapp("+91 99999 01931", "Hi Casa Neem, I'd like to check dates for a stay.");
@@ -87,11 +87,11 @@ export function casa(c) {
     return page(
       "A five-room homestay in Assagao, Goa",
       `<section class="cover"><div class="cover-img">${img("neem-hero", "The courtyard at Casa Neem with the neem tree, bougainvillea and indigo cushions", "", true)}</div><div class="cover-copy"><h1>A house<br>in <em>Assagao.</em></h1><p>Five rooms around an old neem tree, ten minutes from Anjuna and a world away from it.</p></div>${widget("on-cover")}</section>
-<section class="welcome" data-reveal><div class="welcome-text"><p class="lede">Built in 1931 for a family of rice farmers, restored by hand in 2019. We kept the red-oxide floors, the carved doors and the tree. We added cold showers, good mattresses and very fast Wi-Fi.</p><div class="host"><p><b>Anita &amp; Rui D’Souza</b>Your hosts, who live in the house next door</p><p class="rating">${stars(5)}<span><b>4.9</b> from 212 Google reviews</span></p></div></div><figure class="welcome-pic">${img("neem-hosts", "Anita and Rui sitting on the verandah steps of Casa Neem")}<figcaption>Anita and Rui on the verandah steps</figcaption></figure></section>
+<section class="welcome" data-reveal><div class="welcome-text"><p class="lede">Built in 1931 for a family of rice farmers, restored by hand in 2019. We kept the red-oxide floors, the carved doors and the tree. We added cold showers, good mattresses and very fast Wi-Fi.</p><div class="host"><p><b>Anita &amp; Rui D’Souza</b>Your hosts, who live in the house next door</p><p class="rating">${stars(5)}<span><b>4.9</b> from 212 guest reviews</span></p></div></div><figure class="welcome-pic">${img("neem-hosts", "Anita and Rui sitting on the verandah steps of Casa Neem")}<figcaption>Anita and Rui on the verandah steps</figcaption></figure></section>
 <section class="rooms" id="rooms"><div class="sec-head"><h2>Three ways to stay</h2>${link("rooms", "All rooms & rates " + icon("arrow"), "text-link", stay)}</div>${rooms.map(roomRow).join("")}</section>
 <section class="day" data-day aria-label="A day at Casa Neem"><div class="day-pics">${day.map((d, i) => `<figure data-day-img class="${i ? "" : "on"}">${img(d[3], d[1])}</figure>`).join("")}</div><div class="day-steps"><h2>A day at the house</h2><ol>${day.map((d) => `<li data-day-step><time>${d[0]}</time><h3>${d[1]}</h3><p>${d[2]}</p></li>`).join("")}</ol></div></section>
 <section class="amen" data-reveal><h2>Everything you need, nothing that hums</h2><ul>${amenities.map(([i, t, d]) => `<li>${icon(i)}<div><b>${t}</b><span>${d}</span></div></li>`).join("")}</ul></section>
-<section class="voices" aria-label="Guest reviews"><div class="sec-head"><h2>Guests, in their words</h2><div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous review">${icon("left")}</button><button type="button" data-rail-next aria-label="Next review">${icon("right")}</button></div></div><div class="rail" data-rail tabindex="0">${reviews.map(([q, who, where]) => `<blockquote>${stars(5)}<p>“${q}”</p><footer><b>${who}</b>${where}</footer></blockquote>`).join("")}</div></section>
+<section class="voices" aria-label="Guest reviews"><div class="sec-head"><h2>Guests, in their words</h2><div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous review">${icon("left")}</button><button type="button" data-rail-next aria-label="Next review">${icon("right")}</button></div></div><div class="rail" data-rail tabindex="0">${reviews.map(([q, who, where]) => `<blockquote>${stars(5)}<p>“${q}”</p><footer><b>${who}</b>${where}</footer></blockquote>`).join("")}</div>${reviewNote}</section>
 <section class="gallery" id="instagram"><div class="sec-head"><h2>From the house</h2><a class="text-link" href="#instagram">${icon("insta")} ${foot.insta}</a></div><div class="mosaic" data-gallery>${["neem-hero", "neem-breakfast", "neem-loft", "neem-pool", "neem-dusk"].map((g, i) => `<a href="/assets/${g}.webp" class="m${i}">${img(g, "Casa Neem photograph " + (i + 1))}</a>`).join("")}</div></section>
 <section class="around" data-reveal><figure>${img("neem-lane", "A whitewashed chapel on a lane in Assagao")}</figure><div><h2>Around Assagao</h2><p>The village sits inland, between paddy fields and the hills. Close enough to the beaches to be there by breakfast, far enough to sleep.</p><ul class="dist">${places.map(([p, t]) => `<li><span>${p}</span><b>${t}</b></li>`).join("")}</ul>${link("assagao", "Our neighbourhood guide " + icon("arrow"), "text-link")}</div></section>
 <section class="questions" data-reveal><h2>Before you ask</h2>${faq(questions)}</section>
@@ -117,7 +117,7 @@ export function casa(c) {
   if (path === "request")
     return page(
       "Check availability",
-      `<section class="page-top slim"><h1>Check availability</h1><p>Tell us your dates and who's coming. Anita replies within a few hours, and nothing is charged until you confirm.</p></section><div class="workflow"><div id="demo-root" data-slug="${c.slug}"></div></div>`,
+      `<section class="page-top slim"><h1>Check availability</h1><p>Choose your dates and who's coming to see an itemised total. Availability is confirmed by the house and nothing is charged here.</p></section><div class="workflow"><div id="demo-root" data-slug="${c.slug}"></div></div>`,
       "neem-hero",
     );
 

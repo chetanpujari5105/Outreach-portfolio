@@ -13,7 +13,7 @@ export const rupees = (n) =>
     currency: "INR",
     maximumFractionDigits: 0,
   }).format(n);
-export function context(slug, path, query, base = "/demo/" + slug) {
+export function context(slug, path, query, base = "/site/" + slug) {
   const href = (page = "", params = {}) =>
     base +
     (page ? "/" + page : "") +
@@ -89,8 +89,10 @@ export function siteHeader(c, { name, links, cta, over = false }) {
     .join("");
   return `<header class="site-head${over ? " over" : ""}" data-site-head><div class="site-head-in">${c.link("", name, "site-name")}<nav class="site-nav" id="site-nav" aria-label="Main">${nav}${cta ? c.link(cta[0], cta[1], "head-cta", cta[2] || {}) : ""}</nav><button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" data-menu><span class="sr">Menu</span>${icon("menu")}${icon("close")}</button></div></header>`;
 }
+export const reviewNote = '<p class="disclose">Illustrative reviews and ratings.</p>';
+// The only portfolio link on a standalone website, with the disclosure every page must keep.
+export const credit = `<p class="credit">Website by <a href="/">Chetan Studio</a> · Business details, people, reviews and prices are illustrative.</p>`;
 export function siteFooter(c, f) {
-  const credit = `<p class="credit">Website by <a href="/">Chetan Studio</a>${c.clean ? "" : " · Sample site for a fictional business"}</p>`;
   return `<footer class="site-foot"><div class="foot-grid"><div class="foot-brand">${c.link("", f.name, "site-name")}<p>${f.blurb}</p></div><div><h2>Visit</h2><p>${icon("pin")}<span>${f.address}</span></p><p>${icon("clock")}<span>${f.hours}</span></p></div><div><h2>Contact</h2><p>${icon("phone")}<a href="tel:${f.phone.replace(/\s/g, "")}">${f.phone}</a></p><p>${icon("mail")}<a href="mailto:${f.email}">${f.email}</a></p><p>${icon("insta")}<a href="${c.href("")}#instagram">${f.insta}</a></p></div><div><h2>Explore</h2>${f.links.map(([p, l]) => c.link(p, l)).join("")}</div></div><div class="foot-base"><span>© ${new Date().getFullYear()} ${f.name}</span>${credit}</div></footer>`;
 }
 // Thumb-reach bar on phones: chat now, or go straight to booking.

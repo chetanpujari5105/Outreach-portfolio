@@ -196,19 +196,19 @@ function salon(root) {
     const place = loc();
     let panel = "";
     if (owner) {
-      panel = `<h2 tabindex="-1" data-focus>Studio requests</h2>${
+      panel = `<h2 tabindex="-1" data-focus>Saved requests</h2>${
         rows.length
           ? [...rows]
               .reverse()
               .map(
                 (r) =>
-                  `<section class="dm-record"><strong>Sample request · ${locations[r.city].city}</strong>${summary(r)}</section>`,
+                  `<section class="dm-record"><strong>Appointment request · ${locations[r.city].city}</strong>${summary(r)}</section>`,
               )
               .join("")
-          : "<p>Requests made in this demo appear here.</p>"
+          : "<p>Requests you save appear here.</p>"
       }${button("customer", "Back to booking", "dm-primary")}`;
     } else if (receipt) {
-      panel = `<p class="dm-kicker">Request received</p><h2 tabindex="-1" data-focus>You’re on the list.</h2><p>The studio confirms your time by ${place.contact === "Email" ? "email" : place.contact}, usually within the hour. Nothing is charged until your visit.</p>${summary(receipt)}${button("owner", "See the studio’s request list", "dm-primary")} ${button("new", "Book another service", "dm-link")}`;
+      panel = `<p class="dm-kicker">Saved on this device</p><h2 tabindex="-1" data-focus>Your request is ready.</h2><p>Review your requested appointment below. Nothing has been sent, booked or charged; contact the studio to confirm the time.</p>${summary(receipt)}${button("owner", "See saved requests", "dm-primary")} ${button("new", "Plan another service", "dm-link")}`;
     } else {
       let content = "";
       if (step === 0)
@@ -241,11 +241,11 @@ function salon(root) {
         "Find a time",
         "Review your request",
       ];
-      panel = `<ol class="dm-steps" aria-label="Booking progress">${calendarLabels.map((s, i) => `<li ${i === step ? 'aria-current="step"' : ""}>${i + 1}. ${s}</li>`).join("")}</ol><h2 data-focus tabindex="-1">${headings[step]}</h2>${content}<div class="dm-controls">${step ? button("back", "← Back", "dm-link") : ""}${button("continue", step === 3 ? "Send request " + next : "Continue " + next, "dm-primary", step === 2 && !slot ? "disabled" : "")}</div>`;
+      panel = `<ol class="dm-steps" aria-label="Booking progress">${calendarLabels.map((s, i) => `<li ${i === step ? 'aria-current="step"' : ""}>${i + 1}. ${s}</li>`).join("")}</ol><h2 data-focus tabindex="-1">${headings[step]}</h2>${content}<div class="dm-controls">${step ? button("back", "← Back", "dm-link") : ""}${button("continue", step === 3 ? "Save request " + next : "Continue " + next, "dm-primary", step === 2 && !slot ? "disabled" : "")}</div>`;
     }
     setView(
       root,
-      `<div class="dm dm-salon"><div class="dm-brandbar"><span class="dm-wordmark">Forma<small>studio</small></span><span>Hair atelier · ${place.area}, ${place.city}</span></div><header class="dm-forma-hero"><img class="dm-forma-hero-img" src="/assets/salon-hero.webp" alt="A Studio Forma client with a sharp black bob and a red silk scarf" width="1536" height="1024" fetchpriority="high"><div class="dm-forma-hero-copy"><p class="dm-kicker">Hair &amp; colour atelier</p><h1>Your hair,<br><em>your hour.</em></h1><p>${place.area}, ${place.city} · ${place.hours} · By appointment</p></div><ul class="dm-forma-index" aria-hidden="true"><li><b>01</b> Cut</li><li><b>02</b> Colour</li><li><b>03</b> Blowout</li></ul></header><div class="dm-layout"><aside class="dm-intro"><p class="dm-kicker">Book in four steps</p><p class="dm-forma-lede">Pick a service, a stylist and a time. The studio confirms every request by ${place.contact === "Email" ? "email" : place.contact}.</p><p class="dm-forma-hours"><span>Open</span>${place.hours}<br><span>Zone</span>${place.tz}</p><label class="dm-field">Demo location<select data-city>${Object.entries(
+      `<div class="dm dm-salon"><div class="dm-brandbar"><span class="dm-wordmark">Forma<small>studio</small></span><span>Hair atelier · ${place.area}, ${place.city}</span></div><header class="dm-forma-hero"><img class="dm-forma-hero-img" src="/assets/salon-hero.webp" alt="A Studio Forma client with a sharp black bob and a red silk scarf" width="1536" height="1024" fetchpriority="high"><div class="dm-forma-hero-copy"><p class="dm-kicker">Hair &amp; colour atelier</p><h1>Your hair,<br><em>your hour.</em></h1><p>${place.area}, ${place.city} · ${place.hours} · By appointment</p></div><ul class="dm-forma-index" aria-hidden="true"><li><b>01</b> Cut</li><li><b>02</b> Colour</li><li><b>03</b> Blowout</li></ul></header><div class="dm-layout"><aside class="dm-intro"><p class="dm-kicker">Book in four steps</p><p class="dm-forma-lede">Pick a service, a stylist and a time. Every time is subject to the studio’s confirmation.</p><p class="dm-forma-hours"><span>Open</span>${place.hours}<br><span>Zone</span>${place.tz}</p><label class="dm-field">Location<select data-city>${Object.entries(
         locations,
       )
         .map(
@@ -254,7 +254,7 @@ function salon(root) {
         )
         .join(
           "",
-        )}</select></label></aside><section class="dm-panel">${panel}</section></div><footer class="dm-foot"><span>Studio demo · Fictional studio and sample times</span><div>${button("owner", "Owner view", "dm-link")}${button("reset", "Reset demo", "dm-link")}</div></footer></div>`,
+        )}</select></label></aside><section class="dm-panel">${panel}</section></div><footer class="dm-foot"><span>Illustrative prices and times. Requests are kept in this browser tab and are not sent.</span><div>${button("owner", "Saved requests", "dm-link")}${button("reset", "Clear all", "dm-link")}</div></footer></div>`,
       focus,
     );
   }
@@ -414,7 +414,7 @@ function cafe(root) {
       .join("");
     setView(
       root,
-      `<div class="dm dm-cafe"><div class="dm-brandbar"><span class="dm-wordmark">Daybreak <i>Café</i></span><span>Deccan · Pune</span></div><div class="dm-cafe-cover"><img src="/assets/daybreak-cafe-hero.webp" alt="Morning light through the arched window at Daybreak Café, with a flat white and an almond croissant on a marble table" width="1600" height="1067" fetchpriority="high"><div class="dm-cover-copy"><p class="dm-kicker">Coffee, kitchen &amp; bakery</p><h1>A table at<br><em>Daybreak.</em></h1><p>Garden Lane, Deccan · Pune<br>Daily, 8 am – 6 pm · India Standard Time</p>${button("group", "Enquire about a group table " + next, "dm-primary")}</div><svg class="dm-stamp" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="dm-stamp-ring" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><text><textPath href="#dm-stamp-ring">DAYBREAK · COFFEE · KITCHEN · BAKERY · </textPath></text><circle cx="60" cy="60" r="20"/><text x="60" y="66" text-anchor="middle" class="dm-stamp-sun">☼</text></svg></div><div class="dm-ticker" aria-hidden="true"><span>${dishes.map((d) => d.name).join(" ✦ ")} ✦ ${dishes.map((d) => d.name).join(" ✦ ")} ✦ </span></div><section class="dm-menu"><div class="dm-menu-top"><h2 data-focus tabindex="-1">The menu</h2><div class="dm-filter" aria-label="Menu categories">${["All", "Coffee", "Kitchen", "Bakery"].map((s) => button("filter", s, "dm-chip", `data-category="${s}" aria-pressed="${s === filter}"`)).join("")}</div></div><div class="dm-dishes">${menu}</div></section><section class="dm-space"><img src="/assets/daybreak-cafe-space.webp" alt="A long communal table set for eight under brass pendant lamps" width="900" height="1125" loading="lazy" decoding="async"><div><p class="dm-kicker">Our space</p><h2>Room for the<br><em>whole table.</em></h2><p>The long table seats up to twelve for birthdays, team breakfasts and slow Sunday catch-ups. Tell us the date and party size and the café team will get back to you.</p>${button("group", "Ask about a group table " + next, "dm-primary")}</div></section><footer class="dm-foot"><span>Studio demo · Fictional café, menu and location</span>${button("reset", "Reset demo", "dm-link")}</footer><dialog class="dm-dialog" aria-labelledby="dm-dialog-title"></dialog></div>`,
+      `<div class="dm dm-cafe"><div class="dm-brandbar"><span class="dm-wordmark">Daybreak <i>Café</i></span><span>Deccan · Pune</span></div><div class="dm-cafe-cover"><img src="/assets/daybreak-cafe-hero.webp" alt="Morning light through the arched window at Daybreak Café, with a flat white and an almond croissant on a marble table" width="1600" height="1067" fetchpriority="high"><div class="dm-cover-copy"><p class="dm-kicker">Coffee, kitchen &amp; bakery</p><h1>A table at<br><em>Daybreak.</em></h1><p>Garden Lane, Deccan · Pune<br>Daily, 8 am – 6 pm · India Standard Time</p>${button("group", "Enquire about a group table " + next, "dm-primary")}</div><svg class="dm-stamp" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="dm-stamp-ring" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><text><textPath href="#dm-stamp-ring">DAYBREAK · COFFEE · KITCHEN · BAKERY · </textPath></text><circle cx="60" cy="60" r="20"/><text x="60" y="66" text-anchor="middle" class="dm-stamp-sun">☼</text></svg></div><div class="dm-ticker" aria-hidden="true"><span>${dishes.map((d) => d.name).join(" ✦ ")} ✦ ${dishes.map((d) => d.name).join(" ✦ ")} ✦ </span></div><section class="dm-menu"><div class="dm-menu-top"><h2 data-focus tabindex="-1">The menu</h2><div class="dm-filter" aria-label="Menu categories">${["All", "Coffee", "Kitchen", "Bakery"].map((s) => button("filter", s, "dm-chip", `data-category="${s}" aria-pressed="${s === filter}"`)).join("")}</div></div><div class="dm-dishes">${menu}</div></section><section class="dm-space"><img src="/assets/daybreak-cafe-space.webp" alt="A long communal table set for eight under brass pendant lamps" width="900" height="1125" loading="lazy" decoding="async"><div><p class="dm-kicker">Our space</p><h2>Room for the<br><em>whole table.</em></h2><p>The long table seats up to twelve for birthdays, team breakfasts and slow Sunday catch-ups. Tell us the date and party size and the café team will get back to you.</p>${button("group", "Ask about a group table " + next, "dm-primary")}</div></section><footer class="dm-foot"><span>Illustrative menu and location</span>${button("reset", "Reset", "dm-link")}</footer><dialog class="dm-dialog" aria-labelledby="dm-dialog-title"></dialog></div>`,
       focus,
     );
     dialog = root.querySelector("dialog");
@@ -450,7 +450,7 @@ function cafe(root) {
     if (action === "group") {
       const min = dayOffset(todayAt(zone), 1);
       openDialog(
-        `<div class="dm-dialog-top"><span class="dm-kicker">Group dining</span>${close}</div><h2 id="dm-dialog-title" tabindex="-1">A table for friends.</h2><form data-enquiry><label class="dm-field">Party size<select name="guests">${[4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => `<option>${n}</option>`).join("")}</select></label><label class="dm-field">Preferred date<input type="date" name="date" min="${min}" max="${dayOffset(min, 89)}" value="${min}" required></label>${notice("A sample enquiry for the café team to review. A table would be confirmed separately.")}<button class="dm-button dm-primary" type="submit">Send sample enquiry ${next}</button></form>`,
+        `<div class="dm-dialog-top"><span class="dm-kicker">Group dining</span>${close}</div><h2 id="dm-dialog-title" tabindex="-1">A table for friends.</h2><form data-enquiry><label class="dm-field">Party size<select name="guests">${[4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => `<option>${n}</option>`).join("")}</select></label><label class="dm-field">Preferred date<input type="date" name="date" min="${min}" max="${dayOffset(min, 89)}" value="${min}" required></label>${notice("Your enquiry is prepared in this tab and is not sent. Contact the café to confirm a table.")}<button class="dm-button dm-primary" type="submit">Prepare enquiry ${next}</button></form>`,
       );
     }
     if (action === "reset") {
@@ -466,7 +466,7 @@ function cafe(root) {
     const data = new FormData(e.target);
     ack = { guests: Number(data.get("guests")), date: data.get("date") };
     openDialog(
-      `<div class="dm-dialog-top"><span class="dm-kicker">Enquiry received</span>${close}</div><h2 id="dm-dialog-title" tabindex="-1">Thanks for asking.</h2><p>Your sample enquiry for ${ack.guests} guests on ${dateText(ack.date, locale)} is ready for review. No reservation has been made.</p>${button("close", "Return to menu", "dm-primary")}`,
+      `<div class="dm-dialog-top"><span class="dm-kicker">Enquiry ready</span>${close}</div><h2 id="dm-dialog-title" tabindex="-1">Your enquiry is ready.</h2><p>Your enquiry for ${ack.guests} guests on ${dateText(ack.date, locale)} is ready to review. Nothing has been sent and no reservation has been made.</p>${button("close", "Return to menu", "dm-primary")}`,
     );
   };
   render();
@@ -568,15 +568,15 @@ function billing(root) {
   function render(focus = true) {
     let content = "";
     if (screen === "edit") {
-      content = `<div class="dm-form-main"><p class="dm-kicker">Invoice builder</p><h2 data-focus tabindex="-1">New invoice</h2><div class="dm-pair"><label class="dm-field">Bill to<select data-customer>${customers.map((c, i) => `<option value="${i}" ${customer === i ? "selected" : ""}>${c}</option>`).join("")}</select></label><label class="dm-field">Demo currency<select data-currency>${Object.keys(
+      content = `<div class="dm-form-main"><p class="dm-kicker">Invoice builder</p><h2 data-focus tabindex="-1">New invoice</h2><div class="dm-pair"><label class="dm-field">Bill to<select data-customer>${customers.map((c, i) => `<option value="${i}" ${customer === i ? "selected" : ""}>${c}</option>`).join("")}</select></label><label class="dm-field">Currency<select data-currency>${Object.keys(
         billingCurrencies,
       )
         .map((c) => `<option ${currency === c ? "selected" : ""}>${c}</option>`)
         .join(
           "",
-        )}</select></label></div><h3>Line items</h3>${editLines() || "<p>Choose an item to start this invoice.</p>"}<h3>Add from the catalog</h3><div class="dm-ledger-catalog">${products.map((p, i) => `<button type="button" class="dm-ledger-tile" data-action="add" data-p="${i}" aria-label="Add ${p}, ${format(prices(currency)[i])}"><img src="/assets/ledger-${productImg[i]}.webp" alt="" width="320" height="320" loading="lazy"><span><strong>${p}</strong><small>${format(prices(currency)[i])}</small></span><b aria-hidden="true">+</b></button>`).join("")}</div></div><aside class="dm-sheet-summary"><p class="dm-kicker">Summary</p><label class="dm-field">Discount (%)<input type="number" min="0" max="100" step="1" value="${discount}" data-discount required></label><div data-amounts>${amounts(items, discount, currency)}</div>${button("review", "Review invoice " + next, "dm-primary", !items.length ? "disabled" : "")}<p class="dm-note">Sample prices in ${currency}. No payment is collected.</p></aside>`;
+        )}</select></label></div><h3>Line items</h3>${editLines() || "<p>Choose an item to start this invoice.</p>"}<h3>Add from the catalog</h3><div class="dm-ledger-catalog">${products.map((p, i) => `<button type="button" class="dm-ledger-tile" data-action="add" data-p="${i}" aria-label="Add ${p}, ${format(prices(currency)[i])}"><img src="/assets/ledger-${productImg[i]}.webp" alt="" width="320" height="320" loading="lazy"><span><strong>${p}</strong><small>${format(prices(currency)[i])}</small></span><b aria-hidden="true">+</b></button>`).join("")}</div></div><aside class="dm-sheet-summary"><p class="dm-kicker">Summary</p><label class="dm-field">Discount (%)<input type="number" min="0" max="100" step="1" value="${discount}" data-discount required></label><div data-amounts>${amounts(items, discount, currency)}</div>${button("review", "Review invoice " + next, "dm-primary", !items.length ? "disabled" : "")}<p class="dm-note">Illustrative prices in ${currency}. No payment is collected.</p></aside>`;
     } else if (screen === "list") {
-      content = `<div class="dm-record-view"><p class="dm-kicker">Owner view</p><h2 data-focus tabindex="-1">Issued invoices</h2>${
+      content = `<div class="dm-record-view"><p class="dm-kicker">Register</p><h2 data-focus tabindex="-1">Issued invoices</h2>${
         invoices.length
           ? [...invoices]
               .reverse()
@@ -585,16 +585,16 @@ function billing(root) {
                   `<button type="button" data-action="open" data-id="${r.id}" class="dm-list-row"><span><strong>${number(r.id)}</strong><small>${customers[r.customer]}</small></span><span>${format(totals(r.items, r.discount, r.currency).total, r.currency)} ↗</span></button>`,
               )
               .join("")
-          : "<p>Issued sample invoices appear in this tab.</p>"
+          : "<p>Issued invoices appear in this tab.</p>"
       }${button("editor", "Return to editor", "dm-secondary")}</div>`;
     } else {
       const issued = screen === "issued",
         r = active;
-      content = `<div class="dm-record-view"><div class="dm-print-sheet"><p class="dm-kicker">Ledger Desk · Sample invoice</p><h2 tabindex="-1" data-focus>${issued ? number(r.id) : "Review invoice"}</h2>${snapshot(r)}</div><div class="dm-controls">${issued ? button("print", "Print sample invoice", "dm-primary") + button("new", "Start new invoice", "dm-secondary") : button("editor", "← Edit invoice", "dm-link") + button("issue", "Issue sample invoice " + next, "dm-primary")}</div></div>`;
+      content = `<div class="dm-record-view"><div class="dm-print-sheet"><p class="dm-kicker">Ledger Desk · Invoice</p><h2 tabindex="-1" data-focus>${issued ? number(r.id) : "Review invoice"}</h2>${snapshot(r)}</div><div class="dm-controls">${issued ? button("print", "Print invoice", "dm-primary") + button("new", "Start new invoice", "dm-secondary") : button("editor", "← Edit invoice", "dm-link") + button("issue", "Issue invoice " + next, "dm-primary")}</div></div>`;
     }
     setView(
       root,
-      `<div class="dm dm-bill"><div class="dm-brandbar"><span class="dm-wordmark"><span class="dm-ledger-icon" aria-hidden="true">LD</span>Ledger Desk</span><span>Studio accounts</span></div><header class="dm-bill-header"><div class="dm-ledger-title"><p class="dm-kicker">Studio workspace</p><h1>Billing desk<span>.</span></h1><p class="dm-ledger-sub">Pick items from the catalog, check the totals and issue a sample invoice to the owner’s list.</p>${button("list", "Issued invoices (" + invoices.length + ")", "dm-secondary")}</div><img class="dm-ledger-photo" src="/assets/ledger-hero.webp" alt="" width="1536" height="1024" fetchpriority="high"><div class="dm-ledger-stat"><small>Issued</small><strong>${String(invoices.length).padStart(2, "0")}</strong></div><div class="dm-ledger-stat dm-ledger-stat-lime"><small>Currency</small><strong>${currency}</strong></div></header><div class="dm-bill-layout">${content}</div><footer class="dm-foot"><span>Studio demo · Fictional customers and invoices</span>${button("reset", "Reset demo", "dm-link")}</footer></div>`,
+      `<div class="dm dm-bill"><div class="dm-brandbar"><span class="dm-wordmark"><span class="dm-ledger-icon" aria-hidden="true">LD</span>Ledger Desk</span><span>Studio accounts</span></div><header class="dm-bill-header"><div class="dm-ledger-title"><p class="dm-kicker">Studio workspace</p><h1>Billing desk<span>.</span></h1><p class="dm-ledger-sub">Pick items from the catalog, check the totals and issue an invoice to the register.</p>${button("list", "Issued invoices (" + invoices.length + ")", "dm-secondary")}</div><img class="dm-ledger-photo" src="/assets/ledger-hero.webp" alt="" width="1536" height="1024" fetchpriority="high"><div class="dm-ledger-stat"><small>Issued</small><strong>${String(invoices.length).padStart(2, "0")}</strong></div><div class="dm-ledger-stat dm-ledger-stat-lime"><small>Currency</small><strong>${currency}</strong></div></header><div class="dm-bill-layout">${content}</div><footer class="dm-foot"><span>Illustrative customers and prices. Invoices are kept in this browser tab.</span>${button("reset", "Clear all", "dm-link")}</footer></div>`,
       focus,
     );
   }

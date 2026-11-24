@@ -60,7 +60,7 @@ export function brightpath(c) {
       return result(
         title,
         top +
-          `<article class="worksheet"><p>${o.label} / Sample lesson</p><h1>${title}</h1><p>${q}</p><form data-quiz="${correct}">${answers.map((s, i) => `<label class="check"><input type="radio" name="answer" value="${i}" required> ${s}</label>`).join("")}<button>Check answer</button><button type="reset">Try again</button><p role="status" data-explanation="${esc(note)}"></p></form>${action("Book a " + grade.label + " trial", { subject: o.id, grade: grade.id })}</article>`,
+          `<article class="worksheet"><p>${o.label} / Practice lesson</p><h1>${title}</h1><p>${q}</p><form data-quiz="${correct}">${answers.map((s, i) => `<label class="check"><input type="radio" name="answer" value="${i}" required> ${s}</label>`).join("")}<button>Check answer</button><button type="reset">Try again</button><p role="status" data-explanation="${esc(note)}"></p></form>${action("Book a " + grade.label + " trial", { subject: o.id, grade: grade.id })}</article>`,
         o.img,
       );
     return result(
@@ -136,7 +136,7 @@ export function stillwater(c) {
             ["Session fee", rupees(o.price)],
             ["Duration", o.unit],
           ],
-        )}${action("See sample appointment times", { support: o.id })}</article>`,
+        )}${action("See appointment times", { support: o.id })}</article>`,
       o.img,
     );
 }
@@ -261,9 +261,9 @@ export function gloss(c) {
     return result(
       o.label,
       top +
-        `<section class="bay-detail"><div data-inspection><div class="finish-comparison">${img(o.img, o.label + " treatment detail")}<div class="finish-overlay" aria-hidden="true">${img(o.img, "")}</div></div><label>Illustrative finish comparison<input type="range" min="0" max="100" value="50" aria-label="Reveal the polished finish"></label><div class="inspection-actions"><button type="button" data-finish="100">Hazed finish</button><button type="button" data-finish="0">Polished finish</button></div><small>Lighting simulation on one sample photograph.</small></div><article><h1>${o.label}</h1><p>${o.detail}</p>${details(
+        `<section class="bay-detail"><div data-inspection><div class="finish-comparison">${img(o.img, o.label + " treatment detail")}<div class="finish-overlay" aria-hidden="true">${img(o.img, "")}</div></div><label>Illustrative finish comparison<input type="range" min="0" max="100" value="50" aria-label="Reveal the polished finish"></label><div class="inspection-actions"><button type="button" data-finish="100">Hazed finish</button><button type="button" data-finish="0">Polished finish</button></div><small>Lighting simulation on one photograph.</small></div><article><h1>${o.label}</h1><p>${o.detail}</p>${details(
           [
-            ["Example sedan", rupees(o.price)],
+            ["For a sedan", rupees(o.price)],
             ["Workshop time", o.hours + " hours"],
           ],
         )}${action("Configure a drop-off", { pkg: o.id, size: "sedan" })}${link("aftercare", "Read aftercare", "text-act")}</article></section>`,
@@ -306,7 +306,7 @@ export function north(c) {
     return result(
       "The advisory practice",
       top +
-        '<article class="essay"><h1>A focused consultation</h1><p>Prepare a business question, mark the records you already have and choose a time to discuss it with the practice. The sample scenarios use fictional businesses.</p>' +
+        '<article class="essay"><h1>A focused consultation</h1><p>Prepare a business question, mark the records you already have and choose a time to discuss it with the practice. The scenarios in our memos are illustrative.</p>' +
         action("Prepare your consultation") +
         "</article>",
     );
@@ -316,7 +316,7 @@ export function north(c) {
     return result(
       title,
       top +
-        `<article class="memo"><p>Sample memo / ${o.label}</p><h1>${title}</h1><p>${body}</p><h2>Your meeting agenda</h2><form action="${c.href("request")}"><input type="hidden" name="topic" value="${o.id}">${items.map((i) => `<label class="check"><input type="checkbox" name="agenda" value="${i}"> ${i}</label>`).join("")}<button>Prepare consultation brief</button></form>${printButton}</article>`,
+        `<article class="memo"><p>Decision memo / ${o.label}</p><h1>${title}</h1><p>${body}</p><h2>Your meeting agenda</h2><form action="${c.href("request")}"><input type="hidden" name="topic" value="${o.id}">${items.map((i) => `<label class="check"><input type="checkbox" name="agenda" value="${i}"> ${i}</label>`).join("")}<button>Prepare consultation brief</button></form>${printButton}</article>`,
       o.img,
     );
   }

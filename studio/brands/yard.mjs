@@ -1,5 +1,5 @@
 // Kinetic Yard: a full small-group strength gym website. Every person, review, number and price here is fictional.
-import { rupees, icon, whatsapp, stars, faq, siteHeader, siteFooter, dock } from "./common.mjs";
+import { rupees, icon, whatsapp, stars, reviewNote, faq, siteHeader, siteFooter, dock } from "./common.mjs";
 import { todayAt, dayOffset, dateText } from "../site/demos.js";
 
 const WA = whatsapp("+91 99999 07320", "Hi Kinetic Yard, I'd like to try a class.");
@@ -107,7 +107,7 @@ export function kinetic(c) {
 <section class="y-first"><div class="y-first-copy"><h2>Your first class, <em>step by step</em></h2><ol>${steps.map(([t, d], i) => `<li data-reveal><span>0${i + 1}</span><div><h3>${t}</h3><p>${d}</p></div></li>`).join("")}</ol>${link("request", "Claim a free class " + icon("arrow"), "pill solid")}</div><figure>${img("yard-coaching", "A coach guiding a new member through a goblet squat")}</figure></section>
 <section class="y-coaches"><div class="sec-head"><h2>Your <em>coaches</em></h2>${link("coaches", "Meet the team " + icon("arrow"), "text-link")}</div><div class="coach-grid">${Object.keys(coaches).map(coachCard).join("")}</div></section>
 <section class="y-plans" id="membership"><div class="sec-head"><div><h2>Simple <em>membership</em></h2><p>No joining fee, no lock-in. Every plan starts with a free class.</p></div></div>${pricing()}</section>
-<section class="y-voices" aria-label="Member stories"><div class="sec-head"><h2>Members, <em>in their words</em></h2><div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous story">${icon("left")}</button><button type="button" data-rail-next aria-label="Next story">${icon("right")}</button></div></div><div class="rail" data-rail tabindex="0">${reviews.map(([q, n, since, win]) => `<blockquote><p class="win">${win}</p><p>“${q}”</p><footer>${stars(5)}<b>${n}</b>${since}</footer></blockquote>`).join("")}</div></section>
+<section class="y-voices" aria-label="Member stories"><div class="sec-head"><h2>Members, <em>in their words</em></h2><div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous story">${icon("left")}</button><button type="button" data-rail-next aria-label="Next story">${icon("right")}</button></div></div><div class="rail" data-rail tabindex="0">${reviews.map(([q, n, since, win]) => `<blockquote><p class="win">${win}</p><p>“${q}”</p><footer>${stars(5)}<b>${n}</b>${since}</footer></blockquote>`).join("")}</div>${reviewNote}</section>
 <section class="y-space" id="instagram"><div class="sec-head"><h2>The <em>space</em></h2><a class="text-link" href="#instagram">${icon("insta")} ${foot.insta}</a></div><div class="space-grid" data-gallery>${["yard-floor", "yard-class", "yard-strength", "yard-box", "yard-flow"].map((g, i) => `<a href="/assets/${g}.webp" class="s${i}">${img(g, "Kinetic Yard photograph " + (i + 1))}</a>`).join("")}</div><ul class="y-amen">${amenities.map(([i, t, d]) => `<li>${icon(i)}<div><b>${t}</b><span>${d}</span></div></li>`).join("")}</ul></section>
 <section class="questions" data-reveal><h2>Questions, <em>answered</em></h2>${faq(questions)}</section>
 <section class="y-cta" data-reveal><h2>Your first class is <em>on us.</em></h2><div class="y-act">${link("request", "Claim a free class " + icon("arrow"), "pill solid")}<a class="pill" href="${WA}">${icon("chat")} Ask on WhatsApp</a></div><p>${foot.address} · ${foot.hours}</p></section>`,
@@ -150,7 +150,7 @@ export function kinetic(c) {
   if (path === "request")
     return page(
       "Claim a free class",
-      `<section class="y-top slim"><p class="y-kicker">Free class</p><h1>Claim a <em>free class</em></h1><p>Two quick questions, pick a class with space, and you're on the coach's list. No card needed.</p></section><div class="workflow"><div id="demo-root" data-slug="${c.slug}"></div></div>`,
+      `<section class="y-top slim"><p class="y-kicker">Free class</p><h1>Claim a <em>free class</em></h1><p>Two quick questions, then pick a class with space and save your request. No card needed.</p></section><div class="workflow"><div id="demo-root" data-slug="${c.slug}"></div></div>`,
       "yard-hero",
     );
 

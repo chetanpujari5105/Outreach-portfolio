@@ -22,26 +22,6 @@
   font-family: Chakra;
   src: url(/assets/kit-chakra-petch-600.woff2);
 }
-.studio-return {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 8px max(4vw, 16px);
-  background: #252525;
-  color: white;
-  font:
-    13px/1.45 "DM Sans",
-    sans-serif;
-}
-.studio-return span {
-  color: #d0cfca;
-}
-.studio-return a:nth-of-type(2) {
-  margin-left: auto;
-}
-.studio-return a:hover {
-  text-decoration: underline;
-}
 .brand {
   --bg: #f8f7f2;
   --fg: #232421;
@@ -986,9 +966,6 @@
   .menu-line {
     flex-wrap: wrap;
   }
-  .studio-return {
-    font-size: 12px;
-  }
   .ledger-app aside {
     display: none;
   }
@@ -1008,7 +985,7 @@
   }
 }
 @media print {
-  .studio-return,
+  .brand-credit,
   .business-mast,
   .brand button,
   .brand .action,
@@ -1210,7 +1187,9 @@
 .motion [data-reveal].in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .brand *, .brand *::before { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
 
-/* Clean share links read as the business's own site: no demo footer, no owner view. */
-.is-clean .dm-foot { display: none; }
+/* Sites without their own footer still name the studio and say what is illustrative. */
+.brand-credit { padding: 28px max(4vw, 16px) 0; font-size: 13px; opacity: 0.8; }
+.brand-credit a { text-decoration: underline; text-underline-offset: 3px; }
+.brand .disclose { margin-top: 14px; font-size: 13px; opacity: 0.75; }
 .toast { position: fixed; z-index: 40; left: 50%; bottom: 96px; max-width: min(420px, calc(100% - 32px)); margin: 0; padding: 14px 20px; border-radius: 14px; background: var(--fg); color: var(--bg); font: 500 15px/1.4 var(--bf, sans-serif); box-shadow: 0 16px 40px -14px rgb(0 0 0 / 0.45); opacity: 0; transform: translate(-50%, 12px); pointer-events: none; transition: opacity 0.35s, transform 0.5s var(--ease, ease); }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }

@@ -3,7 +3,7 @@ import { billingRecords, invoiceValue } from "./demos.js";
 
 const brand = document.querySelector(".brand");
 const slug = location.pathname.split("/")[2];
-const base = location.pathname.split("/").slice(0, 3).join("/"); // /demo/<slug> or the clean /site/<slug>
+const base = location.pathname.split("/").slice(0, 3).join("/"); // /site/<slug>
 const esc = (s) =>
   String(s).replace(
     /[&<>"']/g,
@@ -64,7 +64,7 @@ function save(rows) {
     return true;
   } catch {
     alert(
-      "Browser storage is unavailable. Open the demo in a normal browser tab to save your selection.",
+      "Browser storage is unavailable. Open this page in a normal browser tab to save your selection.",
     );
     return false;
   }
@@ -87,7 +87,7 @@ add?.addEventListener("submit", (e) => {
   if (same) {
     if (same.qty + row.qty > stock(row)) {
       alert(
-        "That quantity exceeds the sample availability. Change the quantity in your basket.",
+        "That quantity is more than we have available. Change the quantity in your basket.",
       );
       return;
     }
@@ -119,7 +119,7 @@ function renderBasket() {
       ? `<p class="basket-total">${isBox ? "Estimated goods total" : "Bag total"} · ${price(total)}</p>` +
         (isBox
           ? ""
-          : '<button type="button" data-receipt>Prepare sample order</button>')
+          : '<button type="button" data-receipt>Prepare order summary</button>')
       : "<p>Your " + (isBox ? "RFQ basket" : "bag") + " is empty.</p>");
 }
 if (basket) {
@@ -146,7 +146,7 @@ if (basket) {
       basket.querySelector("[data-receipt]").remove();
       basket.insertAdjacentHTML(
         "beforeend",
-        '<p role="status">Sample order prepared in this tab. No payment is due.</p>',
+        '<p role="status">Your order summary is ready in this tab. Nothing has been sent and no payment is due.</p>',
       );
     }
   };
@@ -386,7 +386,7 @@ if (head) {
     if (!a) return;
     e.preventDefault();
     const [kind, what] = a.href.startsWith("tel:") ? ["Calling", "phone number"] : a.href.startsWith("mailto:") ? ["Email", "email address"] : ["WhatsApp", "WhatsApp number"];
-    note.textContent = `${kind} is switched off on this concept site. The live site would use the business's own ${what}.`;
+    note.textContent = `${kind} isn't connected on this website yet. It opens once the business adds its own ${what}.`;
     note.classList.add("show");
     clearTimeout(timer);
     timer = setTimeout(() => note.classList.remove("show"), 3200);

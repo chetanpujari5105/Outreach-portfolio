@@ -24,7 +24,7 @@ export function nest(c) {
     return result(
       "Home cleaning in Pune",
       top +
-        `<section class="clean-cover"><div><p>Pune home cleaning</p><h1>A clean home,<br>on your street.</h1><form><label>Check your neighbourhood<input required name="area" list="areas" value="${esc(area)}" placeholder="e.g. Hadapsar"></label><datalist id="areas">${areas.map((a) => "<option>" + a + "</option>").join("")}</datalist><button>Check coverage</button></form>${area ? (found ? "We cover " + esc(found) + ". " + link("services", "Choose a clean") : "Outside our sample service area. Try " + areas.join(", ") + ".") : ""}</div>${img("nest-hero", "Sunlit living room after cleaning")}</section><section class="inner">${rows}</section>`,
+        `<section class="clean-cover"><div><p>Pune home cleaning</p><h1>A clean home,<br>on your street.</h1><form><label>Check your neighbourhood<input required name="area" list="areas" value="${esc(area)}" placeholder="e.g. Hadapsar"></label><datalist id="areas">${areas.map((a) => "<option>" + a + "</option>").join("")}</datalist><button>Check coverage</button></form>${area ? (found ? "We cover " + esc(found) + ". " + link("services", "Choose a clean") : "Outside our service area. Try " + areas.join(", ") + ".") : ""}</div>${img("nest-hero", "Sunlit living room after cleaning")}</section><section class="inner">${rows}</section>`,
       "nest-hero",
     );
   if (path === "services")

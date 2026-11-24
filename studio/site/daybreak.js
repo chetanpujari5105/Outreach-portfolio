@@ -1,4 +1,4 @@
-// Daybreak Café interactions, loaded by business.js on /demo|site/daybreak-cafe pages only.
+// Daybreak Café interactions, loaded on /site/daybreak-cafe pages only.
 // Menu search and filters, drink options that reprice, and the reservation flow (saved in this browser only).
 const brand = document.querySelector(".brand");
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;

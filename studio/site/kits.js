@@ -21,7 +21,7 @@ export const kits = {
     brand: "Casa Neem",
     wordmark: "Casa <i>Neem</i>",
     place: "Homestay · Assagao, Goa",
-    hero: { layout: "postcard", img: "neem-hero", alt: "A whitewashed Goan homestay courtyard with a neem tree and indigo cushions", kicker: "Five rooms around a neem tree", title: "Stay slow<br><em>in Assagao.</em>", text: "Choose a room, tell us your dates and who is coming. We reply with availability within a day." },
+    hero: { layout: "postcard", img: "neem-hero", alt: "A whitewashed Goan homestay courtyard with a neem tree and indigo cushions", kicker: "Five rooms around a neem tree", title: "Stay slow<br><em>in Assagao.</em>", text: "Choose a room, tell us your dates and who is coming. Stays are subject to availability." },
     facts: [["5", "rooms"], ["12 min", "to Anjuna"], ["9:00", "breakfast"]],
     sideTitle: "Your stay",
     steps: [
@@ -45,7 +45,7 @@ export const kits = {
         ] },
         { type: "text", name: "note", label: "Anything we should know?", long: true, max: 300, placeholder: "Arrival time, dietary needs, a celebration…" },
       ] },
-      { label: "Details", title: "Who should we reply to?", fields: [nameField(), replyField] },
+      { label: "Details", title: "Your contact details", fields: [nameField(), replyField] },
     ],
     check(v, i, h) {
       const room = h.opt("room", v);
@@ -67,9 +67,9 @@ export const kits = {
     },
     summary: (v, h) => [["Room", h.opt("room", v).label], ["Dates", `${h.date(v.checkin)} → ${h.date(v.checkout)}`], ["Guests", `${v.adults} adult${v.adults > 1 ? "s" : ""}${v.children ? `, ${v.children} child${v.children > 1 ? "ren" : ""}` : ""}`], ...(v.name ? [["Name", h.esc(v.name)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.name)} · ${h.opt("room", v).label}`,
-    receipt: { kicker: "Enquiry received", title: "We’ll hold the dates.", text: "Your stay enquiry is with Anita and Rui. Nothing has been booked or charged." },
+    receipt: { kicker: "Saved on this device", title: "Your stay enquiry is ready.", text: "Review your dates and total below. Nothing has been sent, booked or charged; contact Casa Neem to confirm availability." },
     owner: "Stay enquiries",
-    sendLabel: "Send stay enquiry",
+    sendLabel: "Save stay enquiry",
   },
 
   // 2 ─ Venues & event teams
@@ -121,9 +121,9 @@ export const kits = {
     },
     summary: (v, h) => [["Occasion", h.opt("occasion", v).label], ["Date", h.date(v.date)], ["Setup", `${h.opt("setup", v).label} · ${v.guests} guests`], ["Menu", h.opt("menu", v).label], ...(v.name ? [["Planner", h.esc(v.name)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.org || v.name)} · ${h.opt("occasion", v).label}`,
-    receipt: { kicker: "Estimate sent", title: "Your evening, on paper.", text: "Naina has your estimate and will reply within a day with a firm quote and a time to walk the hall. The date is not reserved yet." },
+    receipt: { kicker: "Saved on this device", title: "Your evening, on paper.", text: "Your event estimate is ready to review. Nothing has been sent and the date is not reserved; contact Hall Eleven for a firm quote." },
     owner: "Event enquiries",
-    sendLabel: "Send to the events team",
+    sendLabel: "Save event enquiry",
   },
 
   // 3 ─ Home services & trades
@@ -175,9 +175,9 @@ export const kits = {
     },
     summary: (v, h) => [["Home", `${h.opt("home", v).label}, ${v.beds} bed / ${v.baths} bath`], ["Clean", h.opt("clean", v).label], ["Visit", `${h.date(v.date)} · ${h.opt("slot", v)?.label || "—"}`], ["Plan", h.opt("plan", v).label], ...(v.area ? [["Area", h.esc(v.area)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.name)} · ${h.esc(v.area)}`,
-    receipt: { kicker: "Visit requested", title: "We’ll bring the sparkle.", text: "Your sample booking is with the Brightnest team. They confirm the slot by WhatsApp; nothing is charged until the visit." },
+    receipt: { kicker: "Saved on this device", title: "Your visit request is ready.", text: "Review the visit and estimated price below. Nothing has been sent or charged; contact Brightnest to confirm the time." },
     owner: "Cleaning requests",
-    sendLabel: "Request this visit",
+    sendLabel: "Save visit request",
   },
 
   // 4 ─ Gyms & movement studios
@@ -211,14 +211,14 @@ export const kits = {
           });
         } },
       ] },
-      { label: "You", title: "Claim your free class", fields: [nameField(), { type: "text", name: "phone", label: "Mobile number", required: true, input: "tel", max: 15, pattern: "^[+]?[0-9 ]{10,14}$", patternError: "Enter a 10-digit mobile number.", autocomplete: "tel" }, { type: "check", name: "health", label: "I have no injury or condition the coach should know about, or I’ll mention it on arrival.", required: true, error: "Please confirm the health note so the coach can plan safely." }] },
+      { label: "You", title: "Request your free class", fields: [nameField(), { type: "text", name: "phone", label: "Mobile number", required: true, input: "tel", max: 15, pattern: "^[+]?[0-9 ]{10,14}$", patternError: "Enter a 10-digit mobile number.", autocomplete: "tel" }, { type: "check", name: "health", label: "I have no injury or condition the coach should know about, or I’ll mention it on arrival.", required: true, error: "Please confirm the health note so the coach can plan safely." }] },
     ],
     estimate: () => ({ lines: [["Trial class", 0], ["Membership after", "from ₹3,200/mo"]], total: 0, totalLabel: "Due today" }),
     summary: (v, h) => [["Goal", h.opt("goal", v).label], ["Level", h.opt("level", v).label], ["Class", `${h.date(v.date)} · ${h.opt("klass", v)?.label || "—"}`], ...(v.name ? [["Name", h.esc(v.name)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.name)} · ${h.opt("klass", v)?.label.split(" · ")[1] || "Trial"}`,
-    receipt: { kicker: "Spot held", title: "See you on the floor.", text: "Your free class is on the coach’s list. Arrive 10 minutes early in comfortable shoes, and bring water." },
-    owner: "Trial bookings",
-    sendLabel: "Claim free trial",
+    receipt: { kicker: "Saved on this device", title: "Your trial request is ready.", text: "Review your class below. Nothing has been sent and no spot is held; contact Kinetic Yard to confirm. On the day, arrive 10 minutes early and bring water." },
+    owner: "Trial requests",
+    sendLabel: "Save trial request",
   },
 
   // 5 ─ Tutors & learning centres
@@ -245,7 +245,7 @@ export const kits = {
         { type: "chips", name: "format", label: "Format", options: [{ id: "centre", label: "At the Kothrud centre" }, { id: "online", label: "Live online" }] },
         { type: "count", name: "weekly", label: "Lessons per week", min: 1, max: 3, start: 2 },
       ] },
-      { label: "Trial", title: "Book the trial lesson", fields: [
+      { label: "Trial", title: "Choose a trial time", fields: [
         { type: "date", name: "date", label: "Trial day", minDays: 1, maxDays: 21, days: [1, 2, 3, 4, 5, 6], dayError: "Trial lessons run Monday to Saturday." },
         { type: "chips", name: "slot", label: "Time", options: (v) => (weekday(v.date) === 6 ? ["10:00", "11:30", "13:00"] : ["16:00", "17:15", "18:30"]).map((t) => ({ id: t, label: t, disabled: v.format === "centre" && seed(v.date + t + v.subject) % 3 === 0 })) },
       ] },
@@ -257,9 +257,9 @@ export const kits = {
     },
     summary: (v, h) => [["Subject", `${h.opt("subject", v).label} · ${h.opt("grade", v)?.label || v.grade}`], ["Format", `${h.opt("format", v).label}, ${v.weekly}/week`], ["Trial", `${h.date(v.date)} · ${v.slot || "—"}`], ...(v.name ? [["Learner", h.esc(v.name)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.name)} · ${h.opt("subject", v).label}`,
-    receipt: { kicker: "Trial booked", title: "Bring a notebook.", text: "Your sample trial lesson is on the tutor’s calendar. We share a short placement check the evening before." },
+    receipt: { kicker: "Saved on this device", title: "Your trial request is ready.", text: "Review the lesson and monthly plan below. Nothing has been sent or booked; contact Brightpath to confirm the time." },
     owner: "Trial lessons",
-    sendLabel: "Book trial lesson",
+    sendLabel: "Save trial request",
   },
 
   // 6 ─ Pet care & boarding
@@ -310,9 +310,9 @@ export const kits = {
     },
     summary: (v, h) => [["Pet", `${v.petname ? h.esc(v.petname) + " · " : ""}${h.opt("species", v).label}, ${h.opt("size", v)?.label || ""}${v.pets > 1 ? ` (+${v.pets - 1})` : ""}`], ["Suite", h.opt("suite", v)?.label || "—"], ["Stay", `${h.date(v.checkin)} → ${h.date(v.checkout)}`], ...(v.name ? [["Owner", h.esc(v.name)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.petname)} · ${h.opt("suite", v)?.label}`,
-    receipt: { kicker: "Request received", title: "Tails are already wagging.", text: "Your sample boarding request is with the lodge. They’ll confirm the suite and ask for the vaccination card on WhatsApp." },
+    receipt: { kicker: "Saved on this device", title: "Your stay enquiry is ready.", text: "Review the suite, dates and estimated total below. Nothing has been sent or booked; contact Wagtail Lodge to confirm, and keep the vaccination card handy." },
     owner: "Boarding requests",
-    sendLabel: "Request this stay",
+    sendLabel: "Save stay enquiry",
   },
 
   // 7 ─ Clinics & therapists
@@ -343,7 +343,7 @@ export const kits = {
         replyField,
         { type: "chips", name: "language", label: "Preferred language", options: [{ id: "en", label: "English" }, { id: "hi", label: "Hindi" }, { id: "mr", label: "Marathi" }] },
         { type: "text", name: "note", label: "Anything you’d like the counsellor to know", long: true, max: 400 },
-        { type: "check", name: "consent", label: "I understand this is a request, not an emergency service, and that the practice will reply within one working day.", required: true, error: "Please confirm you’ve read this note." },
+        { type: "check", name: "consent", label: "I understand this request is saved only on this device, is not sent to a practice and is not an emergency service.", required: true, error: "Please confirm you’ve read this note." },
       ] },
     ],
     estimate: (v, h) => {
@@ -352,9 +352,9 @@ export const kits = {
     },
     summary: (v, h) => [["Support", h.opt("support", v).label], ["Session", `${h.opt("mode", v).label} · ${h.date(v.date)}, ${v.slot || "—"}`], ...(v.name ? [["Name", h.esc(v.name)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.name)} · ${h.opt("support", v).label}`,
-    receipt: { kicker: "Request received", title: "Thank you for reaching out.", text: "Your sample request is with the practice. A counsellor will confirm the time privately. Nothing is booked until they do." },
+    receipt: { kicker: "Saved on this device", title: "Your request is ready.", text: "Review your preferred session below. Nothing has been sent or booked. If you need help now, call Tele-MANAS on 14416 or your local emergency number." },
     owner: "Session requests",
-    sendLabel: "Send request",
+    sendLabel: "Save request",
   },
 
   // 8 ─ Photographers & creatives
@@ -402,9 +402,9 @@ export const kits = {
     },
     summary: (v, h) => [["Shoot", `${h.opt("shoot", v).label} · ${v.hours} h`], ["Deliver", h.opts("deliver", v).map((d) => d.label).join(", ") || "—"], ["Usage", h.opt("usage", v)?.label || v.usage], ["Date", h.date(v.date)], ...(v.idea ? [["Brief", h.esc(v.idea.slice(0, 120)) + (v.idea.length > 120 ? "…" : "")]] : [])],
     rowTitle: (v, h) => `${h.esc(v.name)} · ${h.opt("shoot", v).label}`,
-    receipt: { kicker: "Brief received", title: "Let’s make something.", text: "Your sample brief is with the studio. We reply with a mood board and a confirmed quote." },
+    receipt: { kicker: "Saved on this device", title: "Your brief is ready.", text: "Review the shoot and estimate below. Nothing has been sent or reserved; contact the studio for a confirmed quote." },
     owner: "Shoot briefs",
-    sendLabel: "Send the brief",
+    sendLabel: "Save the brief",
   },
 
   // 9 ─ Shops & boutiques
@@ -446,9 +446,9 @@ export const kits = {
     },
     summary: (v, h) => [["Piece", h.opt("item", v).label], ["Size · colour", `${h.opt("size", v)?.label || "—"} · ${v.colour || "—"}`], ["Quantity", String(v.qty)], ["Delivery", h.opt("fulfil", v).label]],
     rowTitle: (v, h) => `${h.esc(v.name)} · ${h.opt("item", v).label}`,
-    receipt: { kicker: "Hold requested", title: "We’ve set it aside.", text: "The boutique will confirm your sample hold on WhatsApp. Nothing has been charged." },
+    receipt: { kicker: "Saved on this device", title: "Your enquiry is ready.", text: "Review the piece and total below. Nothing has been sent, held or charged; contact the boutique to confirm availability." },
     owner: "Hold requests",
-    sendLabel: "Request this piece",
+    sendLabel: "Save this enquiry",
   },
 
   // 10 ─ Automotive businesses
@@ -504,9 +504,9 @@ export const kits = {
     },
     summary: (v, h) => [["Vehicle", `${v.model ? h.esc(v.model) + " · " : ""}${h.opt("size", v).label}`], ["Package", h.opt("pkg", v)?.label || "—"], ["Drop-off", `${h.date(v.date)} · ${v.slot || "—"}`], ["Pick-up", h.opt("pickup", v).label]],
     rowTitle: (v, h) => `${h.esc(v.model)} · ${h.opt("pkg", v)?.label}`,
-    receipt: { kicker: "Bay booked", title: "We’ll take it from here.", text: "Your sample booking is with the workshop. They confirm the slot and send before-photos on drop-off." },
-    owner: "Workshop bookings",
-    sendLabel: "Book this detail",
+    receipt: { kicker: "Saved on this device", title: "Your request is ready.", text: "Review the package and estimated price below. Nothing has been sent or booked; contact the workshop to confirm the slot." },
+    owner: "Workshop requests",
+    sendLabel: "Save this request",
   },
 
   // 11 ─ Consultants & advisers
@@ -558,9 +558,9 @@ export const kits = {
     },
     summary: (v, h) => [["Topic", `${h.opt("topic", v).label} · ${h.opt("stage", v).label}`], ["Length", `${h.opt("length", v).label} · ${h.date(v.date)}`], ["Documents", h.opts("docs", v).map((d) => d.label).join(", ") || "None yet"], ...(v.question ? [["Question", h.esc(v.question.slice(0, 120)) + (v.question.length > 120 ? "…" : "")]] : [])],
     rowTitle: (v, h) => `${h.esc(v.company)} · ${h.opt("topic", v).label}`,
-    receipt: { kicker: "Brief received", title: "We’ll come prepared.", text: "Your sample consultation brief is with a partner. You’ll get a calendar invite and a secure link for documents." },
+    receipt: { kicker: "Saved on this device", title: "Your brief is ready.", text: "Review the question and consultation below. Nothing has been sent or booked; contact the practice to confirm a time." },
     owner: "Consultation briefs",
-    sendLabel: "Send the brief",
+    sendLabel: "Save the brief",
   },
 
   // 12 ─ Manufacturers & wholesalers
@@ -607,8 +607,8 @@ export const kits = {
     },
     summary: (v, h) => [["Box", `${h.opt("box", v).label} · ${h.opt("size", v).label}`], ["Board · print", `${h.opt("material", v)?.label || "—"} · ${h.opt("print", v).label}`], ["Quantity", v.qty.toLocaleString("en-IN") + " units"], ...(v.company ? [["Company", h.esc(v.company)]] : [])],
     rowTitle: (v, h) => `${h.esc(v.company)} · ${v.qty.toLocaleString("en-IN")} ${h.opt("box", v).label.toLowerCase()}`,
-    receipt: { kicker: "RFQ received", title: "Quote on its way.", text: "Your sample request for quotation is with estimating. You’ll get a PDF quote and a free sample box offer." },
+    receipt: { kicker: "Saved on this device", title: "Your quotation request is ready.", text: "Review the specification and estimated total below. Nothing has been sent; contact Mill & Crate for a formal quote." },
     owner: "Quotation requests",
-    sendLabel: "Request formal quote",
+    sendLabel: "Save quotation request",
   },
 };

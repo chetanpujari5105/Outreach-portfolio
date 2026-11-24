@@ -142,17 +142,17 @@ export function mountKit(root, slug) {
 
   function panel() {
     if (view === "owner") {
-      return `<p class="dm-kicker">Owner view</p><h2 data-focus tabindex="-1">${kit.owner}</h2>${rows.length ? [...rows].reverse().map((r) => `<section class="dm-record kt-record"><strong>${kit.rowTitle(r.values, h)} <small>#${String(r.id).padStart(3, "0")}</small></strong>${factsHTML(r.values)}${kit.estimate ? `<p class="kt-record-total">${fmt(kit.estimate(r.values, h).total)}</p>` : ""}</section>`).join("") : `<p class="kt-empty">${kit.ownerEmpty || "Requests sent in this demo appear here."}</p>`}${button("back-flow", "Back to the demo", "dm-primary")}`;
+      return `<p class="dm-kicker">Saved on this device</p><h2 data-focus tabindex="-1">${kit.owner}</h2>${rows.length ? [...rows].reverse().map((r) => `<section class="dm-record kt-record"><strong>${kit.rowTitle(r.values, h)} <small>#${String(r.id).padStart(3, "0")}</small></strong>${factsHTML(r.values)}${kit.estimate ? `<p class="kt-record-total">${fmt(kit.estimate(r.values, h).total)}</p>` : ""}</section>`).join("") : `<p class="kt-empty">${kit.ownerEmpty || "Requests you save appear here."}</p>`}${button("back-flow", "Back to the form", "dm-primary")}`;
     }
     if (view === "receipt") {
-      return `<p class="dm-kicker">${kit.receipt.kicker}</p><h2 data-focus tabindex="-1">${kit.receipt.title}</h2><p>${kit.receipt.text}</p>${factsHTML(receipt.values)}${estimateHTML(receipt.values)}<div class="dm-controls">${button("new", kit.receipt.again || "Start again", "dm-link")}${button("owner", "See the owner view " + next, "dm-primary")}</div>`;
+      return `<p class="dm-kicker">${kit.receipt.kicker}</p><h2 data-focus tabindex="-1">${kit.receipt.title}</h2><p>${kit.receipt.text}</p>${factsHTML(receipt.values)}${estimateHTML(receipt.values)}<div class="dm-controls">${button("new", kit.receipt.again || "Start again", "dm-link")}${button("owner", "See saved requests " + next, "dm-primary")}</div>`;
     }
     const total = kit.steps.length + 1;
     const labels = [...kit.steps.map((s) => s.label), "Review"];
     const progress = `<ol class="kt-steps" aria-label="Progress">${labels.map((l, i) => `<li ${i === step ? 'aria-current="step"' : ""} class="${i < step ? "kt-done" : ""}"><span>${String(i + 1).padStart(2, "0")}</span>${l}</li>`).join("")}</ol>`;
     const err = `<p class="kt-error" role="alert" data-error>${error ? error.message : ""}</p>`;
     if (step === kit.steps.length) {
-      return `${progress}<h2 data-focus tabindex="-1">${kit.reviewTitle || "Review your request"}</h2>${factsHTML(values)}${estimateHTML(values)}${err}<div class="dm-controls">${button("back", "← Back", "dm-link")}${button("send", (kit.sendLabel || "Send sample request") + " " + next, "dm-primary")}</div>`;
+      return `${progress}<h2 data-focus tabindex="-1">${kit.reviewTitle || "Review your request"}</h2>${factsHTML(values)}${estimateHTML(values)}${err}<div class="dm-controls">${button("back", "← Back", "dm-link")}${button("send", (kit.sendLabel || "Save request") + " " + next, "dm-primary")}</div>`;
     }
     const s = kit.steps[step];
     return `${progress}<h2 data-focus tabindex="-1">${s.title}</h2>${s.intro ? `<p class="kt-intro">${s.intro}</p>` : ""}<div class="kt-fields">${s.fields.map(field).join("")}</div>${err}<div class="dm-controls">${step ? button("back", "← Back", "dm-link") : ""}${button("continue", `Continue ${next}`, "dm-primary")}<small class="kt-count-label">Step ${step + 1} of ${total}</small></div>`;
@@ -163,7 +163,7 @@ export function mountKit(root, slug) {
     const hero = kit.hero;
     setView(
       root,
-      `<div class="dm kt ${kit.cls}"><div class="dm-brandbar"><span class="dm-wordmark">${kit.wordmark || kit.brand}</span><span>${kit.place}</span></div><header class="kt-hero kt-hero-${hero.layout}"><img class="kt-hero-img" src="/assets/${hero.img}.webp" alt="${hero.alt}" width="1536" height="1024" fetchpriority="high"><div class="kt-hero-copy"><p class="dm-kicker">${hero.kicker}</p><h1>${hero.title}</h1><p>${hero.text}</p></div>${kit.facts ? `<ul class="kt-facts">${kit.facts.map(([a, b]) => `<li><b>${a}</b>${b}</li>`).join("")}</ul>` : ""}</header><div class="kt-body"><section class="kt-panel" aria-live="off">${panel()}</section><aside class="kt-side" data-side>${side()}</aside></div><footer class="dm-foot"><span>Studio demo · Fictional business, prices and times</span><div>${button("owner", `Owner view (${rows.length})`, "dm-link")}${button("reset", "Reset demo", "dm-link")}</div></footer></div>`,
+      `<div class="dm kt ${kit.cls}"><div class="dm-brandbar"><span class="dm-wordmark">${kit.wordmark || kit.brand}</span><span>${kit.place}</span></div><header class="kt-hero kt-hero-${hero.layout}"><img class="kt-hero-img" src="/assets/${hero.img}.webp" alt="${hero.alt}" width="1536" height="1024" fetchpriority="high"><div class="kt-hero-copy"><p class="dm-kicker">${hero.kicker}</p><h1>${hero.title}</h1><p>${hero.text}</p></div>${kit.facts ? `<ul class="kt-facts">${kit.facts.map(([a, b]) => `<li><b>${a}</b>${b}</li>`).join("")}</ul>` : ""}</header><div class="kt-body"><section class="kt-panel" aria-live="off">${panel()}</section><aside class="kt-side" data-side>${side()}</aside></div><footer class="dm-foot"><span>Illustrative prices and times. Requests are kept in this browser tab and are not sent.</span><div>${button("owner", `Saved requests (${rows.length})`, "dm-link")}${button("reset", "Clear all", "dm-link")}</div></footer></div>`,
       focus,
     );
   }

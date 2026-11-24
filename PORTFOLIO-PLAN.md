@@ -1,6 +1,8 @@
 # Chetan’s business website portfolio
 ## Build and outreach plan · 23 November 2026
 
+> **Repositioned on 24 November 2026.** The portfolio now presents websites, apps and business tools by type of work, and standalone websites live at `/site/<slug>`. `/demo/<slug>` links already sent redirect there. "Demo" below describes the original build plan and is not used in public copy. See `README.md` for the current addresses and status.
+
 Build one portfolio with a different front door for each business. A café owner opens a café menu on their phone. A salon owner tries choosing a service and time. A shop owner who asks about billing builds a sample invoice. Each can see what Chetan built, try the part that matters, and ask for a version for their business.
 
 **First release to ship** — one salon page with a working booking demo, the actual Nukkad Naai project, and a working route back to Chetan. That single link can serve the next approved salon batch. Follow with the café menu and the Manakar practice case. The rest of the catalog can grow while those links are in use. All routes below are proposed paths.
@@ -20,7 +22,7 @@ The current link’s title and share preview introduce Chetan as an AI educator.
 
 **Gaps in the reviewed work.** The reviewed portfolio and outreach records did not establish a delivered café menu/reservation site, a salon appointment system for a client, or merchant billing software. Build those as studio demos until a suitable commissioned project can replace or sit beside them. A working demo can be persuasive on its own.
 
-**Publication rule.** Give every item a visible label such as *Client project*, *Own product*, or *Studio demo*. Record the role, public URL or source, demonstrable feature, right to use screenshots, and the last check date. Use claims about customers, countries, time savings or revenue only when their source supports them. A location belongs to the actual project. A sample currency or translated demo describes how the example works.
+**Publication rule.** Classify every item by the type of work (*Website*, *App or product*, *Business tool*) and keep ownership as a separate fact. Use *Client work* only for confirmed commissions. Record the role, public URL or source, demonstrable feature, right to use screenshots, and the last check date. Use claims about customers, countries, time savings or revenue only when their source supports them. A location belongs to the actual project. A sample currency or translated demo describes how the example works.
 
 ## 2. Decide what each business should open
 
@@ -44,7 +46,7 @@ For example, a bakery that takes celebration-cake orders needs a date, serving c
 | `/for/salons`, `/for/cafes`, `/for/therapy-practices` | The relevant example, its evidence label, and one sentence about what the visitor can try. Give each page its own title and social-preview image. | Try the example |
 | `/work` and `/work/{project}` | A browsable index, then a short case page with Chetan’s role, a real screen, the customer task and what shipped. Include a live link where appropriate. | View the work or request a similar sample |
 | `/solutions/{task}` | Examples grouped by jobs such as showing work, taking bookings, requesting quotes, browsing products or creating invoices. Publish a task page when it has a working example. | Try that workflow |
-| `/demo/{project}` | A self-contained demo with sample data and the customer’s normal first screen. Keep “Studio demo” and a return link visible. | Finish the task, reset it, or request a version |
+| `/demo/{project}` | Redirects to `/site/{project}`: the standalone website, with an illustrative-details note in its footer. | Finish the task, reset it, or request a version |
 | `/sample` | “What would you like me to make for your business?” Carry the industry and example through from the referring page. | Return to the original DM or send a short request |
 | `/sample/{private-preview}` | After a prospect says yes, their scoped sample, what was customized, and one feedback question. | Give feedback directly to Chetan |
 

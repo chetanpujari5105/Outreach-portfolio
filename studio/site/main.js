@@ -34,7 +34,7 @@ if (work) {
     let count = 0;
     const query = search?.value.trim().toLowerCase() || '';
     for (const card of work.querySelectorAll('.work-card')) {
-      card.hidden = Boolean(type && card.dataset.type !== type || !card.dataset.keywords.includes(query));
+      card.hidden = Boolean(type && card.dataset.kind !== type || !card.dataset.keywords.includes(query));
       if (!card.hidden) count++;
     }
     filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === type)));

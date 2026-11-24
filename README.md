@@ -1,11 +1,26 @@
-# Outreach portfolio — Chetan Studio
+# Chetan Studio portfolio
 
-The [live Chetan Studio portfolio](https://chetan-studio-work.earthykayak64.chatgpt.site) brings together client work and interactive examples of websites, booking systems and billing software. Open the [industry directory](https://chetan-studio-work.earthykayak64.chatgpt.site/industries) to choose an example to share with a prospect.
+The [live Chetan Studio portfolio](https://chetan-studio-work.earthykayak64.chatgpt.site) presents professional websites, booking experiences, business tools and digital products for modern businesses. Open the [industry directory](https://chetan-studio-work.earthykayak64.chatgpt.site/industries) to choose a website to share with a prospect.
 
-The [redesign plan](docs/INDUSTRY-REDESIGN-PLAN.md) records the research and customer journey for each industry. The [visual overview](docs/redesigned-demo-overview.jpg) shows the redesigned demos side by side.
+The [redesign plan](docs/INDUSTRY-REDESIGN-PLAN.md) records the research and customer journey for each industry. The [visual overview](docs/redesigned-demo-overview.jpg) shows the redesigned websites side by side.
 
 - `studio/` — the website (vinext / Next-compatible, Cloudflare Workers + D1). See `studio/README.md`.
 - `PORTFOLIO-PLAN.md` — build and outreach plan.
+
+## Projects and addresses
+Project records live in `studio/site/catalog.js`. `kind` (website, product, tool) drives filters and labels; `ownership`, `hosted`, `url`, `previewUrl`, `image` and `status` are separate facts. `Client work` is only for confirmed commissions (Manakar, Nukkad Naai).
+
+| Address | What it is |
+|---|---|
+| `/work/<slug>` | Case study |
+| `/site/<slug>` | Standalone website (not indexed) |
+| `/demo/<slug>/…` | Earlier address; redirects to `/site/<slug>/…` with its subpage and query |
+
+**State of the hosted websites (24 November 2026).** Locally implemented: browsing, planners, estimates and saved requests run in the visitor's browser and send nothing. Awaiting configuration: each business's own phone, email, WhatsApp and booking or payment service. The studio's own `/sample` form saves enquiries to D1.
+
+Checks (from `studio/`): `node scripts/check-demos.mjs`, `node scripts/check-brand-routes.mjs`, `npm run lint`, `npm run build`.
+
+## Other files
 - `SKILLS-MAP.md`, `LAPTOP-SKILLS*.tsv` — skill inventory used while building.
 
 ## Run locally
