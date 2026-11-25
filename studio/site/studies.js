@@ -87,7 +87,25 @@ ${features.map(([asset,title,body,route,action])=>`<section class="cs-two"><div>
 <section class="cs-two"><h2>Implementation.</h2><p>Each page is directly addressable. Responsive WebP photographs, a small gallery module and locally calculated estimates keep the site usable on a phone. Preparing a brief takes place in the browser. The visitor chooses whether to keep a copy with contact details.</p></section>
 <section class="cs-cta"><h2>Bring this experience to your studio.</h2><div class="ct-actions">${link(p.url,'Visit Frame &amp; Field','primary')}${link(sample,similar)}</div></section>`;
 }
-export const studies = { 'daybreak-cafe': daybreak, 'frame-field': photographyStudy };
+function boutiqueStudy({p, link, sample, similar, html}) {
+  const features = [
+    ['screen-loom-lane', 'Find a piece worth a closer look.', 'Clothing, bags and home each have a filter. Search and price sorting work alongside the categories, and the result has a URL you can share.', 'collection', 'Browse the collection'],
+    ['loom-lane-preview-piece', 'Check the cloth, fit and available sizes.', 'Each of the six pieces has its own photograph, material details and care notes. Variant choices carry into a direct enquiry. For apparel, the fit guide shows garment chest and flat width side by side.', 'pieces/jacket', 'Open the chore jacket'],
+    ['loom-lane-preview-enquiry', 'Prepare one enquiry for the whole bag.', 'The bag holds exact sizes, colours and quantities for the session. Choose a shop hold or shipping, review the estimated total, then copy or download the draft.', 'request', 'Try the enquiry'],
+  ];
+  return `<section class="cs-intro">
+    <p class="cs-note">Loom &amp; Lane is a fictional boutique in Pune. Prices and availability are illustrative. The enquiry prepares a draft in the browser.</p>
+    <div class="cs-two"><h2>From browsing to a shop hold.</h2><p>${html(p.role)} The site also gives customers a way to compare measurements and look up how to care for a piece after they take it home.</p></div>
+  </section>
+  <section class="cs-band">
+    ${shot('case-loom-lane-desktop', 'Loom &amp; Lane storefront on desktop, with indigo lettering and a photograph of the boutique.', 1440, 900, 'cs-desk')}
+    ${shot('case-loom-lane-mobile', 'Loom &amp; Lane storefront on a phone.', 390, 844, 'cs-phone')}
+  </section>
+  <section class="cs-two"><h2>Indigo on cream paper.</h2><p>Instrument Serif and fine rules give the catalogue the feel of a printed shop lookbook. Product photography shows the weave, shape and details shoppers compare. The collection becomes a two-column rail on phones.</p></section>
+  ${features.map(([asset, title, description, route, action]) => `<section class="cs-two"><div><h2>${title}</h2><p>${description}</p>${link(p.url + "/" + route, action)}</div>${shot(asset, title, 1440, 900, 'cs-desk')}</section>`).join('')}
+  <section class="cs-cta"><h2>Need a boutique website?</h2><div class="ct-actions">${link(p.url,'Visit Loom &amp; Lane','primary')}${link(sample,similar)}</div></section>`;
+}
+export const studies = { 'daybreak-cafe': daybreak, 'frame-field': photographyStudy, 'loom-lane': boutiqueStudy };
 
 // Shared by every website hosted here.
 const hosted = [
@@ -162,12 +180,6 @@ export const notes = {
     direction: 'Editorial white space, a fine serif and large photographs that carry the navigation. The pictures were generated for this website.',
     features: ['A filterable portfolio with project stories.', 'Service pages, package comparison and an estimate worksheet.', 'A studio journal.', 'Shoot, quotation and contact planners that can be copied, downloaded or saved on the device.'],
     tech: ['One stylesheet and one browser module per page.', ...hosted]
-  },
-  'loom-lane': {
-    goals: ['Let the textiles lead.', 'Make sizes, colours and availability clear.', 'Connect an online find with an in-store visit.'],
-    direction: 'Denim, oat and an editorial serif on a wall of merchandise.',
-    features: ['Collection filters for clothing, bags and home.', 'Product pages with size and colour choices; unavailable sizes can’t be chosen.', 'A bag that keeps its contents in the tab and updates totals.', 'A hold or shipping enquiry about an exact piece.'],
-    tech: ['Bag quantities are checked against the availability of each size.', ...hosted]
   },
   'gloss-lab': {
     goals: ['Show what each treatment changes.', 'Price by vehicle size and paint condition.', 'Set expectations on workshop time.'],
