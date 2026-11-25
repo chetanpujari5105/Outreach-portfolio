@@ -75,7 +75,7 @@ export const projects = [
     role: 'We designed and built a homestay website where a guest can choose a room, see whether it fits everyone and know the nightly total before they write to the host.',
     steps: ['Set dates and guests once, then compare rooms, rates and sleeping capacity.', 'Open a room to see its gallery, facilities and nightly price.', 'Add breakfast or a pickup, review the itemised total and save the stay enquiry.'] }),
   project({ slug: 'hall-eleven', title: 'Hall Eleven', kind: 'website', category: 'Event estimates', industry: 'events',
-    description: 'An elegant event venue website with venue galleries, event configuration, guest capacity planning and interactive package estimates.',
+    description: 'A Pune event venue website with room layouts, menus and a live estimate that carries into a date enquiry.',
     role: 'We designed and built a venue website for planners who want a realistic number before they book a walkthrough.',
     steps: ['Compare banquet, theatre and cocktail setups with their capacities.', 'Choose a menu and change the guest count to see the estimate update.', 'Carry the estimate into a date enquiry, add extras and save it.'] }),
   project({ slug: 'brightnest', title: 'Brightnest', kind: 'website', category: 'Service quotes', industry: 'home-services',

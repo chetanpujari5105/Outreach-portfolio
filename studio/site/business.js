@@ -260,9 +260,13 @@ const svg = (d) => `<svg class="ic" viewBox="0 0 24 24" width="22" height="22" f
 const head = brand.querySelector("[data-site-head]");
 if (head) {
   const dockBar = brand.querySelector(".dock");
+  const dockAfter = brand.querySelector("[data-dock-after]");
   const onScroll = () => {
     head.classList.toggle("scrolled", scrollY > 40);
-    dockBar?.classList.toggle("show", scrollY > innerHeight * 0.5 || !head.classList.contains("over"));
+    const showDock = dockAfter
+      ? dockAfter.getBoundingClientRect().bottom <= head.offsetHeight
+      : scrollY > innerHeight * 0.5 || !head.classList.contains("over");
+    dockBar?.classList.toggle("show", showDock);
   };
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();

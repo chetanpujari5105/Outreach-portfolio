@@ -39,7 +39,7 @@ const foot = {
   phone: "+91 99999 01111",
   email: "events@halleleven.example",
   insta: "@halleleven.pune",
-  links: [["spaces/banquet", "Setups"], ["menus", "Menus"], ["events/weddings", "Weddings"], ["events/corporate", "Corporate"], ["request", "Check a date"]],
+  links: [["spaces/banquet", "Setups"], ["menus", "Menus"], ["events/weddings", "Weddings"], ["events/corporate", "Corporate"], ["request", "Plan an event"]],
 };
 // Schematic floor plans, drawn to scale-ish: stage at the top, entrance at the bottom.
 const plan = (id) => {
@@ -50,8 +50,8 @@ const plan = (id) => {
     marks += '<rect x="24" y="96" width="14" height="110" rx="3"/><rect x="362" y="96" width="14" height="110" rx="3"/>';
     for (const [x, y] of [[90, 110], [150, 140], [210, 105], [270, 145], [330, 115], [110, 185], [180, 200], [250, 190], [320, 205], [215, 160]]) marks += `<circle cx="${x}" cy="${y}" r="7"/>`;
   }
-  const dance = id === "banquet" ? '<rect class="soft" x="150" y="52" width="100" height="40" rx="3"/>' : "";
-  return `<svg class="plan" viewBox="0 0 400 260" role="img" aria-label="${id} floor plan"><rect class="wall" x="8" y="8" width="384" height="244" rx="6"/><rect class="stage" x="120" y="16" width="160" height="${id === "theatre" ? 50 : 30}" rx="3"/>${dance}<g class="marks">${marks}</g><path class="door" d="M176 252h48"/></svg>`;
+  const dance = id === "banquet" ? '<rect class="soft" x="150" y="52" width="100" height="40" rx="3"/><text x="200" y="72">Dance floor</text>' : "";
+  return `<svg class="plan" viewBox="0 0 400 260" role="img" aria-label="${id} floor plan, with the stage opposite the entrance"><rect class="wall" x="8" y="8" width="384" height="244" rx="6"/><rect class="stage" x="120" y="16" width="160" height="${id === "theatre" ? 50 : 30}" rx="3"/><text x="200" y="${id === "theatre" ? 41 : 31}">Stage</text>${dance}<g class="marks">${marks}</g><text x="200" y="239">Entrance</text><path class="door" d="M176 252h48"/></svg>`;
 };
 
 export function hall(c) {
@@ -61,10 +61,10 @@ export function hall(c) {
   const menus = opts("menu");
   const addons = opts("addons");
 
-  const header = (over = false) =>
-    siteHeader(c, { name: "Hall <i>Eleven</i>", over, links: [["spaces/banquet", "Setups"], ["menus", "Menus"], ["events/weddings", "Weddings"], ["events/corporate", "Corporate"]], cta: ["request", "Check a date"] });
-  const page = (title, html, image, over = false) =>
-    result(title, header(over) + html + siteFooter(c, foot) + dock(c, WA, ["request", "Check a date"]), image);
+  const header = () =>
+    siteHeader(c, { name: "Hall Eleven", links: [["spaces/banquet", "The space"], ["menus", "Menus"], ["events/weddings", "Weddings"], ["events/corporate", "Corporate"]], cta: ["request", "Plan an event"] });
+  const page = (title, html, image) =>
+    result(title, header() + html + siteFooter(c, foot) + dock(c, WA, ["request", "Plan an event"]), image);
 
   // The setup switcher works on radios + :has, so it needs no script.
   const switcher = (on = "banquet") =>
@@ -78,11 +78,13 @@ export function hall(c) {
   const estimator = () => {
     const start = { occasion: occasions[0], setup: setups[0], menu: menus[1], guests: 120 };
     const total = start.occasion.price + start.menu.price * start.guests;
-    return `<form class="est" data-est action="${c.href("request")}"><div class="est-in"><fieldset><legend>Occasion</legend>${occasions.map((o, i) => `<label class="chip"><input type="radio" name="occasion" value="${o.id}" data-price="${o.price}"${i ? "" : " checked"}><span>${o.label}</span></label>`).join("")}</fieldset><fieldset><legend>Setup</legend>${setups.map((s, i) => `<label class="chip"><input type="radio" name="setup" value="${s.id}" data-cap="${s.cap}"${i ? "" : " checked"}><span>${s.label}</span></label>`).join("")}</fieldset><label class="guests"><span>Guests <output data-guests-out>${start.guests}</output></span><input type="range" name="guests" min="20" max="${setups[0].cap}" step="10" value="${start.guests}"><small data-cap-note>Banquet holds up to ${setups[0].cap}</small></label><fieldset><legend>Menu, per guest</legend>${menus.map((m, i) => `<label class="chip"><input type="radio" name="menu" value="${m.id}" data-price="${m.price}"${i === 1 ? " checked" : ""}><span>${m.label} · ${rupees(m.price)}</span></label>`).join("")}</fieldset><fieldset><legend>Add-ons</legend>${addons.map((a) => `<label class="chip"><input type="checkbox" name="addons" value="${a.id}" data-price="${a.price}"><span>${a.label} · ${rupees(a.price)}</span></label>`).join("")}</fieldset></div><aside class="est-out" aria-live="polite"><p class="est-k">Your estimate</p><p class="est-total" data-total>${rupees(total)}</p><p class="est-per"><span data-per>${rupees(Math.round(total / start.guests))}</span> per guest, before GST</p><dl data-lines><div><dt>Venue hire</dt><dd>${rupees(start.occasion.price)}</dd></div><div><dt>${start.menu.label} menu × ${start.guests}</dt><dd>${rupees(start.menu.price * start.guests)}</dd></div></dl><button type="submit" class="pill solid">Send this estimate ${icon("arrow")}</button><p class="small">A 25% deposit holds the date. Dates are subject to availability.</p></aside></form>`;
+    return `<form class="est" data-est action="${c.href("request")}">
+<div class="est-quick"><p>Estimated total <strong data-quick-total>${rupees(total)}</strong></p><a href="#estimate-breakdown" class="text-link">Breakdown <span aria-hidden="true">↓</span></a></div>
+<div class="est-in"><fieldset><legend>Occasion</legend>${occasions.map((o, i) => `<label class="chip"><input type="radio" name="occasion" value="${o.id}" data-price="${o.price}"${i ? "" : " checked"}><span>${o.label}</span></label>`).join("")}</fieldset><fieldset><legend>Setup</legend>${setups.map((s, i) => `<label class="chip"><input type="radio" name="setup" value="${s.id}" data-cap="${s.cap}"${i ? "" : " checked"}><span>${s.label}</span></label>`).join("")}</fieldset><label class="guests"><span>Guests <output data-guests-out>${start.guests}</output></span><input type="range" name="guests" min="20" max="${setups[0].cap}" step="10" value="${start.guests}"><small data-cap-note>Banquet holds up to ${setups[0].cap}</small></label><fieldset><legend>Menu, per guest</legend>${menus.map((m, i) => `<label class="chip"><input type="radio" name="menu" value="${m.id}" data-price="${m.price}"${i === 1 ? " checked" : ""}><span>${m.label} · ${rupees(m.price)}</span></label>`).join("")}</fieldset><fieldset><legend>Add-ons</legend>${addons.map((a) => `<label class="chip"><input type="checkbox" name="addons" value="${a.id}" data-price="${a.price}"><span>${a.label} · ${rupees(a.price)}</span></label>`).join("")}</fieldset></div><aside class="est-out" id="estimate-breakdown" aria-live="polite"><p class="est-k">Your estimate</p><p class="est-total" data-total>${rupees(total)}</p><p class="est-per"><span data-per>${rupees(Math.round(total / start.guests))}</span> per guest, before GST</p><dl data-lines><div><dt>Venue hire</dt><dd>${rupees(start.occasion.price)}</dd></div><div><dt>${start.menu.label} menu × ${start.guests}</dt><dd>${rupees(start.menu.price * start.guests)}</dd></div></dl><button type="submit" class="pill solid">Continue to enquiry ${icon("arrow")}</button><p class="small">A 25% deposit holds the date. Dates are subject to availability.</p></aside></form>`;
   };
   const eventCard = (id) => {
     const e = events[id];
-    return link("events/" + id, `${img(e.img, e.title)}<span><b>${e.title}</b><small>${e.short}</small></span>`, "ev-card");
+    return link("events/" + id, `<figure>${img(e.img, e.title)}</figure><span><b>${e.title}</b><small>${e.short}</small></span>`, "ev-card");
   };
   const menuCols = () =>
     `<div class="menu-tiers">${menus.map((m, i) => `<article class="tier${i === 1 ? " hot" : ""}" data-reveal><p class="tier-k">${["Classic", "Most booked", "For the big night"][i]}</p><h3>${m.label}</h3><p class="tier-p">${rupees(m.price)}<span>per guest</span></p><p>${m.detail}</p><ul>${menuMore[m.id].map((t) => `<li>${t}</li>`).join("")}</ul>${action("Choose " + m.label, { menu: m.id })}</article>`).join("")}</div>`;
@@ -92,19 +94,30 @@ export function hall(c) {
   if (!path)
     return page(
       "Event hall for 20 to 320 guests in Kalyani Nagar, Pune",
-      `<section class="h-cover"><div class="h-cover-img">${img("hall-hero", "Hall Eleven set for a candlelit banquet under crystal chandeliers", "", true)}</div><div class="h-cover-copy"><p class="h-kicker">Weddings · Corporate · Celebrations — Kalyani Nagar, Pune</p><h1>An evening <em>worth gathering for.</em></h1><p>One hall for 20 to 320 guests, three ways to set it, and a kitchen that cooks every plate on site.</p><div class="h-act">${link("request", "Check a date " + icon("arrow"), "pill solid")}<a class="pill" href="#estimate">Estimate your evening</a></div></div><ul class="h-facts"><li><b>320</b>guests</li><li><b>6,400</b>sq ft</li><li><b>3</b>setups</li><li><b>4.9</b>${stars(5)} 180 reviews</li></ul></section>
-<section class="h-intro" data-reveal><figure>${img("hall-naina", "Naina, events manager at Hall Eleven, in the hall before an event")}</figure><div><p class="h-kicker">Since 2016</p><h2>One room. <em>One person</em> who knows your plan.</h2><p class="lede">Every event at Hall Eleven has a single events manager, from the first walk-through to the last car leaving. No call centres, no hand-offs between teams.</p><p class="sign"><b>Naina Kapoor</b>Events manager</p></div></section>
-<section class="h-setups" id="setups"><div class="sec-head"><div><p class="h-kicker">The room</p><h2>Three ways <em>to set the room</em></h2></div></div>${switcher()}</section>
-<section class="h-est" id="estimate"><div class="sec-head"><div><p class="h-kicker">Live estimate</p><h2>Estimate <em>your evening</em></h2><p>Change anything and the total updates. Save it as an enquiry and contact the hall for a firm quote.</p></div></div>${estimator()}<script type="module" src="/ui/hall.js"></script></section>
-<section class="h-events"><div class="sec-head"><div><p class="h-kicker">Occasions</p><h2>What we <em>host</em></h2></div></div><div class="ev-grid">${Object.keys(events).map(eventCard).join("")}</div></section>
-<section class="h-kitchen"><figure>${img("hall-chef", "A chef plating at a live counter during a reception")}</figure><div class="h-kitchen-copy" data-reveal><p class="h-kicker">The kitchen</p><h2>Every plate <em>cooked here.</em></h2><p class="lede">No outside caterers and no reheated trays. Chef Rohan's team of fourteen cooks in the kitchen behind the hall, so food goes from pan to table in minutes.</p>${link("menus", "See the menus " + icon("arrow"), "text-link")}</div></section>
-<section class="h-voices" aria-label="Reviews"><div class="sec-head"><div><p class="h-kicker">${stars(5)} 4.9 from 180 client reviews</p><h2>Evenings, <em>remembered</em></h2></div><div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous review">${icon("left")}</button><button type="button" data-rail-next aria-label="Next review">${icon("right")}</button></div></div>${voices()}</section>
-<section class="h-gallery" id="instagram"><div class="sec-head"><h2>The hall, <em>dressed</em></h2><a class="text-link" href="#instagram">${icon("insta")} ${foot.insta}</a></div><div class="h-mosaic" data-gallery>${["hall-hero", "hall-wedding", "hall-cocktail", "hall-terrace", "hall-theatre", "hall-banquet"].map((g, i) => `<a href="/assets/${g}.webp" class="m${i}">${img(g, "Hall Eleven photograph " + (i + 1))}</a>`).join("")}</div></section>
-<section class="h-find" data-reveal><div><p class="h-kicker">Getting here</p><h2>Ten minutes <em>from the airport.</em></h2><dl><div><dt>Address</dt><dd>${foot.address}</dd></div><div><dt>From Pune airport</dt><dd>15 minutes by car</dd></div><div><dt>Parking</dt><dd>80 cars on site, valet on request</dd></div><div><dt>Stay nearby</dt><dd>Four hotels within 1 km, with group rates for your guests</dd></div></dl></div><div class="h-find-act"><a class="pill solid" href="https://www.google.com/maps/search/?api=1&amp;query=Kalyani+Nagar+Pune" rel="noopener" target="_blank">${icon("pin")} Get directions</a><a class="pill" href="${WA}">${icon("chat")} WhatsApp Naina</a></div></section>
-<section class="questions" data-reveal><h2>Before <em>you book</em></h2>${faq(questions)}</section>
-<section class="h-cta" data-reveal><p class="h-kicker">Site visits daily, 11 am – 7 pm</p><h2>Walk the hall <em>with us.</em></h2><p>Bring your date, your guest count and anyone who needs convincing. Tea is on us.</p><div class="h-act">${link("request", "Check a date " + icon("arrow"), "pill solid")}<a class="pill" href="${WA}">${icon("chat")} WhatsApp</a></div></section>`,
+      `<section class="h-cover" data-dock-after aria-labelledby="hall-cover-title">
+  <div class="h-cover-copy">
+    <p class="h-kicker">A private venue in Pune</p>
+    <h1 id="hall-cover-title">Gather in<br><em>Kalyani Nagar.</em></h1>
+    <p>Host a wedding reception, a company dinner or a family celebration in our private hall, with an open-air terrace and a kitchen on site.</p>
+    <div class="h-act">${link("request", "Plan an event " + icon("arrow"), "pill solid")}<a class="text-link" href="#estimate">Get an estimate</a></div>
+  </div>
+  <figure class="h-cover-photo">
+    ${img("hall-hero", "A long candlelit dinner table under the chandeliers at Hall Eleven", "", true)}
+    <figcaption><span>The hall set for dinner</span><a class="text-link" href="#gallery">View gallery ${icon("arrow")}</a></figcaption>
+  </figure>
+  <dl class="h-facts"><div><dt>Guest capacity</dt><dd>20–320</dd></div><div><dt>Indoor space</dt><dd>6,400 sq ft</dd></div><div><dt>Room layouts</dt><dd>Banquet, theatre &amp; cocktail</dd></div></dl>
+</section>
+<section class="h-setups" id="setups"><div class="sec-head"><div><p class="h-kicker">The space</p><h2>See what fits your guest list.</h2></div><p>From a seated dinner to a standing reception, compare capacities and floor plans before you visit.</p></div>${switcher()}</section>
+<section class="h-est" id="estimate"><div class="sec-head"><div><p class="h-kicker">Event estimate</p><h2>What will it cost?</h2></div><p>Choose your setup, guest count and menu to see an itemised estimate. You can carry it into a date enquiry.</p></div>${estimator()}<script type="module" src="/ui/hall.js"></script></section>
+<section class="h-events"><div class="sec-head"><div><p class="h-kicker">Occasions</p><h2>Events at Hall Eleven</h2></div></div><div class="ev-grid">${Object.keys(events).map(eventCard).join("")}</div></section>
+<section class="h-kitchen"><figure>${img("hall-chef", "A chef plating at a live counter during a reception")}</figure><div class="h-kitchen-copy" data-reveal><p class="h-kicker">The kitchen</p><h2>From our kitchen to your table.</h2><p class="lede">Chef Rohan and his team cook in the kitchen behind the hall. Choose from three menus, with Jain, vegan and regional options on request.</p>${link("menus", "See the menus " + icon("arrow"), "text-link")}</div></section>
+<section class="h-intro"><figure>${img("hall-naina", "Naina Kapoor in the hall before an event")}</figure><div><p class="h-kicker">Your events manager</p><h2>Meet Naina Kapoor.</h2><p class="lede">Naina is your point of contact from the first walkthrough to the evening itself. She’ll help you choose a layout, plan timings and coordinate with your vendors.</p>${link("request", "Plan a visit " + icon("arrow"), "text-link")}</div></section>
+<section class="h-voices" aria-label="Reviews"><div class="sec-head"><div><p class="h-kicker">${stars(5)} 4.9 from 180 client reviews</p><h2>What guests remember</h2></div><div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous review">${icon("left")}</button><button type="button" data-rail-next aria-label="Next review">${icon("right")}</button></div></div>${voices()}</section>
+<section class="h-gallery" id="gallery"><div class="sec-head" id="instagram"><h2>Inside Hall Eleven</h2></div><div class="h-mosaic" data-gallery>${[["hall-hero", "Candlelit dinner in the main hall"], ["hall-wedding", "Wedding reception under the chandeliers"], ["hall-cocktail", "Cocktail tables in the main hall"], ["hall-terrace", "Open-air terrace with string lights"], ["hall-theatre", "Theatre seating facing the stage"], ["hall-banquet", "Banquet layout with round dining tables"]].map(([photo, alt], i) => `<a href="/assets/${photo}.webp" class="m${i}">${img(photo, alt)}</a>`).join("")}</div></section>
+<section class="h-find" data-reveal><div><p class="h-kicker">Getting here</p><h2>Visit us in Kalyani Nagar.</h2><dl><div><dt>Address</dt><dd>${foot.address}</dd></div><div><dt>From Pune airport</dt><dd>15 minutes by car</dd></div><div><dt>Parking</dt><dd>80 cars on site, valet on request</dd></div><div><dt>Stay nearby</dt><dd>Four hotels within 1 km, with group rates for your guests</dd></div></dl></div><div class="h-find-act"><a class="pill solid" href="https://www.google.com/maps/search/?api=1&amp;query=Kalyani+Nagar+Pune" rel="noopener" target="_blank">${icon("pin")} Get directions</a><a class="pill" href="${WA}">${icon("chat")} WhatsApp Naina</a></div></section>
+<section class="questions" data-reveal><h2>Before you book</h2>${faq(questions)}</section>
+<section class="h-cta" data-reveal><p class="h-kicker">Site visits daily, 11 am – 7 pm</p><h2>Come see the hall.</h2><p>Walk through the room and terrace with Naina and talk through the setup for your date.</p><div class="h-act">${link("request", "Plan an event " + icon("arrow"), "pill solid")}<a class="pill" href="${WA}">${icon("chat")} WhatsApp</a></div></section>`,
       "hall-hero",
-      true,
     );
 
   if (path === "menus")
@@ -119,7 +132,7 @@ export function hall(c) {
     const m = setupMore[s.id];
     return page(
       s.label + " setup",
-      `<section class="h-top"><nav class="crumbs">${link("", "Hall Eleven")} / Setups</nav><h1>The <em>${s.label.toLowerCase()}</em> setup</h1><p>${m.feel}</p></section><section class="h-setups solo">${switcher(s.id)}</section><section class="h-voices"><div class="sec-head"><h2>Planned <em>here before</em></h2><div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous review">${icon("left")}</button><button type="button" data-rail-next aria-label="Next review">${icon("right")}</button></div></div>${voices()}</section><section class="h-cta"><h2>Hold a date for <em>${s.cap} guests.</em></h2><div class="h-act">${action("Estimate this setup " + icon("arrow"), { setup: s.id })}</div></section>`,
+      `<section class="h-top"><nav class="crumbs">${link("", "Hall Eleven")} / Setups</nav><h1>The <em>${s.label.toLowerCase()}</em> setup</h1><p>${m.feel}</p></section><section class="h-setups solo">${switcher(s.id)}</section><section class="h-voices"><div class="sec-head"><h2>Planned <em>here before</em></h2><div class="rail-ctl"><button type="button" data-rail-prev aria-label="Previous review">${icon("left")}</button><button type="button" data-rail-next aria-label="Next review">${icon("right")}</button></div></div>${voices()}</section><section class="h-cta"><h2>Plan for up to <em>${s.cap} guests.</em></h2><div class="h-act">${action("Estimate this setup " + icon("arrow"), { setup: s.id })}</div></section>`,
       s.img,
     );
   }
@@ -136,8 +149,8 @@ export function hall(c) {
 
   if (path === "request")
     return page(
-      "Check a date",
-      `<section class="h-top slim"><p class="h-kicker">Check a date</p><h1>Plan <em>your evening</em></h1><p>Five quick steps and you'll see a full estimate. Save it as an enquiry; dates and final prices are confirmed by the hall.</p></section><div class="workflow"><div id="demo-root" data-slug="${c.slug}"></div></div>`,
+      "Plan an event",
+      `<section class="h-top slim"><p class="h-kicker">Event enquiry</p><h1>Plan your event.</h1><p>Build an estimate for your date and guest list, then save it in this browser. Contact the hall to confirm availability and pricing.</p></section><div class="workflow"><div id="demo-root" data-slug="${c.slug}" data-scroll-step></div></div>`,
       "hall-hero",
     );
 }

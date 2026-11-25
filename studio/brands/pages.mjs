@@ -71,7 +71,7 @@ export function brandPage(slug, path, query, preview = false) {
         )
       : undefined);
   if (!p) return;
-  const ink = { "casa-neem": ["#a64c26", "#f6efe1"], "salon-booking": ["#a52f2d", "#eee8df"], "kinetic-yard": ["#ff5a1f", "#0c0c0c"], "hall-eleven": ["#d8b46a", "#10142a"], "daybreak-cafe": ["#15392d", "#f8f3e5"], "loom-lane": ["#203552", "#f8f5eb"] }[slug] || ["#232421", "#f8f7f2"];
+  const ink = { "casa-neem": ["#a64c26", "#f6efe1"], "salon-booking": ["#a52f2d", "#eee8df"], "kinetic-yard": ["#ff5a1f", "#0c0c0c"], "hall-eleven": ["#773d34", "#f8f4ec"], "daybreak-cafe": ["#15392d", "#f8f3e5"], "loom-lane": ["#203552", "#f8f5eb"] }[slug] || ["#232421", "#f8f7f2"];
   const favicon = "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${ink[0]}"/><text x="32" y="45" text-anchor="middle" font-family="Georgia,serif" font-size="40" fill="${ink[1]}">${name[0]}</text></svg>`);
   return {
     brand: true,

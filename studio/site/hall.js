@@ -5,6 +5,7 @@ if (form) {
   const range = form.querySelector('input[name="guests"]');
   const out = form.querySelector("[data-guests-out]");
   const note = form.querySelector("[data-cap-note]");
+  const quickTotal = form.querySelector("[data-quick-total]");
   const picked = (name) => form.querySelector(`input[name="${name}"]:checked`);
   const label = (input) => input.nextElementSibling.textContent.split(" · ")[0];
   function update() {
@@ -19,7 +20,9 @@ if (form) {
     const total = lines.reduce((sum, l) => sum + l[1], 0);
     out.value = guests;
     note.textContent = `${label(setup)} holds up to ${cap}`;
-    form.querySelector("[data-total]").textContent = inr(total);
+    const formattedTotal = inr(total);
+    if (quickTotal) quickTotal.textContent = formattedTotal;
+    form.querySelector("[data-total]").textContent = formattedTotal;
     form.querySelector("[data-per]").textContent = inr(Math.round(total / guests));
     form.querySelector("[data-lines]").innerHTML = lines.map(([k, v]) => `<div><dt>${k}</dt><dd>${inr(v)}</dd></div>`).join("");
     range.style.setProperty("--fill", ((guests - Number(range.min)) / (cap - Number(range.min))) * 100 + "%");

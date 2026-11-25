@@ -141,7 +141,7 @@ export const notes = {
   },
   'hall-eleven': {
     goals: ['Let planners see the hall set for their kind of event.', 'Give a realistic per-guest figure early.', 'Keep every choice within the room’s capacity.'],
-    direction: 'Midnight blue, champagne type and candlelit photography, paced like an evening.',
+    direction: 'Warm ivory and wine-red type frame the candlelit hall. The room layouts and estimate sit on quieter paper surfaces.',
     features: ['Pages for banquet, theatre and cocktail setups, with capacities.', 'Wedding, corporate and celebration pages with galleries.', 'Three menus with full courses.', 'A live estimate that carries into the date enquiry.'],
     tech: ['The estimator is a plain form, so its choices carry straight into the date enquiry.', ...hosted]
   },

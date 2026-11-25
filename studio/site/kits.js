@@ -111,7 +111,7 @@ export const kits = {
           { id: "valet", label: "Valet parking", price: 12000 },
         ] },
       ] },
-      { label: "Contact", title: "Who is planning?", fields: [nameField("Your name"), { type: "text", name: "org", label: "Company or family name", max: 80 }, replyField] },
+      { label: "Contact", title: "Who is planning?", fields: [nameField("Your name"), { type: "text", name: "org", label: "Company or family name", max: 80 }] },
     ],
     estimate(v, h) {
       const occ = h.opt("occasion", v), menu = h.opt("menu", v);

@@ -257,7 +257,11 @@ export function mountKit(root, slug) {
       }
     }
     render();
-    root.querySelector(".kt-body")?.scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    if (root.hasAttribute("data-scroll-step")) {
+      root.querySelector(".kt-panel")?.scrollIntoView({ block: "start", behavior: "instant" });
+    } else {
+      root.querySelector(".kt-body")?.scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }
   });
   root.oninput = (e) => {
     const el = e.target;
