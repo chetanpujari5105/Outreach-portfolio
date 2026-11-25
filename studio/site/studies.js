@@ -90,7 +90,7 @@ ${features.map(([asset,title,body,route,action])=>`<section class="cs-two"><div>
 function boutiqueStudy({p, link, sample, similar, html}) {
   const features = [
     ['screen-loom-lane', 'Find a piece worth a closer look.', 'Clothing, bags and home each have a filter. Search and price sorting work alongside the categories, and the result has a URL you can share.', 'collection', 'Browse the collection'],
-    ['loom-lane-preview-piece', 'Check the cloth, fit and available sizes.', 'Each of the six pieces has its own photograph, material details and care notes. Variant choices carry into a direct enquiry. For apparel, the fit guide shows garment chest and flat width side by side.', 'pieces/jacket', 'Open the chore jacket'],
+    ['loom-lane-preview-piece', 'Check the cloth, fit and available sizes.', 'All 18 pieces have their own product photograph, material details and care notes. Variant choices carry into a direct enquiry. The fit guide lists chest or waist measurements for each sized garment.', 'pieces/drawstring-trouser', 'Open the drawstring trousers'],
     ['loom-lane-preview-enquiry', 'Prepare one enquiry for the whole bag.', 'The bag holds exact sizes, colours and quantities for the session. Choose a shop hold or shipping, review the estimated total, then copy or download the draft.', 'request', 'Try the enquiry'],
   ];
   return `<section class="cs-intro">
@@ -101,7 +101,7 @@ function boutiqueStudy({p, link, sample, similar, html}) {
     ${shot('case-loom-lane-desktop', 'Loom &amp; Lane storefront on desktop, with indigo lettering and a photograph of the boutique.', 1440, 900, 'cs-desk')}
     ${shot('case-loom-lane-mobile', 'Loom &amp; Lane storefront on a phone.', 390, 844, 'cs-phone')}
   </section>
-  <section class="cs-two"><h2>Indigo on cream paper.</h2><p>Instrument Serif and fine rules give the catalogue the feel of a printed shop lookbook. Product photography shows the weave, shape and details shoppers compare. The collection becomes a two-column rail on phones.</p></section>
+  <section class="cs-two"><h2>Indigo on cream paper.</h2><p>Bitter’s sturdy slab serifs and fine rules give the catalogue the feel of a printed shop lookbook. Product photography shows the weave, shape and details shoppers compare, with twelve new images generated using ChatGPT. The collection becomes a two-column rail on phones.</p></section>
   ${features.map(([asset, title, description, route, action]) => `<section class="cs-two"><div><h2>${title}</h2><p>${description}</p>${link(p.url + "/" + route, action)}</div>${shot(asset, title, 1440, 900, 'cs-desk')}</section>`).join('')}
   <section class="cs-cta"><h2>Need a boutique website?</h2><div class="ct-actions">${link(p.url,'Visit Loom &amp; Lane','primary')}${link(sample,similar)}</div></section>`;
 }

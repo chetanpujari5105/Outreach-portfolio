@@ -1,24 +1,9 @@
 import { credit, esc, faq, icon, rupees } from "./common.mjs";
+import { loomSizes } from "../site/loom-products.js";
 
 const categories = ["All", "Clothing", "Bags", "Home"];
 const sorts = [["", "Featured"], ["low", "Price: low to high"], ["high", "Price: high to low"]];
 const shipping = 150;
-const pieces = {
-  jacket: ["A straight-cut work jacket with a button front and three patch pockets.", "Hand-dyed cotton twill", "Relaxed fit. Compare the garment chest in the size guide.", "Wash inside out in cold water with similar dark colours. Line dry in the shade."],
-  shirt: ["An everyday button-up that lets the irregular texture of Kala cotton show.", "Rain-fed Kala cotton and mother-of-pearl buttons", "Straight fit. Compare the garment chest in the size guide.", "Gentle cold wash. Line dry in the shade and iron while slightly damp."],
-  tote: ["A roomy canvas carryall for the market, with leather handles that sit over the shoulder.", "Cotton canvas and leather handles", "One size", "Spot clean the canvas. Keep the leather handles out of the wash."],
-  scarf: ["A lightweight silk stole with a repeating hand-blocked pattern.", "Hand-blocked mulberry silk", "One size", "Dry clean or hand wash gently in cold water with a silk-safe detergent."],
-  throw: ["A soft woven layer for the end of the bed or the arm of a chair.", "Wool-cotton blend", "130 × 180 cm", "Air between uses. Spot clean or take to a specialist wool cleaner."],
-  pouch: ["Three nesting pouches for the small things that get lost in a larger bag.", "Indigo cotton", "Set of three sizes", "Spot clean gently with cold water and allow to air dry."],
-};
-const alt = {
-  jacket: "Indigo chore jacket on a wooden hanger",
-  shirt: "Natural Kala cotton shirt folded to show its collar and buttons",
-  tote: "Natural canvas market tote with brown leather handles",
-  scarf: "Block-print silk stole arranged to show its pattern",
-  throw: "Folded handloom throw showing its weave",
-  pouch: "Three indigo cotton pouches",
-};
 const journal = [
   {
     id: "indigo", title: "How indigo wears", image: "loom-jacket", item: "jacket",
@@ -50,7 +35,7 @@ function header(c) {
   const links = [["collection", "Collection"], ["about", "Our story"], ["size-guide", "Size guide"], ["bag", 'Bag <span class="ll-count" data-ll-count hidden></span>']];
   return `<a class="skip" href="#loom-content">Skip to content</a>
     <header class="ll-head"><div class="ll-shell ll-head-inner">
-      ${c.link("", "Loom <i>&amp;</i> Lane", "ll-mark")}
+      ${c.link("", "Loom &amp; Lane", "ll-mark")}
       <nav aria-label="Shop navigation">${links.map(([path, label]) => navLink(c, path, label, c.path === path || (path === "collection" && c.path.startsWith("pieces/")))).join("")}</nav>
     </div></header>`;
 }
@@ -58,7 +43,7 @@ function header(c) {
 function footer(c) {
   return `<footer class="site-foot ll-foot"><div class="ll-shell">
     <div class="ll-foot-grid">
-      <div>${c.link("", "Loom <i>&amp;</i> Lane", "ll-mark")}<p>A handloom boutique in Camp, Pune.</p></div>
+      <div>${c.link("", "Loom &amp; Lane", "ll-mark")}<p>A handloom boutique in Camp, Pune.</p></div>
       <nav aria-label="Explore Loom &amp; Lane"><h2>Explore</h2>${c.link("collection", "Collection")}${c.link("about", "Our story")}${c.link("journal", "Journal")}</nav>
       <nav aria-label="Customer help"><h2>Customer help</h2>${c.link("size-guide", "Size guide")}${c.link("care", "Fabric care")}${c.link("delivery", "Holds &amp; shipping")}${c.link("contact", "Contact &amp; FAQs")}</nav>
     </div><div class="ll-foot-base">${credit}${c.link("privacy", "Privacy")}</div>
@@ -67,18 +52,18 @@ function footer(c) {
 
 function grid(c, items, topLevel = false) {
   const heading = topLevel ? "h2" : "h3";
-  return `<ul class="ll-grid">${items.map((item, index) => `<li><a class="ll-card" href="${c.href("pieces/" + item.id)}">${picture(c, item.img, alt[item.id], topLevel && index === 0)}
+  return `<ul class="ll-grid">${items.map((item, index) => `<li><a class="ll-card" href="${c.href("pieces/" + item.id)}">${picture(c, item.img, item.alt, topLevel && index === 0)}
     <div><${heading}>${item.label}</${heading}><span>${rupees(item.price)}</span></div><p>${item.detail}</p></a></li>`).join("")}</ul>`;
 }
 
 function home(c, items) {
   return `<section class="ll-shell ll-cover">
-    <div class="ll-cover-copy"><h1>Made slowly,<br><em>worn often.</em></h1><p>Handloom clothing, bags and textiles for everyday use.</p>${c.link("collection", "Shop the collection", "ll-button ll-primary")}</div>
+    <div class="ll-cover-copy"><h1>Made slowly,<br><span>worn often.</span></h1><p>Handloom clothing, bags and textiles for everyday use.</p>${c.link("collection", "Shop the collection", "ll-button ll-primary")}</div>
     <figure>${picture(c, "loom-hero", "Indigo textiles and garments in the Loom &amp; Lane boutique", true)}<figcaption>Loom &amp; Lane · Camp, Pune</figcaption></figure>
   </section>
   <section class="ll-shell ll-section">
     <div class="ll-rule ll-section-title"><h2>Off the loom.</h2>${c.link("collection", "View all pieces", "ll-text-link")}</div>
-    ${grid(c, items.slice(0, 3))}
+    ${grid(c, items.filter(item => ["camp-shirt", "crossbody", "drawstring-trouser"].includes(item.id)))}
   </section>
   <section class="ll-band"><div class="ll-shell ll-service-grid">
     <div><h2>Find your fit.</h2><p>Compare the garment measurements with a piece you already wear.</p>${c.link("size-guide", "Read the size guide", "ll-text-link")}</div>
@@ -92,7 +77,7 @@ function collection(c, items) {
   const query = (c.query.get("q") || "").trim().slice(0, 100);
   const sort = sorts.some(([id]) => id === c.query.get("sort")) ? c.query.get("sort") : "";
   const results = items.filter(item => (category === "All" || item.tags.includes(category)) &&
-    (item.label + " " + item.detail + " " + item.tags.join(" ")).toLowerCase().includes(query.toLowerCase()));
+    [item.label, item.detail, item.material, item.tags.join(" "), ...item.colours].join(" ").toLowerCase().includes(query.toLowerCase()));
   if (sort) results.sort((a, b) => sort === "low" ? a.price - b.price : b.price - a.price);
   const retained = { ...(query ? { q: query } : {}), ...(sort ? { sort } : {}) };
   return `<section class="ll-shell ll-page ll-collection">
@@ -122,12 +107,12 @@ function variantFields(c, item, size, colour, qty = 1) {
 }
 
 function product(c, item, items) {
-  const [description, material, fit, care] = pieces[item.id];
+  const { description, material, fit, care } = item;
   const related = items.filter(other => other !== item).sort((a, b) => Number(b.tags[0] === item.tags[0]) - Number(a.tags[0] === item.tags[0])).slice(0, 3);
   return `<div class="ll-shell ll-page">
     <nav class="ll-crumb" aria-label="Breadcrumb">${c.link("collection", "Collection")}<span aria-hidden="true">/</span>${c.link("collection", item.tags[0], "", { category: item.tags[0] })}</nav>
     <section class="ll-product">
-      <figure>${picture(c, item.img, alt[item.id], true)}</figure>
+      <figure>${picture(c, item.img, item.alt, true)}</figure>
       <div class="ll-product-copy"><h1>${item.label}</h1><p class="ll-price">${rupees(item.price)}</p><p>${description}</p>
         <form data-ll-product data-item="${item.id}">
           ${variantFields(c, item.id)}
@@ -135,7 +120,7 @@ function product(c, item, items) {
           <div class="ll-actions"><button class="ll-button ll-primary" type="button" data-ll-add disabled>Add to bag</button><a class="ll-button" data-ll-ask href="${c.href("request", { item: item.id })}">Ask about this piece</a></div>
           <p data-ll-message role="status" class="ll-message"></p>
         </form>
-        <dl class="ll-specs"><div><dt>Material</dt><dd>${material}</dd></div><div><dt>Fit &amp; dimensions</dt><dd>${fit}${["jacket", "shirt"].includes(item.id) ? " " + c.link("size-guide", "Size guide", "ll-text-link") : ""}</dd></div><div><dt>Care</dt><dd>${care}</dd></div></dl>
+        <dl class="ll-specs"><div><dt>Material</dt><dd>${material}</dd></div><div><dt>Fit &amp; dimensions</dt><dd>${fit}${item.measurement ? " " + c.link("size-guide", "Size guide", "ll-text-link", { item: item.id }) : ""}</dd></div><div><dt>Care</dt><dd>${care}</dd></div></dl>
       </div>
     </section>
     <section class="ll-section"><div class="ll-rule ll-section-title"><h2>More from the collection.</h2></div>${grid(c, related)}</section>
@@ -154,14 +139,19 @@ function guide(c, title, body, image, description) {
     <div class="ll-guide-grid"><div class="ll-prose">${body}</div>${image ? `<figure>${picture(c, image, description)}</figure>` : ""}</div></article>`;
 }
 
-function sizeGuide(c) {
-  return guide(c, "Find your fit.", `<p>Lay a similar garment flat and measure across the chest, from underarm to underarm. Double that number and compare it with the garment chest below.</p>
-    <table><caption>Garment measurements for the chore jacket and Kala cotton shirt</caption><thead><tr><th scope="col">Size</th><th scope="col">Garment chest</th><th scope="col">Flat width</th></tr></thead><tbody>${["XS", "S", "M", "L", "XL"].map((size, index) => {
-      const width = 45 + 3 * index;
-      return `<tr><th scope="row">${size}</th><td>${2 * width} cm</td><td>${width} cm</td></tr>`;
-    }).join("")}</tbody></table>
-    <p>For a looser fit or a jacket you’ll wear over layers, compare against a garment that leaves the room you want.</p>
-    ${c.link("collection", "Browse clothing", "ll-button", { category: "Clothing" })}`, "loom-shirt", alt.shirt);
+function sizeGuide(c, items) {
+  const garments = items.filter(item => item.measurement);
+  const garment = garments.find(item => item.id === c.query.get("item")) || garments[0];
+  const { label, values } = garment.measurement;
+  const width = label === "Garment waist" ? "across the waistband" : "across the chest from underarm to underarm";
+  return guide(c, "Find your fit.", `<p>Lay a similar garment flat and measure ${width}. Double that number to compare it with the garment circumference below.</p>
+    <form class="ll-filter-form ll-fit-form" action="${c.href("size-guide")}" method="get">
+      <label><span class="sr">Choose a garment</span><select name="item">${garments.map(item => `<option value="${item.id}"${garment === item ? " selected" : ""}>${item.label}</option>`).join("")}</select></label>
+      <button class="ll-button" type="submit">Show measurements</button>
+    </form>
+    <table><caption>${garment.label} measurements</caption><thead><tr><th scope="col">Size</th><th scope="col">${label}</th><th scope="col">Flat width</th></tr></thead><tbody>${loomSizes.map((size, index) =>
+      `<tr><th scope="row">${size}</th><td>${values[index]} cm</td><td>${values[index] / 2} cm</td></tr>`).join("")}</tbody></table>
+    <p>${garment.fit}</p>${c.link("pieces/" + garment.id, "View this piece", "ll-button")}`, garment.img, garment.alt);
 }
 
 function request(c, item, items) {
@@ -237,16 +227,16 @@ export function loom(c) {
     <p>Start with the pieces you’ll reach for most often: a work jacket that softens with wear, a cotton shirt for warm days, or a canvas carryall for the market.</p>
     <div class="ll-actions">${c.link("collection", "Shop the collection", "ll-button ll-primary")}${c.link("journal", "Read the journal", "ll-text-link")}</div>`, "loom-hero", "Handloom garments and textiles inside the boutique"));
   if (c.path === "journal") return result("The journal", `<section class="ll-shell ll-page"><div class="ll-rule ll-section-title"><h1>The cloth journal.</h1></div>
-    <ul class="ll-grid ll-journal">${journal.map(entry => `<li><a class="ll-card" href="${c.href("journal/" + entry.id)}">${picture(c, entry.image, alt[entry.item])}<div><h2>${entry.title}</h2></div><p>${entry.summary}</p></a></li>`).join("")}</ul></section>`);
-  if (article) return result(article.title, editorial(c, article.title, article.paragraphs.map(text => `<p>${text}</p>`).join("") + `<div class="ll-actions">${c.link("pieces/" + article.item, "Explore the piece", "ll-button ll-primary")}${c.link("journal", "Back to the journal", "ll-text-link")}</div>`, article.image, alt[article.item]), article.image);
-  if (c.path === "size-guide") return result("Size guide", sizeGuide(c), "loom-shirt");
+    <ul class="ll-grid ll-journal">${journal.map(entry => `<li><a class="ll-card" href="${c.href("journal/" + entry.id)}">${picture(c, entry.image, items.find(item => item.id === entry.item).alt)}<div><h2>${entry.title}</h2></div><p>${entry.summary}</p></a></li>`).join("")}</ul></section>`);
+  if (article) return result(article.title, editorial(c, article.title, article.paragraphs.map(text => `<p>${text}</p>`).join("") + `<div class="ll-actions">${c.link("pieces/" + article.item, "Explore the piece", "ll-button ll-primary")}${c.link("journal", "Back to the journal", "ll-text-link")}</div>`, article.image, items.find(item => item.id === article.item).alt), article.image);
+  if (c.path === "size-guide") return result("Size guide", sizeGuide(c, items), items.find(item => item.id === c.query.get("item"))?.img || "loom-jacket");
   if (c.path === "care") return result("Fabric care", guide(c, "Care for the cloth.", `<p>Use the care instructions on your piece as your first reference.</p>
-    <dl class="ll-specs">${[["Indigo", pieces.jacket[3]], ["Kala cotton", pieces.shirt[3]], ["Canvas and leather", pieces.tote[3]], ["Silk", pieces.scarf[3]], ["Wool-cotton", pieces.throw[3]]].map(([material, care]) => `<div><dt>${material}</dt><dd>${care}</dd></div>`).join("")}</dl>
-    ${c.link("journal", "Read the journal", "ll-button")}`, "loom-throw", alt.throw), "loom-throw");
+    <dl class="ll-specs">${[["Indigo", "jacket"], ["Kala cotton", "shirt"], ["Canvas and leather", "tote"], ["Silk", "scarf"], ["Wool-cotton", "throw"]].map(([material, id]) => `<div><dt>${material}</dt><dd>${items.find(item => item.id === id).care}</dd></div>`).join("")}</dl>
+    ${c.link("journal", "Read the journal", "ll-button")}`, "loom-throw", items.find(item => item.id === "throw").alt), "loom-throw");
   if (c.path === "delivery") return result("Holds and shipping", guide(c, "Holds &amp; shipping.", `<h2>Pick up in Camp</h2><p>Choose an in-store hold in the enquiry. Once the boutique confirms availability, a piece can be set aside for up to seven days.</p>
     <h2>Ask for delivery</h2><p>Choose shipping and include your PIN code. The enquiry includes a ${rupees(shipping)} shipping estimate. Confirm the actual delivery time and cost with the boutique.</p>
     <h2>Fit and alterations</h2><p>Share your measurements or alteration question in the notes so the boutique can confirm what’s possible for that garment.</p>
-    ${c.link("request", "Prepare an enquiry", "ll-button ll-primary")}`, "loom-tote", alt.tote), "loom-tote");
+    ${c.link("request", "Prepare an enquiry", "ll-button ll-primary")}`, "loom-tote", items.find(item => item.id === "tote").alt), "loom-tote");
   if (c.path === "contact") return result("Contact and FAQs", guide(c, "Contact &amp; FAQs.", `<p>Loom &amp; Lane is an illustrative boutique in Camp, Pune. Use the enquiry form to prepare a draft about a piece, fit, collection or shipping.</p>
     ${c.link("request", "Prepare an enquiry", "ll-button ll-primary")}
     <div class="ll-faq">${faq([
@@ -254,7 +244,7 @@ export function loom(c) {
       ["How long can a piece be held?", "Allow up to seven days for an in-store hold once availability has been confirmed."],
       ["Can I request more than one piece?", "Add each size and colour to your bag, then prepare a single enquiry from the bag."],
       ["Will the form contact the boutique?", "The form generates a draft you can copy or download. This portfolio example has no live boutique inbox."],
-    ])}</div>`, "loom-pouch", alt.pouch), "loom-pouch");
+    ])}</div>`, "loom-pouch", items.find(item => item.id === "pouch").alt), "loom-pouch");
   if (c.path === "privacy") return result("Privacy", guide(c, "Privacy.", `<p>The bag stores product choices in this browser tab. It does not contain contact information. Remove individual pieces from the bag or close the tab to clear the session.</p>
     <p>Enquiry details stay on the page while you prepare the draft. Copying writes the draft to your clipboard and downloading saves a text file on your device.</p>${c.link("bag", "View your bag", "ll-button")}`));
   return result("Page not found", guide(c, "This page is missing.", `<p>Find your way back to the collection or look up a piece by name.</p>${c.link("collection", "Browse the collection", "ll-button ll-primary")}`), "loom-hero", 404);

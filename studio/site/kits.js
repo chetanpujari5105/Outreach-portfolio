@@ -1,3 +1,5 @@
+import { loomProduct, loomProducts, loomSizes } from "./loom-products.js";
+
 // Industry demo kits for flow.js. Every business, price and time here is fictional.
 const IN = { currency: "INR", locale: "en-IN", zone: "Asia/Kolkata" };
 const weekday = (iso) => new Date(iso + "T12:00:00Z").getUTCDay();
@@ -413,23 +415,18 @@ export const kits = {
     key: "loom-lane",
     cls: "kt-loom",
     brand: "Loom & Lane",
-    wordmark: "Loom <i>&amp;</i> Lane",
+    wordmark: "Loom &amp; Lane",
     place: "Handloom boutique · Camp, Pune",
-    hero: { layout: "shop", img: "loom-hero", alt: "Indigo handloom garments folded on oak shelves in a small boutique", kicker: "Small-batch indigo & handloom", title: "Made slowly,<br><em>worn often.</em>", text: "Browse the rail, pick a size and colour and ask us to hold a piece for you in store or ship it." },
+    hero: { layout: "shop", img: "loom-hero", alt: "Indigo handloom garments folded on oak shelves in a small boutique", kicker: "Small-batch indigo & handloom", title: "Made slowly,<br><span>worn often.</span>", text: "Browse the rail, pick a size and colour and ask us to hold a piece for you in store or ship it." },
     facts: [["38", "weaver families"], ["7 days", "hold in store"], ["Free", "alterations"]],
     sideTitle: "Your hold request",
     steps: [
-      { label: "Piece", title: "Choose a piece", fields: [{ type: "cards", name: "item", label: "Piece", cols: 3, filters: ["All", "Clothing", "Bags", "Home"], options: [
-        { id: "jacket", label: "Indigo chore jacket", detail: "Hand-dyed cotton twill.", img: "loom-jacket", price: 4800, tags: ["Clothing"] },
-        { id: "shirt", label: "Kala cotton shirt", detail: "Rain-fed cotton, mother-of-pearl buttons.", img: "loom-shirt", price: 3200, tags: ["Clothing"] },
-        { id: "tote", label: "Market tote", detail: "Canvas with leather handles.", img: "loom-tote", price: 1900, tags: ["Bags"] },
-        { id: "scarf", label: "Block-print stole", detail: "Mulberry silk, hand-blocked.", img: "loom-scarf", price: 2600, tags: ["Clothing"] },
-        { id: "throw", label: "Handloom throw", detail: "Wool-cotton, 130 × 180 cm.", img: "loom-throw", price: 5400, tags: ["Home"] },
-        { id: "pouch", label: "Indigo pouch set", detail: "Three nesting pouches.", img: "loom-pouch", price: 1200, tags: ["Bags"] },
-      ] }] },
+      { label: "Piece", title: "Choose a piece", fields: [{ type: "cards", name: "item", label: "Piece", cols: 3, filters: ["All", "Clothing", "Bags", "Home"], options: loomProducts }] },
       { label: "Size", title: "Size, colour and quantity", fields: [
-        { type: "chips", name: "size", label: "Size", options: (v) => (["jacket", "shirt"].includes(v.item) ? ["XS", "S", "M", "L", "XL"].map((s) => ({ id: s, label: s, disabled: seed(v.item + s) % 5 === 0 })) : [{ id: "one", label: "One size" }]) },
-        { type: "chips", name: "colour", label: "Colour", options: (v) => (({ jacket: ["Deep indigo", "Faded indigo"], shirt: ["Natural", "Indigo stripe"], tote: ["Natural", "Indigo"], scarf: ["Rust", "Indigo", "Sage"], throw: ["Oat", "Indigo check"], pouch: ["Indigo"] })[v.item] ?? []).map((c) => ({ id: c, label: c })) },
+        { type: "chips", name: "size", label: "Size", options: (v) => loomProduct(v.item)?.measurement
+          ? loomSizes.map((size) => ({ id: size, label: size, disabled: seed(v.item + size) % 5 === 0 }))
+          : [{ id: "one", label: "One size" }] },
+        { type: "chips", name: "colour", label: "Colour", options: (v) => (loomProduct(v.item)?.colours ?? []).map((colour) => ({ id: colour, label: colour })) },
         { type: "count", name: "qty", label: "Quantity", min: 1, max: (v) => (seed(v.item + v.size) % 3) + 2, hint: (v) => `${(seed(v.item + v.size) % 3) + 2} in stock for this size.` },
       ] },
       { label: "Collect", title: "How would you like it?", fields: [

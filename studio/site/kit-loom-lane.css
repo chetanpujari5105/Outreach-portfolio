@@ -1,11 +1,14 @@
-/* loom-lane: generated fonts (latin) + palette; layout lives in demos.css (.kt-*) */
-@font-face { font-family: 'DM Serif Display'; font-style: italic; font-weight: 400; font-display: swap; src: url(/assets/kit-dm-serif-display-400-italic.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'DM Serif Display'; font-style: normal; font-weight: 400; font-display: swap; src: url(/assets/kit-dm-serif-display-400.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {
+  font-family: Bitter;
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/assets/loom-bitter-latin.woff2) format("woff2");
+}
 @font-face { font-family: 'Jost'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(/assets/kit-jost.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-.kt-loom{--dm-paper:#f3efe6;--dm-ink:#1d2440;--dm-accent:#2b3a7a;--dm-muted:#5f6378;--dm-line:#d9d2c2;--dm-display:"DM Serif Display", Georgia, serif;--kt-r:3px;--kt-surface:#ebe5d7;--kt-on-accent:#fff;font-family:Jost, system-ui, sans-serif;border-radius:0}
+.kt-loom{--dm-paper:#f3efe6;--dm-ink:#1d2440;--dm-accent:#2b3a7a;--dm-muted:#5f6378;--dm-line:#d9d2c2;--dm-display:Bitter, Georgia, serif;--kt-r:3px;--kt-surface:#ebe5d7;--kt-on-accent:#fff;font-family:Jost, system-ui, sans-serif;border-radius:0}
 .kt-loom h1,.kt-loom h2{font-weight:400;letter-spacing:-.015em}
-.kt-loom h1 em{color:#a8743a}
-.kt-loom .dm-wordmark{font-size:1.8rem}.kt-loom .dm-wordmark i{color:#a8743a}
+.kt-loom .dm-wordmark{font-size:1.8rem}
 .kt-hero-shop{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .kt-hero-shop .kt-hero-img{border-left:1px solid var(--dm-line)}
 .kt-hero-shop .kt-hero-copy{border-top:6px double var(--dm-accent);margin-top:clamp(1rem,3vw,2rem)}
@@ -19,7 +22,7 @@
   --ll-muted: #4e5a6a;
   --ll-rule: #a8a69d;
   --ll-wash: #ece7d8;
-  --ll-serif: "Instrument Serif", Georgia, serif;
+  --ll-display: Bitter, Georgia, serif;
   color: var(--ll-ink);
   background: var(--ll-paper);
   font-family: "DM Sans", system-ui, sans-serif;
@@ -31,20 +34,21 @@
 .b-loom-lane .ll-foot :focus-visible { outline-color: var(--ll-paper); }
 .b-loom-lane ::selection { background: var(--ll-ink); color: var(--ll-paper); }
 .b-loom-lane h1, .b-loom-lane h2, .b-loom-lane h3 {
-  font-family: var(--ll-serif);
-  font-weight: 400;
-  line-height: .99;
-  letter-spacing: -.025em;
+  font-family: var(--ll-display);
+  font-weight: 570;
+  line-height: 1.08;
+  letter-spacing: -.032em;
+  text-wrap: balance;
   margin: 0;
 }
-.b-loom-lane h1 { font-size: clamp(3.6rem, 7vw, 6rem); }
-.b-loom-lane h2 { font-size: clamp(2.25rem, 4vw, 4.4rem); }
-.b-loom-lane h3 { font-size: clamp(1.5rem, 2.7vw, 2.25rem); }
+.b-loom-lane h1 { font-size: clamp(2.75rem, 5.9vw, 5.6rem); }
+.b-loom-lane h2 { font-size: clamp(1.85rem, 3.5vw, 3.85rem); }
+.b-loom-lane h3 { font-size: clamp(1.12rem, 1.85vw, 1.75rem); }
 .b-loom-lane p, .b-loom-lane figure, .b-loom-lane dl, .b-loom-lane dd { margin: 0; }
 .ll-shell { width: min(90rem, calc(100% - clamp(2rem, 8.5vw, 9rem))); margin-inline: auto; }
 .ll-head { border-bottom: 1px solid var(--ll-rule); }
 .ll-head-inner { min-height: 77px; display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; }
-.ll-mark { font: 400 clamp(2.05rem, 3.15vw, 3rem)/1 var(--ll-serif); letter-spacing: -.035em; white-space: nowrap; }
+.ll-mark { font: 670 clamp(1.6rem, 2.15vw, 2.3rem)/1 var(--ll-display); letter-spacing: -.04em; white-space: nowrap; }
 .ll-head nav { display: flex; gap: clamp(.8rem, 2.8vw, 2.7rem); align-items: center; font-size: .9375rem; }
 .ll-head nav a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; }
 .ll-head nav a:hover, .ll-head nav [aria-current] { text-decoration: underline; text-underline-offset: 5px; }
@@ -61,8 +65,9 @@
 .ll-foot a:hover { text-decoration: underline; text-underline-offset: .22em; }
 
 .ll-cover { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); border-bottom: 1px solid var(--ll-rule); margin-top: clamp(1.5rem, 3.9vw, 3.9rem); }
-.ll-cover-copy { align-self: center; padding: 2.2rem clamp(1.5rem, 5vw, 5.5rem) 2.5rem clamp(0rem, 1vw, 1rem); }
-.b-loom-lane .ll-cover h1 { font-size: clamp(3.75rem, 8.15vw, 8.25rem); line-height: .89; letter-spacing: -.035em; }
+.ll-cover-copy { align-self: center; padding: 2.2rem clamp(1rem, 3vw, 3.5rem) 2.5rem 0; }
+.b-loom-lane .ll-cover h1 { font-size: clamp(1.9rem, 5.2vw, 5.6rem); font-weight: 650; line-height: 1.02; letter-spacing: -.04em; text-wrap: initial; }
+.ll-cover h1 span { font-weight: 440; }
 .ll-cover-copy p { max-width: 27ch; margin: 1.4rem 0 1.6rem; font-size: clamp(1.05rem, 1.6vw, 1.35rem); }
 .ll-cover img { width: 100%; height: auto; aspect-ratio: 1.27; object-fit: cover; }
 .ll-cover figcaption { text-align: right; color: var(--ll-muted); font-size: .875rem; padding: .6rem 0; }
@@ -76,7 +81,7 @@
 .ll-card { display: block; }
 .ll-card img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: var(--ll-wash); }
 .ll-card > div { display: flex; justify-content: space-between; gap: .35rem .7rem; flex-wrap: wrap; align-items: baseline; margin-top: .65rem; }
-.b-loom-lane .ll-card h2 { font-size: clamp(1.5rem, 2.7vw, 2.25rem); }
+.b-loom-lane .ll-card h2 { font-size: clamp(1.12rem, 1.85vw, 1.75rem); }
 .ll-card span, .ll-price, .ll-summary, .ll-bag-line { font-variant-numeric: tabular-nums; }
 .ll-card p { margin-top: .3rem; color: var(--ll-muted); font-size: .9375rem; }
 .ll-card:hover :is(h2,h3) { text-decoration: underline; text-underline-offset: .13em; text-decoration-thickness: 1px; }
@@ -115,6 +120,7 @@
 .b-loom-lane select { appearance: none; padding-right: 2.1rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 6l5 5 5-5' fill='none' stroke='%23203552' stroke-width='1.4'/%3E%3C/svg%3E"); background-position: right .65rem center; background-repeat: no-repeat; background-size: .85rem; }
 .b-loom-lane input[type=radio] { accent-color: var(--ll-ink); width: 1.1rem; height: 1.1rem; margin: 0; }
 .ll-filter-form label:first-of-type { flex: 0 1 18rem; }
+.ll-fit-form select { width: 100%; }
 .ll-empty { display: grid; justify-items: start; gap: .75rem; padding-block: 2.5rem; }
 
 .ll-crumb { display: flex; flex-wrap: wrap; gap: .6rem; font-size: .9375rem; margin-bottom: 1rem; }
@@ -123,7 +129,7 @@
 .ll-product { grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr); align-items: start; }
 .ll-product figure img { width: 100%; height: auto; }
 .ll-product-copy { padding-top: clamp(.5rem, 2vw, 2rem); }
-.b-loom-lane .ll-product h1 { font-size: clamp(3.2rem, 6vw, 5.8rem); }
+.b-loom-lane .ll-product h1 { font-size: clamp(2.65rem, 5vw, 4.9rem); }
 .ll-product-copy .ll-price { margin: .65rem 0 1.05rem; font-size: 1.25rem; }
 .ll-product-copy > p { max-width: 52ch; }
 .ll-product form { margin: 1.65rem 0 1.3rem; padding-top: 1.25rem; border-top: 1px solid var(--ll-rule); }
@@ -139,7 +145,7 @@
 .ll-editorial-copy p { margin: 1.1rem 0; max-width: 58ch; }
 .ll-editorial-copy .ll-actions { margin-top: 1.5rem; }
 .ll-editorial img, .ll-guide-grid img { width: 100%; height: auto; }
-.b-loom-lane .ll-journal h2 { font-size: clamp(1.75rem, 3vw, 2.6rem); }
+.b-loom-lane .ll-journal h2 { font-size: clamp(1.35rem, 2.4vw, 2.15rem); }
 .ll-guide-grid { margin-top: 1.45rem; grid-template-columns: minmax(0, 1fr) minmax(0, .56fr); align-items: start; }
 .ll-guide-grid img { max-height: 36rem; object-fit: cover; }
 .ll-prose { max-width: 65ch; }
@@ -160,7 +166,7 @@
 .b-loom-lane .ll-intro { max-width: 56ch; margin: 1rem 0 1.35rem; }
 .ll-bag-line { display: grid; grid-template-columns: 80px minmax(0, 1fr) 94px minmax(5.5rem, .36fr) auto; gap: .75rem 1.3rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--ll-rule); }
 .ll-bag-line img { width: 80px; aspect-ratio: 4 / 5; object-fit: cover; }
-.ll-bag-line h2 { font-size: clamp(1.6rem, 3vw, 2.6rem); }
+.ll-bag-line h2 { font-size: clamp(1.22rem, 2.5vw, 2.25rem); }
 .ll-bag-line h2 a:hover { text-decoration: underline; }
 .ll-bag-line label { font-size: .875rem; }
 .ll-bag-total { display: grid; gap: .75rem; justify-items: end; margin-top: 1.4rem; }
@@ -168,11 +174,11 @@
 .ll-request-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); align-items: start; }
 .ll-form { display: grid; gap: 1.4rem; justify-items: start; }
 .ll-form fieldset { display: grid; gap: .8rem; width: 100%; min-inline-size: 0; padding: 0 0 1.1rem; border: 0; border-bottom: 1px solid var(--ll-rule); margin: 0; }
-.ll-form legend { font: 400 1.95rem/1 var(--ll-serif); margin-bottom: .65rem; padding: 0; }
+.ll-form legend { font: 560 1.5rem/1.15 var(--ll-display); margin-bottom: .65rem; padding: 0; }
 .ll-form .ll-radio { display: flex; align-items: center; gap: .55rem; min-height: 37px; }
 .ll-mobile-estimate { display: none; }
 .ll-summary { background: var(--ll-wash); margin-top: 1.25rem; padding: clamp(1rem, 3vw, 2rem); }
-.ll-summary h2, .ll-review h2 { font-size: clamp(2rem, 4vw, 3.6rem); margin-bottom: .8rem; }
+.ll-summary h2, .ll-review h2 { font-size: clamp(1.6rem, 3vw, 2.6rem); margin-bottom: .8rem; }
 .ll-summary dl { margin-bottom: .8rem; }
 .ll-summary dl div { display: flex; justify-content: space-between; gap: .5rem 1rem; padding: .65rem 0; border-bottom: 1px solid var(--ll-rule); }
 .ll-summary dl dd { flex: none; }
@@ -194,7 +200,7 @@
   .ll-cover, .ll-product, .ll-editorial, .ll-guide-grid, .ll-request-grid { grid-template-columns: minmax(0, 1fr); }
   .ll-cover { margin-top: 0; }
   .ll-cover-copy { padding: 2rem 0 1.4rem; }
-  .b-loom-lane .ll-cover h1 { font-size: clamp(3.55rem, 15vw, 5.5rem); }
+  .b-loom-lane .ll-cover h1 { font-size: clamp(2.4rem, 10.9vw, 4.25rem); }
   .ll-cover-copy p { margin: 1rem 0 1.1rem; }
   .ll-cover img { aspect-ratio: 1.34; }
   .ll-section-title { align-items: start; flex-direction: column; }
@@ -209,7 +215,6 @@
   .ll-foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
   .ll-foot-grid > div { grid-column: 1 / -1; }
   .ll-foot-base { flex-direction: column; gap: .55rem; }
-  .ll-product figure img { aspect-ratio: 4 / 4.25; object-fit: cover; }
   .ll-bag-line { grid-template-columns: 70px minmax(0, 1fr) 80px; gap: .65rem .8rem; }
   .ll-bag-line figure { grid-row: span 2; }
   .ll-bag-line .ll-button { justify-self: start; }
