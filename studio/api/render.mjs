@@ -18,12 +18,22 @@ function original(request) {
 }
 
 // No D1 on Vercel: intake answers 503 and the form shows its email fallback.
-export function GET(request) {
+export async function GET(request) {
   const req = original(request);
   const pathname = new URL(req.url).pathname;
   if (pathname === "/api/requests") return handleIntake(req, process.env);
   const asset = /^\/ui\/([a-z-]+\.(css|js))$/.exec(pathname);
-  if (!asset) return siteResponse(req);
+  if (!asset) {
+    const response = siteResponse(req);
+    if (process.env.VERCEL !== "1" || response.status !== 200 || !response.headers.get("content-type")?.startsWith("text/html") || pathname.replace(/\/+$/, "") === "/owner") return response;
+
+    // Vercel serves these pages as HTML documents, outside a hydrated React layout.
+    const analytics = '<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.va("beforeSend",function(e){var url=new URL(e.url,location.origin);url.search="";url.hash="";return Object.assign({},e,{url:url.href})})</script><script defer src="/_vercel/insights/script.js"></script>';
+    return new Response((await response.text()).replace("</head>", analytics + "</head>"), {
+      status: response.status,
+      headers: response.headers,
+    });
+  }
   let data;
   try {
     data = readFileSync(new URL(asset[1], siteDir), "utf8");

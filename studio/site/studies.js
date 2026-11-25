@@ -71,7 +71,23 @@ const daybreak = ({ p, link, sample, similar, html }) => `
   <div class="ct-actions">${link(p.url, p.action, 'primary')}${link(sample, similar)}</div>
 </section>`;
 
-export const studies = { 'daybreak-cafe': daybreak };
+function photographyStudy({p, link, sample, similar}) {
+  const features = [
+    ['archive', 'Choose a visual language', 'The archive pairs a subject filter with a title search. A product client can compare two still-life series and share the filtered URL with a colleague.', 'work?category=products', 'Browse product work'],
+    ['gallery', 'Look closely at a photograph', 'The project story explains the brief, lighting and approach. Its contact sheet opens a full-screen viewer with captions, thumbnails, a zoom control and keyboard or swipe navigation.', 'work/portrait-studies', 'Open a project'],
+    ['service', 'Understand the commission', 'Eight service guides explain who each session suits, what to bring, what is delivered and how the work is priced.', 'services/products', 'See product photography'],
+    ['pricing', 'Compare a package and extras', 'Package inclusions, session length and optional production extras sit beside one indicative total in Indian rupees. Selected options carry into the shoot planner.', 'pricing', 'Compare packages'],
+    ['book', 'Prepare a shoot enquiry', 'The client sets a preferred date, location and use for the pictures, reviews the estimate and edits individual steps before downloading a brief.', 'book', 'Try the planner'],
+    ['quote', 'Brief a larger production', 'A separate quotation form collects shoot days, locations, usage rights, required images, budget and delivery deadline.', 'quote', 'Prepare a quotation brief']
+  ];
+  return `<section class="cs-intro"><p class="cs-note">Frame &amp; Field is a fictional Pune studio. The imagery and prices illustrate the proposed customer experience.</p><div class="cs-two"><h2>From photograph to commission.</h2><div><p>The original archive opened with three image links. A visitor could recognise the work but had little guidance on choosing a session, comparing prices or explaining the intended use.</p><p>The redesign gives each series a story and a route into commissioning similar work.</p></div></div></section>
+<section class="cs-band">${shot('screen-frame-field','Vermilion cover and a fashion portrait on the desktop home page.',1440,900,'cs-desk')}${shot('frame-field-preview-mobile','The art-directed mobile cover, with its portrait beneath the headline.',390,844,'cs-phone')}</section>
+<section class="cs-two"><h2>Art direction.</h2><div><p>A moving sari and a vermilion type panel share the opening spread. Warm paper and charcoal carry the archive, while Inter Tight, italic Newsreader and monospaced captions establish the hierarchy. Each concept series follows a consistent subject, setting and light. The presentation changes scale between full landscape prints and paired studies.</p></div></section>
+${features.map(([asset,title,body,route,action])=>`<section class="cs-two"><div><h2>${title}</h2><p>${body}</p><a href="${p.url}/${route}">${action}</a></div>${shot('frame-field-preview-'+asset,title+' on the rendered photography website.',900,605,'cs-desk')}</section>`).join('')}
+<section class="cs-two"><h2>Implementation.</h2><p>Each page is directly addressable. Responsive WebP photographs, a small gallery module and locally calculated estimates keep the site usable on a phone. Preparing a brief takes place in the browser. The visitor chooses whether to keep a copy with contact details.</p></section>
+<section class="cs-cta"><h2>Bring this experience to your studio.</h2><div class="ct-actions">${link(p.url,'Visit Frame &amp; Field','primary')}${link(sample,similar)}</div></section>`;
+}
+export const studies = { 'daybreak-cafe': daybreak, 'frame-field': photographyStudy };
 
 // Shared by every website hosted here.
 const hosted = [
@@ -142,10 +158,10 @@ export const notes = {
     tech: hosted
   },
   'frame-field': {
-    goals: ['Lead with the photographs.', 'Group the work so clients find their kind of shoot.', 'Help clients prepare a brief a photographer can price.'],
-    direction: 'A contact-sheet archive with clear white space, simple type and photographs that carry the navigation. The pictures were generated for this website.',
-    features: ['Portrait, product and event series with full image views.', 'Previous and next navigation through each series.', 'Commission guidance for each kind of shoot.', 'A shoot brief with hours, deliverables, usage and an estimate.'],
-    tech: hosted
+    goals: ['Lead with the photographs.', 'Connect each story to the service behind it.', 'Help clients prepare a brief a photographer can price.'],
+    direction: 'Editorial white space, a fine serif and large photographs that carry the navigation. The pictures were generated for this website.',
+    features: ['A filterable portfolio with project stories.', 'Service pages, package comparison and an estimate worksheet.', 'A studio journal.', 'Shoot, quotation and contact planners that can be copied, downloaded or saved on the device.'],
+    tech: ['One stylesheet and one browser module per page.', ...hosted]
   },
   'loom-lane': {
     goals: ['Let the textiles lead.', 'Make sizes, colours and availability clear.', 'Connect an online find with an in-store visit.'],

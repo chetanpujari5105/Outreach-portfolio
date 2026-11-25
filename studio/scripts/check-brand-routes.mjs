@@ -9,8 +9,16 @@ const queue = hosted.map(p => p.url);
 // Outreach links already sent use /demo/: they must land on the same website page, choices included.
 const location = async path => { const r = await siteResponse(new Request('https://studio.example' + path)); return [r.status, r.headers.get('location')]; };
 for (const p of hosted) {
-  assert.deepEqual(await location(p.previewUrl), [308, p.url]);
-  assert.deepEqual(await location(p.previewUrl + '/request/?service=cut&tag=a%20b&tag=c'), [308, p.url + '/request?service=cut&tag=a%20b&tag=c']);
+  if (p.slug === 'frame-field') {
+    for (const page of ['', '/request/?service=portraits']) {
+      const preview = siteResponse(new Request('https://studio.example' + p.previewUrl + page));
+      assert.equal(preview.status, 200);
+      assert.match(await preview.text(), /aria-label="Portfolio preview"/);
+    }
+  } else {
+    assert.deepEqual(await location(p.previewUrl), [308, p.url]);
+    assert.deepEqual(await location(p.previewUrl + '/request/?service=cut&tag=a%20b&tag=c'), [308, p.url + '/request?service=cut&tag=a%20b&tag=c']);
+  }
   const page = brandPage(p.slug, '', new URLSearchParams());
   assert.match(page.body, /illustrative|fictional/i, 'Missing disclosure: ' + p.url);
   assert.equal(page.noindex, true, p.url);

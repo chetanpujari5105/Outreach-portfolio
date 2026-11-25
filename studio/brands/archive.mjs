@@ -1,76 +1,157 @@
-import { mast } from "./common.mjs";
-const series = [
-  [
-    "portrait",
-    "Portrait studies",
-    "People in the studio",
-    [
-      ["frame-portrait", "Side light"],
-      ["salon-stylist-mira", "Mira, a studio sitting"],
-      ["salon-stylist-alex", "Alex, a studio sitting"],
-    ],
-  ],
-  [
-    "product",
-    "Objects in light",
-    "A study of texture and surfaces",
-    [
-      ["frame-product", "Glass and shadow"],
-      ["ledger-care-kit", "The care set"],
-      ["loom-pouch", "Indigo cloth"],
-    ],
-  ],
-  [
-    "event",
-    "After hours",
-    "Light, tables and the gathering room",
-    [
-      ["frame-event", "The gathering"],
-      ["hall-cocktail", "Before the doors open"],
-      ["hall-banquet", "Dinner tables"],
-    ],
-  ],
-];
+import { esc } from "./common.mjs";
+import { articles, projects, services } from "./frame-field/editorial.mjs";
+import { photos } from "./frame-field/photos.mjs";
+import {
+  button,
+  footer,
+  heading,
+  menu,
+  project,
+} from "./frame-field/components.mjs";
+import { home } from "./frame-field/home.mjs";
+import {
+  collection,
+  projectPage,
+  servicePage,
+  serviceIndex,
+  articlePage,
+  information,
+} from "./frame-field/stories.mjs";
+import { pricing, formPage } from "./frame-field/enquiry.mjs";
+
+const legacySeries = new Map([
+  ["portrait", "portraits-a"],
+  ["product", "products-a"],
+  ["event", "events-a"],
+]);
+const titles = {
+  selected: "Selected work",
+  work: "Photography portfolio",
+  services: "Photography services",
+  pricing: "Packages & pricing",
+  about: "About the studio",
+  studio: "Inside the studio",
+  journal: "Studio journal",
+  book: "Book a shoot",
+  quote: "Request a custom quote",
+  contact: "Contact",
+  faq: "Frequently asked questions",
+  privacy: "Privacy",
+  terms: "Booking information",
+};
 export function archive(c) {
-  const { path, img, link, result, action } = c;
-  const top = mast(c, "Frame & Field", [
-    ["", "Archive"],
-    ["commission", "Commissions"],
-  ]);
-  if (!path)
-    return result(
-      "Photographic archive",
-      top +
-        `<section class="archive"><aside><h1>Selected<br>photographs</h1><p>Pune & on location</p>${series.map((s) => link("series/" + s[0], s[1])).join("")}</aside><div class="contact-sheet">${series.map(([id, title, , photos]) => link("series/" + id, img(photos[0][0], title) + "<span>" + title + "</span>")).join("")}</div></section>`,
-      "frame-portrait",
-    );
-  if (path === "commission")
-    return result(
-      "Commission information",
-      top +
-        '<article class="essay"><h1>Commission a series</h1><p>For a portrait sitting, bring one reference image and an idea of where the portrait will appear. For an object study, agree the surfaces, scale and delivery format before the shoot.</p>' +
-        action("Prepare a shoot brief") +
-        "</article>",
-    );
-  for (const [id, title, desc, photos] of series) {
-    const root = "series/" + id;
-    if (path === root)
-      return result(
-        title,
-        top +
-          `<section class="inner"><h1>${title}</h1><p>${desc}</p><div class="series-sheet">${photos.map(([pic, cap], i) => link(root + "/image/" + (i + 1), img(pic, cap) + "<span>" + cap + "</span>")).join("")}</div>${action("Commission this series", { shoot: id })}</section>`,
-        photos[0][0],
-      );
-    const index = photos.findIndex(
-      (_, i) => path === root + "/image/" + (i + 1),
-    );
-    if (index < 0) continue;
-    const [pic, cap] = photos[index];
-    return result(
-      cap,
-      top +
-        `<figure class="image-view">${img(pic, cap)}<figcaption><b>${title}</b><span>${cap} · ${index + 1} / ${photos.length}</span></figcaption></figure><div class="archive-nav">${link(root + "/image/" + (((index + photos.length - 1) % photos.length) + 1), "Previous photograph", "prev-photo")}${link(root, "Close viewer")}${link(root + "/image/" + (((index + 1) % photos.length) + 1), "Next photograph", "next-photo")}</div>`,
-      pic,
-    );
+  const legacy =
+    /^series\/(portrait|product|event)(?:\/image\/([1-9]\d*))?$/.exec(c.path);
+  const path =
+    c.path === "request" ? "book" : c.path === "commission" ? "quote" : c.path;
+  let title = titles[path] || "",
+    content = "",
+    photo = "fashion-a",
+    description = "",
+    status;
+  const [section, slug, extra] = path.split("/");
+  const p = legacy
+    ? project(legacySeries.get(legacy[1]))
+    : section === "work" && !extra
+      ? projects.find((p) => p.slug === slug)
+      : null;
+  const s =
+    section === "services" && !extra
+      ? services.find((s) => s.key === slug)
+      : null;
+  const a =
+    section === "journal" && !extra
+      ? articles.find((a) => a.slug === slug)
+      : null;
+  if (!path) {
+    title = "Independent photography studio in Pune";
+    description =
+      "Frame & Field photographs people, products and places in Pune and on location across India. Explore sixteen concept series and plan a commission.";
+    content = home(c);
+  } else if (p && (!legacy?.[2] || Number(legacy[2]) <= photos[p.key].length)) {
+    title = p.title;
+    description = p.dek;
+    photo = p.key;
+    content = projectPage(c, p, legacy?.[2] ? Number(legacy[2]) - 1 : -1);
+  } else if (s) {
+    title = s.title;
+    description = s.overview;
+    photo = s.key + "-a";
+    content = servicePage(c, s);
+  } else if (a) {
+    title = a.title;
+    description = a.dek;
+    photo = a.photoKey;
+    content = articlePage(c, a);
+  } else if (["work", "selected", "journal"].includes(path))
+    content = collection(c, path === "journal", path === "selected");
+  else if (path === "services") content = serviceIndex(c);
+  else if (path === "pricing") content = pricing(c);
+  else if (["about", "studio", "faq", "terms", "privacy"].includes(path))
+    content = information(c, path);
+  else if (["book", "quote", "contact"].includes(path))
+    content = formPage(c, path);
+  else {
+    status = 404;
+    title = "Page not found";
+    content =
+      heading(
+        "404 / Frame & Field",
+        "Outside the frame.",
+        "This address does not lead to a studio page.",
+      ) +
+      '<div class="ff-section">' +
+      button(c, "work", "Return to the archive") +
+      "</div>";
   }
+  return {
+    title,
+    status,
+    description:
+      description ||
+      title +
+        " at Frame & Field, an independent photography studio concept in Pune.",
+    image: photos[photo][0].src
+      .replace(/^\/assets\//, "")
+      .replace(/\.webp$/, ""),
+    html:
+      menu(c) +
+      '<div id="ff-content" tabindex="-1">' +
+      content +
+      "</div>" +
+      footer(c),
+  };
+}
+// Each photography page loads one stylesheet and one browser module. Large shared site kits are unnecessary here.
+export function frameDocument(url, p) {
+  const title = esc(
+      p.clean ? p.title : p.title + " · Frame & Field | Chetan Studio",
+    ),
+    description = esc(p.description),
+    canonical = esc(url.origin + url.pathname);
+  const preview = url.pathname.startsWith("/demo/");
+  const clean = esc(url.pathname.replace(/^\/demo\//, "/site/") + url.search);
+  const bar = preview
+    ? '<nav class="studio-return" aria-label="Portfolio preview"><a href="/work/frame-field">Chetan Studio · Case study</a><a href="' +
+      clean +
+      '">Standalone website</a><a href="/sample?project=frame-field">Request a similar site</a></nav>'
+    : "";
+  const head = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f3eb"><meta name="robots" content="noindex,nofollow"><title>${title}</title><meta name="description" content="${description}"><link rel="canonical" href="${canonical}"><meta property="og:type" content="website"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:image" content="${esc(url.origin + p.image)}"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="${esc(p.favicon)}"><link rel="stylesheet" href="/ui/kit-frame-field.css"><script type="module" src="/ui/frame-field-studio.js"></script>`;
+  return new Response(
+    '<!doctype html><html lang="en"><head>' +
+      head +
+      "</head><body>" +
+      bar +
+      "<main>" +
+      p.body +
+      "</main></body></html>",
+    {
+      status: p.status || 200,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+      },
+    },
+  );
 }

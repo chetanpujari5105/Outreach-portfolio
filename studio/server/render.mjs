@@ -1,3 +1,4 @@
+import { frameDocument } from '../brands/archive.mjs';
 import { brandPage } from '../brands/pages.mjs';
 import { industries, projects, solutions, kinds, labelOf, detailPage } from '../site/catalog.js';
 import { samplePage } from '../site/intake.js';
@@ -64,8 +65,8 @@ function pageFor(url){
     const rec=(kind==='for'?industries:kind==='work'?projects:solutions).find(p=>p.slug===slug);
     if(rec)return {title:rec.title,description:rec.description,body:'<div id="detail-root">'+detailPage(kind,slug)+'</div>',image:rec.image||projects.find(p=>p.slug===rec.project)?.image,category:'catalog'};
   }
-  if(kind==='site' && hostedSlugs.includes(slug)){
-    const branded=brandPage(slug,path.split('/').slice(3).join('/'),url.searchParams);
+  if((kind==='site' || kind==='demo' && slug==='frame-field') && hostedSlugs.includes(slug)){
+    const branded=brandPage(slug,path.split('/').slice(3).join('/'),url.searchParams,kind==='demo');
     if(branded)return branded;
   }
   return {status:404,title:'Page not found',body:'<section class="wrap listing"><h1>Page not found.</h1><p class="intro">Explore the project collection to find what you need.</p><a class="btn-studio primary" href="/work">Browse work</a></section>'};
@@ -78,9 +79,10 @@ export function siteResponse(request){
   }
   // Earlier /demo/ links redirect to the website, keeping the subpage and every query parameter.
   const [,kind,slug,...rest]=url.pathname.replace(/\/+$/,'').split('/');
-  if(kind==='demo' && hostedSlugs.includes(slug))
+  if(kind==='demo' && slug!=='frame-field' && hostedSlugs.includes(slug))
     return new Response(null,{status:308,headers:{Location:['/site',slug,...rest].join('/')+url.search}});
   const p=pageFor(url);
+  if(p.brand && p.kit==='frame-field')return frameDocument(url,p);
   const title=p.clean?e(p.title):e(p.title)+' | '+siteName;
   const desc=e(p.description||summary);
   // Brand pages load brands.css before the kit, so a brand's own site styles win over the shared .brand defaults.

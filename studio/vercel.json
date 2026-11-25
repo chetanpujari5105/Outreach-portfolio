@@ -7,5 +7,5 @@
   "functions": {
     "api/render.mjs": { "includeFiles": "{site,brands,server}/**" }
   },
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/render?__path=/$1" }]
+  "rewrites": [{ "source": "/((?!_vercel/insights/).*)", "destination": "/api/render?__path=/$1" }]
 }

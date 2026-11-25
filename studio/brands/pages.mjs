@@ -55,10 +55,10 @@ function ledger(c) {
     );
 }
 // Each website stands alone at /site/<slug>: its own brand, no portfolio navigation.
-export function brandPage(slug, path, query) {
+export function brandPage(slug, path, query, preview = false) {
   if (!Object.hasOwn(entries, slug)) return;
   const [render, name, cta] = entries[slug],
-    c = context(slug, path, query, "/site/" + slug);
+    c = context(slug, path, query, (preview ? "/demo/" : "/site/") + slug);
   // A full-site renderer may draw its own request page; otherwise wrap the booking flow in the plain mast.
   let p =
     render(c) ||
@@ -77,7 +77,7 @@ export function brandPage(slug, path, query) {
     status: p.status,
     favicon,
     theme: ink[1],
-    clean: true, // read by render.mjs: the page title belongs to the business
+    clean: true, // read by render.mjs and the Frame & Field document: the page title belongs to the business
     noindex: true, // no hosted website represents a business that is ready for public indexing
     // A full brand site can opt out of demos.css (category: "brand"), which only styles the older one-page demos.
     category: p.category || "demos",
